@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+
+}
+
+javafx {
+    version = "11.0.1"
+    modules = [ 'javafx.controls','javafx.fxml' ]
+}
+
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20090211'
+    implementation("org.openjfx:javafx-base:11:win")
+    implementation("org.openjfx:javafx-graphics:11:win")
+    implementation("org.openjfx:javafx-controls:11:win")
+
+}
+mainClassName = "Main"
