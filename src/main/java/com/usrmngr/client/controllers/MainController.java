@@ -1,15 +1,13 @@
 package com.usrmngr.client.controllers;
 
 import com.usrmngr.client.util.ControllerHelper;
-import com.usrmngr.client.util.DataManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,6 +16,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     public GridPane usrEditableGPane;
+    public VBox mainUserOptions;
 
     public TextField usrFNameFld;
     public TextField usrLNameFld;
@@ -42,18 +41,18 @@ public class MainController implements Initializable {
     public Label usrID;
 
     private ArrayList<Node> usrEditAreaNodes;
-
-    private JSONArray DEMO_DATA;
+    private ArrayList<Node> usrControlOptions;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         usrEditAreaNodes = ControllerHelper.getAllNodes(usrEditableGPane);
+        usrControlOptions = ControllerHelper.getAllNodes(mainUserOptions);
         loadUserList();
 
     }
 
-    private void loadUserList(){
+    private void loadUserList() {
         ObservableList<String> usrStrings = FXCollections.observableArrayList("Babara Burkle",
                 "Estela Tiedemann",
                 "Sona Fein",
@@ -77,23 +76,47 @@ public class MainController implements Initializable {
         userList.setItems(usrStrings);
     }
 
-    private  void toggleEnableUserEditArea(){
-        for (Node node : usrEditAreaNodes) {
-            node.setDisable(!node.isDisabled());
+    private void enableUserEditArea() {
+        toggleNodes(usrEditAreaNodes, true);
+    }
+
+    private void disableEditArea() {
+        toggleNodes(usrEditAreaNodes, false);
+    }
+
+    private void toggleNodes(ArrayList<Node> nodes, boolean enabled) {
+        for (Node node : nodes) {
+            if (!(node instanceof Label)) {
+                node.setDisable(!enabled);
+            }
         }
     }
 
+    private void disableMainButtons() {
+        toggleNodes(usrControlOptions, false);
+    }
+
+    private void enableMainButtons() {
+        toggleNodes(usrControlOptions, true);
+    }
+
     public void onEditUserClicked() {
-        usrEditBtn.setDisable(true);
-        toggleEnableUserEditArea();
-
+        disableMainButtons();
+        enableUserEditArea();
+        usrSaveBtn.requestFocus();
     }
-    public void onSaveUserClicked(){
+
+    public void onSaveUserClicked() {
         //save changed data
-        toggleEnableUserEditArea();
-        usrEditBtn.setDisable(false);
+        disableEditArea();
+        enableMainButtons();
+        usrEditBtn.requestFocus();
+        //save data
     }
 
-
-
+    public void onCancelEditClicked() {
+        disableEditArea();
+        enableMainButtons();
+        usrEditBtn.requestFocus();
+    }
 }

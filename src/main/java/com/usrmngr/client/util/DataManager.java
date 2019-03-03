@@ -3,7 +3,7 @@ package com.usrmngr.client.util;
 import java.io.File;
 import java.util.Scanner;
 
-public  class DataManager {
+public class DataManager {
     public static String readFile(String filename) {
         String result = "";
         try {
@@ -24,6 +24,7 @@ public  class DataManager {
         }
         return result;
     }
+
     public static void main(String[] args) {
 
     }

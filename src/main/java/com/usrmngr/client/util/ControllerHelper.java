@@ -25,6 +25,7 @@ public class ControllerHelper {
                 addAllDescendents((Parent) node, nodes);
         }
     }
+
     public static void main(String[] args) {
 
     }
