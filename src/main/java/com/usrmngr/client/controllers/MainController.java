@@ -16,19 +16,26 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     public GridPane usrEditableGPane;
-    public VBox mainUserOptions;
+    public VBox usrOptionsVBox;
+    public GridPane usrPasswordGPane;
+    public GridPane usrSaveGPane;
 
-    public TextField usrFNameFld;
-    public TextField usrLNameFld;
-    public TextField usrDisplayNameFld;
-    public TextField usrEmailFld;
-    public TextField usrPhoneFld;
+    public TextField usrFName;
+    public TextField usrLName;
+    public TextField usrDisplayName;
+    public TextField usrEmail;
+    public TextField usrPhone;
 
-    public ChoiceBox<String> usrOfficeCBox;
-    public ChoiceBox<String> usrManagerCBox;
-    public ChoiceBox<String> usrTitleCBox;
+    public CheckBox usrRandPwCBox;
+    public PasswordField usrPassword;
+    public PasswordField usrPasswordConfirm;
+
+    public ChoiceBox<String> usrOffice;
+    public ChoiceBox<String> usrManager;
+    public ChoiceBox<String> usrTitle;
 
     public Button usrEditBtn;
+    public Button usrCancelBtn;
     public Button usrSaveBtn;
     public Button usrPwChangeBtn;
     public Button usrDelBtn;
@@ -40,14 +47,18 @@ public class MainController implements Initializable {
     public ListView<String> userList;
     public Label usrID;
 
-    private ArrayList<Node> usrEditAreaNodes;
-    private ArrayList<Node> usrControlOptions;
+    private ArrayList<Node> usrEditArea;
+    private ArrayList<Node> usrControlArea;
+    private ArrayList<Node> usrPasswordArea;
+    private ArrayList<Node> usrSaveArea;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        usrEditAreaNodes = ControllerHelper.getAllNodes(usrEditableGPane);
-        usrControlOptions = ControllerHelper.getAllNodes(mainUserOptions);
+        usrEditArea = ControllerHelper.getAllNodes(usrEditableGPane);
+        usrControlArea = ControllerHelper.getAllNodes(usrOptionsVBox);
+        usrPasswordArea = ControllerHelper.getAllNodes(usrPasswordGPane);
+        usrSaveArea = ControllerHelper.getAllNodes(usrSaveGPane);
         loadUserList();
 
     }
@@ -77,11 +88,11 @@ public class MainController implements Initializable {
     }
 
     private void enableUserEditArea() {
-        toggleNodes(usrEditAreaNodes, true);
+        toggleNodes(usrEditArea, true);
     }
 
     private void disableEditArea() {
-        toggleNodes(usrEditAreaNodes, false);
+        toggleNodes(usrEditArea, false);
     }
 
     private void toggleNodes(ArrayList<Node> nodes, boolean enabled) {
@@ -93,29 +104,51 @@ public class MainController implements Initializable {
     }
 
     private void disableMainButtons() {
-        toggleNodes(usrControlOptions, false);
+        toggleNodes(usrControlArea, false);
     }
 
     private void enableMainButtons() {
-        toggleNodes(usrControlOptions, true);
+        toggleNodes(usrControlArea, true);
+
     }
 
     public void onEditUserClicked() {
         disableMainButtons();
         enableUserEditArea();
-        usrSaveBtn.requestFocus();
+        enableSavedArea();
     }
 
     public void onSaveUserClicked() {
-        //save changed data
+        // changed data
         disableEditArea();
+        disablePasswordChangeArea();
+        disableSavedArea();
         enableMainButtons();
-        usrEditBtn.requestFocus();
-        //save data
+        // data
+    }
+    private void enablePasswordChangeArea(){
+        toggleNodes(usrPasswordArea,true);
+    }
+    private void disablePasswordChangeArea(){
+        toggleNodes(usrPasswordArea,false);
+
+    }
+    private  void enableSavedArea(){
+        toggleNodes(usrSaveArea,true);
+        usrSaveBtn.requestFocus();
+    }
+    private  void disableSavedArea(){
+        toggleNodes(usrSaveArea,false);
+    }
+    public void onChangePasswordClicked(){
+        enablePasswordChangeArea();
+        enableSavedArea();
     }
 
     public void onCancelEditClicked() {
         disableEditArea();
+        disablePasswordChangeArea();
+        disableSavedArea();
         enableMainButtons();
         usrEditBtn.requestFocus();
     }
