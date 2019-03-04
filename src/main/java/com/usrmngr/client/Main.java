@@ -9,12 +9,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage window) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/usrmngr/client/fxml/MainView.fxml"));
-        primaryStage.setTitle("User Manager: DEMO");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        window.setTitle("User Manager: DEMO");
+        window.setScene(new Scene(root));
+        window.setResizable(false);
+        window.show();
     }
 
 

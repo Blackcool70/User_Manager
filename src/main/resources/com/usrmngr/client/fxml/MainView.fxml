@@ -86,7 +86,7 @@
                     <children>
                         <VBox fx:id="mainBtnsVBox" prefHeight="141.0" prefWidth="171.0" spacing="5.0">
                             <children>
-                                <Button fx:id="usrAddBtn" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add User" />
+                                <Button fx:id="usrAddBtn" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddUserClicked" text="Add User" />
                                 <Button fx:id="usrDelBtn" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Delete User" />
                                 <Button fx:id="usrEditBtn" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onEditUserClicked" text="Edit User" />
                                 <Button fx:id="usrPwChangeBtn" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onChangePasswordClicked" prefHeight="16.0" prefWidth="171.0" text="Reset Password" />

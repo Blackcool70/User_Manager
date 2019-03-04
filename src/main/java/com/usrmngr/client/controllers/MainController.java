@@ -1,14 +1,18 @@
 package com.usrmngr.client.controllers;
 
 import com.usrmngr.client.util.ControllerHelper;
+import com.usrmngr.client.util.ScreenController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -118,6 +122,11 @@ public class MainController implements Initializable {
         enableSavedArea();
     }
 
+    public void onAddUserClicked() throws IOException {
+
+        Scene scene = usrEditableGPane.getScene();
+            scene.setRoot(FXMLLoader.load(getClass().getResource("/com/usrmngr/client/fxml/AddUsr.fxml")));
+    }
     public void onSaveUserClicked() {
         // changed data
         disableEditArea();
