@@ -1,20 +1,17 @@
 package com.usrmngr.client.controllers;
 
 import com.usrmngr.client.util.ControllerHelper;
-import com.usrmngr.client.util.ScreenController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -51,19 +48,19 @@ public class MainController implements Initializable {
     public ListView<String> userList;
     public Label usrID;
 
-    private ArrayList<Node> usrEditArea;
-    private ArrayList<Node> usrControlArea;
+    private ArrayList<Node> usrViewArea;
+    private ArrayList<Node> usrOptionsArea;
     private ArrayList<Node> usrPasswordArea;
     private ArrayList<Node> usrSaveArea;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        usrEditArea = ControllerHelper.getAllNodes(usrEditableGPane);
-        usrControlArea = ControllerHelper.getAllNodes(usrOptionsVBox);
+        usrViewArea = ControllerHelper.getAllNodes(usrEditableGPane);
+        usrOptionsArea = ControllerHelper.getAllNodes(usrOptionsVBox);
         usrPasswordArea = ControllerHelper.getAllNodes(usrPasswordGPane);
         usrSaveArea = ControllerHelper.getAllNodes(usrSaveGPane);
-        loadUserList();
+        loadSampleData();
 
     }
 
@@ -92,11 +89,24 @@ public class MainController implements Initializable {
     }
 
     private void enableUserEditArea() {
-        toggleNodes(usrEditArea, true);
+        toggleNodes(usrViewArea, true);
     }
 
     private void disableEditArea() {
-        toggleNodes(usrEditArea, false);
+        toggleNodes(usrViewArea, false);
+    }
+
+    private void clearTextFields(Node node) {
+        ((TextField) node).clear();
+    }
+
+    private void clearTextFields(ArrayList<Node> nodes) {
+        for (Node node : nodes) {
+            if (node instanceof TextField) {
+                clearTextFields(node);
+            }
+        }
+
     }
 
     private void toggleNodes(ArrayList<Node> nodes, boolean enabled) {
@@ -108,11 +118,11 @@ public class MainController implements Initializable {
     }
 
     private void disableMainButtons() {
-        toggleNodes(usrControlArea, false);
+        toggleNodes(usrOptionsArea, false);
     }
 
     private void enableMainButtons() {
-        toggleNodes(usrControlArea, true);
+        toggleNodes(usrOptionsArea, true);
 
     }
 
@@ -121,12 +131,34 @@ public class MainController implements Initializable {
         enableUserEditArea();
         enableSavedArea();
     }
-
-    public void onAddUserClicked() throws IOException {
-
-        Scene scene = usrEditableGPane.getScene();
-            scene.setRoot(FXMLLoader.load(getClass().getResource("/com/usrmngr/client/fxml/AddUsr.fxml")));
+    private  void enableAllUserViewAreas(){
+        enableUserEditArea();
+        enableSavedArea();
+        enablePasswordChangeArea();
     }
+
+    public void onAddUserClicked() {
+        clearUserViewArea();
+        enableAllUserViewAreas();
+    }
+    private  boolean gotConfirmation(String message){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm");
+        alert.setHeaderText(message);
+        alert.setContentText("Are you sure?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.get() == ButtonType.OK;
+
+    }
+
+    private void clearUserViewArea() {
+        clearTextFields(usrViewArea);
+    }
+    public void onClearUsrAreaClicked(){
+        clearUserViewArea();
+    }
+
     public void onSaveUserClicked() {
         // changed data
         disableEditArea();
@@ -135,30 +167,54 @@ public class MainController implements Initializable {
         enableMainButtons();
         // data
     }
-    private void enablePasswordChangeArea(){
-        toggleNodes(usrPasswordArea,true);
+
+    private void enablePasswordChangeArea() {
+        toggleNodes(usrPasswordArea, true);
     }
-    private void disablePasswordChangeArea(){
-        toggleNodes(usrPasswordArea,false);
+
+    private void disablePasswordChangeArea() {
+        toggleNodes(usrPasswordArea, false);
 
     }
-    private  void enableSavedArea(){
-        toggleNodes(usrSaveArea,true);
+
+    private void enableSavedArea() {
+        toggleNodes(usrSaveArea, true);
         usrSaveBtn.requestFocus();
     }
-    private  void disableSavedArea(){
-        toggleNodes(usrSaveArea,false);
+
+    private void disableSavedArea() {
+        toggleNodes(usrSaveArea, false);
     }
-    public void onChangePasswordClicked(){
+
+    public void onResetPasswordClicked() {
         enablePasswordChangeArea();
         enableSavedArea();
     }
 
-    public void onCancelEditClicked() {
+    public void onDeleteUserClicked() {
+        if(gotConfirmation("User will be deleted.")){
+            System.out.println("User deleted!");
+        }
+
+    }
+
+    private void disableAllUsrViewArea(){
         disableEditArea();
         disablePasswordChangeArea();
         disableSavedArea();
-        enableMainButtons();
-        usrEditBtn.requestFocus();
+    }
+    public void onCancelEditClicked() {
+        if(gotConfirmation("Changes will be lost.")){
+            disableAllUsrViewArea();
+            enableMainButtons();
+            usrAddBtn.requestFocus();
+        }
+    }
+
+
+    public void loadSampleData() {
+        loadUserList();
+
+
     }
 }
