@@ -88,7 +88,7 @@
                                 <Insets bottom="10.0" />
                             </padding>
                         </VBox>
-                        <ListView fx:id="userList" prefHeight="407.0" prefWidth="171.0" />
+                        <ListView fx:id="stringListView" prefHeight="407.0" prefWidth="171.0" />
                     </children>
                 </VBox>
             </left>
