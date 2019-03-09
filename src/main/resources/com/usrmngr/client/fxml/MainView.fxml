@@ -88,6 +88,7 @@
                                 <Insets bottom="10.0" />
                             </padding>
                         </VBox>
+                  <Label fx:id="usrCount" text="Users: %d" />
                         <ListView fx:id="stringListView" prefHeight="407.0" prefWidth="171.0" />
                     </children>
                 </VBox>

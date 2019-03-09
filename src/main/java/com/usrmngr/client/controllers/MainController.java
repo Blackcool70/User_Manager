@@ -48,6 +48,7 @@ public class MainController implements Initializable {
     public Button usrDelLicBtn;
     public ListView<User> stringListView;
     public Label usrID;
+    public Label usrCount;
     private ArrayList<Node> viewArea;
     private ArrayList<Node> controlsButtons;
     private ArrayList<Node> passwordArea;
@@ -73,7 +74,7 @@ public class MainController implements Initializable {
         editButton.setOnMouseClicked(event -> {
             disableControlButtons();
             enableEditArea();
-            enableSavedArea();
+            enableSaveArea();
         });
         addButton.setOnMouseClicked(event -> {
             disableControlButtons();
@@ -94,7 +95,7 @@ public class MainController implements Initializable {
         passwordResetButton.setOnMouseClicked(event -> {
             disableControlButtons();
             enablePasswordArea();
-            enableSavedArea();
+            enableSaveArea();
         });
         deleteButton.setOnMouseClicked(event -> {
             if (getConfirm("User will be deleted.")) {
@@ -109,10 +110,10 @@ public class MainController implements Initializable {
 
         try {
             JSONObject user = data.getJSONObject(Integer.parseInt(selectedUser.getId()) - 1);
+            usrDisplayName.setText(selectedUser.toString());
             usrFName.setText(user.getString("first_name"));
             usrLName.setText(user.getString("last_name"));
             usrEmail.setText(user.getString("email"));
-            usrDisplayName.setText(selectedUser.toString());
             usrID.setText(selectedUser.getId());
             usrPhone.setText(user.getString("phone"));
         } catch (JSONException e) {
@@ -125,16 +126,26 @@ public class MainController implements Initializable {
 
     }
 
-    private void loadUserList() throws JSONException {
+    private void loadUserList(){
         ObservableList<User> displayableUsers = FXCollections.observableArrayList();
-        data = new JSONArray(DataManager.readFile(DATA_PATH));
-        JSONObject user;
-        for (int i = 0; i < data.length(); i++) {
-            user = data.getJSONObject(i);
-            displayableUsers.add(new User(
-                    user.getString("first_name") + user.getString("last_name"), user.getString("id")));
+        try {
+            data = new JSONArray(DataManager.readFile(DATA_PATH));
+            JSONObject user;
+            for (int i = 0; i < data.length(); i++) {
+                user = data.getJSONObject(i);
+                displayableUsers.add(new User(String.format("%s %s",user.get("first_name"),user.getString("last_name") )
+                        , user.getString("id")));
+            }
+            usrCount.setText(String.format("Users: %d",data.length()));
+            stringListView.setItems(displayableUsers);
+        } catch (JSONException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Unable to Load Users");
+            alert.setContentText("An Error Occurred loading users.");
+            alert.showAndWait();
         }
-        stringListView.setItems(displayableUsers);
+
     }
 
     private void enableEditArea() {
@@ -166,6 +177,7 @@ public class MainController implements Initializable {
         }
     }
 
+
     private void disableControlButtons() {
         toggleWidgets(controlsButtons, false);
     }
@@ -187,9 +199,7 @@ public class MainController implements Initializable {
 
     }
 
-    private void clearFields() {
-        clearTextFields(viewArea);
-    }
+
 
     private void enablePasswordArea() {
         toggleWidgets(passwordArea, true);
@@ -200,7 +210,7 @@ public class MainController implements Initializable {
 
     }
 
-    private void enableSavedArea() {
+    private void enableSaveArea() {
         toggleWidgets(saveArea, true);
         saveButton.requestFocus();
     }
@@ -211,7 +221,7 @@ public class MainController implements Initializable {
 
     private void enableAllAreas() {
         enableEditArea();
-        enableSavedArea();
+        enableSaveArea();
         enablePasswordArea();
     }
 
@@ -223,17 +233,10 @@ public class MainController implements Initializable {
 
 
     private void loadSampleData() {
-        try {
             loadUserList();
-        } catch (JSONException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unable to Load Users");
-            alert.setContentText("An Error Occurred loading users.");
-            alert.showAndWait();
-
-        }
-
-
     }
+    private void clearFields() {
+        clearTextFields(viewArea);
+    }
+
 }
