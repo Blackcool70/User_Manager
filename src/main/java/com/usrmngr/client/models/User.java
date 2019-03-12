@@ -1,4 +1,4 @@
-package com.usrmngr.client;
+package com.usrmngr.client.models;
 
 public class User {
     private String display;

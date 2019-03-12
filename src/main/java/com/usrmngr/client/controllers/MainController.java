@@ -1,8 +1,9 @@
 package com.usrmngr.client.controllers;
 
-import com.usrmngr.client.User;
+import com.usrmngr.client.models.User;
 import com.usrmngr.client.util.ControllerHelper;
 import com.usrmngr.client.util.DataManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -22,7 +23,8 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\data.json";
+   // private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\data.json";
+    private  final String DATA_PATH = "/Users/jecsan/IdeaProjects/User_Manager/src/main/resources/com/usrmngr/client/samples/data.json";
     public TitledPane extrasDropDown;
     public GridPane extrasPane;
     public GridPane requiredPane;
@@ -46,8 +48,6 @@ public class MainController implements Initializable {
     public Button passwordResetButton;
     public Button deleteButton;
     public Button addButton;
-    public Button usrAddLicBtn;
-    public Button usrDelLicBtn;
     public ListView<User> stringListView;
     public Label usrID;
     public Label usrCount;
@@ -150,6 +150,8 @@ public class MainController implements Initializable {
             alert.setHeaderText("Unable to Load Users");
             alert.setContentText("An Error Occurred loading users.");
             alert.showAndWait();
+            Platform.exit();
+            System.exit(0);
         }
 
     }
