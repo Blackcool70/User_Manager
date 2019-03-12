@@ -22,8 +22,10 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    private final String DATA_PATH = "/Users/jecsan/IdeaProjects/User_Manager/src/main/resources/com/usrmngr/client/samples/data.json";
-    public GridPane usrEditableGPane;
+    private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\data.json";
+    public TitledPane extrasDropDown;
+    public GridPane extrasPane;
+    public GridPane requiredPane;
     public VBox usrOptionsVBox;
     public GridPane usrPasswordGPane;
     public GridPane usrSaveGPane;
@@ -49,17 +51,20 @@ public class MainController implements Initializable {
     public ListView<User> stringListView;
     public Label usrID;
     public Label usrCount;
-    private ArrayList<Node> viewArea;
+
     private ArrayList<Node> controlsButtons;
+    private ArrayList<Node> requiredArea;
     private ArrayList<Node> passwordArea;
     private ArrayList<Node> saveArea;
+    private ArrayList<Node> extrasArea;
     private JSONArray data;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         controlsButtons = ControllerHelper.getAllNodes(usrOptionsVBox);
 
-        viewArea = ControllerHelper.getAllNodes(usrEditableGPane);
+        requiredArea = ControllerHelper.getAllNodes(requiredPane);
+        extrasArea = ControllerHelper.getAllNodes(extrasPane);
         passwordArea = ControllerHelper.getAllNodes(usrPasswordGPane);
         saveArea = ControllerHelper.getAllNodes(usrSaveGPane);
 
@@ -73,7 +78,8 @@ public class MainController implements Initializable {
 
         editButton.setOnMouseClicked(event -> {
             disableControlButtons();
-            enableEditArea();
+            enableRequiredArea();
+            enableExtrasArea();
             enableSaveArea();
         });
         addButton.setOnMouseClicked(event -> {
@@ -84,12 +90,12 @@ public class MainController implements Initializable {
         cancelButton.setOnMouseClicked(event -> {
             disableAllAreas();
             enableControlButtons();
+            clearFields();
             addButton.requestFocus();
         });
         saveButton.setOnMouseClicked(event -> {
             disableAllAreas();
             disablePasswordArea();
-//            disableSaveArea();
             enableControlButtons();
         });
         passwordResetButton.setOnMouseClicked(event -> {
@@ -148,12 +154,12 @@ public class MainController implements Initializable {
 
     }
 
-    private void enableEditArea() {
-        toggleWidgets(viewArea, true);
+    private void enableRequiredArea() {
+        toggleWidgets(requiredArea, true);
     }
 
-    private void disableEditArea() {
-        toggleWidgets(viewArea, false);
+    private void disableRequiredArea() {
+        toggleWidgets(requiredArea, false);
     }
 
     private void clearTextFields(Node node) {
@@ -220,15 +226,27 @@ public class MainController implements Initializable {
     }
 
     private void enableAllAreas() {
-        enableEditArea();
+        enableRequiredArea();
+        enableExtrasArea();
         enableSaveArea();
         enablePasswordArea();
     }
 
     private void disableAllAreas() {
-        disableEditArea();
+        disableRequiredArea();
+        disableExtrasArea();
         disablePasswordArea();
         disableSaveArea();
+    }
+
+    private void disableExtrasArea() {
+        toggleWidgets(extrasArea,false);
+        extrasDropDown.setExpanded(false);
+        extrasDropDown.setDisable(true);
+    }
+    private void enableExtrasArea() {
+        toggleWidgets(extrasArea,true);
+        extrasDropDown.setDisable(false);
     }
 
 
@@ -236,7 +254,7 @@ public class MainController implements Initializable {
             loadUserList();
     }
     private void clearFields() {
-        clearTextFields(viewArea);
+        clearTextFields(requiredArea);
     }
 
 }
