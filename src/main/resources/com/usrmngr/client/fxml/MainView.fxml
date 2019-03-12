@@ -96,7 +96,7 @@
             <center>
                 <VBox fx:id="root" prefHeight="635.0" prefWidth="535.0" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox fx:id="displayAreaVBox" spacing="5.0">
+                        <VBox spacing="5.0">
                             <children>
                                 <GridPane fx:id="requiredPane" hgap="4.0" vgap="2.0">
                                     <columnConstraints>
