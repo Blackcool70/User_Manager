@@ -7,6 +7,7 @@ public class User {
     private JSONObject jsonObject;
 
 
+    //todo Write unit tests for this class
     public User(){
        this.jsonObject = createJSONObj("","","","","");
     }

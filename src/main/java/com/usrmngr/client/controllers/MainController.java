@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
    // private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\data.json";
-    private  final String DATA_PATH = "/Users/jecsan/IdeaProjects/User_Manager/src/main/resources/com/usrmngr/client/samples/data.json";
+    private  final String DATA_PATH = "./res/com/usrmngr/client/samples/data.json";
     private  JSONArray data;
 
     public TextField usrFName;
