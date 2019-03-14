@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
    // private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\data.json";
-    private  final String DATA_PATH = "./res/com/usrmngr/client/samples/data.json";
+    private  final String DATA_PATH = "src/main/resources/com/usrmngr/client/samples/data.json";
     private  JSONArray data;
 
     public TextField usrFName;
@@ -153,11 +153,10 @@ public class MainController implements Initializable {
         ObservableList<User> displayableUsers = FXCollections.observableArrayList();
         try {
             data = new JSONArray(DataManager.readFile(DATA_PATH));
-            JSONObject user;
+            User user;
             for (int i = 0; i < data.length(); i++) {
-                user = data.getJSONObject(i);
-                displayableUsers.add(new User(String.format("%s %s",user.get("first_name"),user.getString("last_name") )
-                        , user.getString("id")));
+                user = new User(data.getJSONObject(i));
+                displayableUsers.add(user);
             }
             usrCount.setText(String.format("Users: %d",data.length()));
             userListView.setItems(displayableUsers);

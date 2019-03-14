@@ -4,23 +4,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class User {
-    private JSONObject jsonObject;
+    private JSONObject user;
 
 
     //todo Write unit tests for this class
     public User(){
-       this.jsonObject = createJSONObj("","","","","");
+       this.user = createJSONObj("","","","","");
     }
     public User(JSONObject user) {
-        this.jsonObject = new JSONObject(user);
+        this.user = user;
     }
 
     public User(String id,String displayName, String fName, String lName, String mInitial) {
-        this.jsonObject = createJSONObj(displayName, fName, lName, mInitial, id);
+        this.user = createJSONObj(displayName, fName, lName, mInitial, id);
     }
 
     public User(String id,String displayName) {
-        this.jsonObject = createJSONObj(id, displayName, "", "", "");
+        this.user = createJSONObj(id, displayName, "", "", "");
 
     }
 
@@ -32,18 +32,18 @@ public class User {
         return getJSONStr("id");
     }
     private JSONObject createJSONObj(String id, String displayName, String fName, String lName, String mInitial) {
-        jsonObject = new JSONObject();
+        user = new JSONObject();
         try {
-            jsonObject.put("id", id);
-            jsonObject.put("display_name", displayName);
-            jsonObject.put("first_name", fName);
-            jsonObject.put("last_name", lName);
-            jsonObject.put("last_name", lName);
-            jsonObject.put("middle_initial", mInitial);
+            user.put("id", id);
+            user.put("display_name", displayName);
+            user.put("first_name", fName);
+            user.put("last_name", lName);
+            user.put("last_name", lName);
+            user.put("middle_initial", mInitial);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return jsonObject;
+        return user;
     }
 
     /**
@@ -55,7 +55,7 @@ public class User {
     private String getJSONStr(String string) {
         String result = "";
         try {
-            result = jsonObject.getString(string);
+            result = user.getString(string);
         } catch (JSONException ignored) {
         }
         return result;
@@ -63,7 +63,8 @@ public class User {
 
 
     public String getDisplayName() {
-        return getJSONStr("display_name");
+//        return getJSONStr("display_name");
+        return String.format("%s %s",getfName(),getlName());
     }
 
     public void setDisplayName(String displayName) {
@@ -135,7 +136,7 @@ public class User {
 
     @Override
     public String toString() {
-        return  jsonObject.toString();
+        return getDisplayName();
     }
 
 
