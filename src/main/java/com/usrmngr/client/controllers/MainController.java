@@ -1,6 +1,6 @@
 package com.usrmngr.client.controllers;
 
-import com.usrmngr.client.models.DisplayArea;
+import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
 import com.usrmngr.client.util.DataManager;
 import javafx.application.Platform;
@@ -55,36 +55,36 @@ public class MainController implements Initializable {
     public GridPane saveAreaPane;
 
 
-    private DisplayArea controlArea;
-    private DisplayArea userArea;
-    private DisplayArea infoArea;
-    private DisplayArea licenseArea;
-    private DisplayArea passwordArea;
-    private DisplayArea saveArea;
+    private FXNodeContainer controlArea;
+    private FXNodeContainer userArea;
+    private FXNodeContainer infoArea;
+    private FXNodeContainer licenseArea;
+    private FXNodeContainer passwordArea;
+    private FXNodeContainer saveArea;
 
     public TitledPane infoDropDown;
     public TitledPane passwordDropDown;
     public TitledPane licenseDropDown;
 
 
-
+    private User currentUser;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        controlArea = new DisplayArea(controlsVBox,false);
-        userArea = new DisplayArea(userAreaPane,true);
-        infoArea = new DisplayArea(infoAreaPane,true);
-        licenseArea = new DisplayArea(licenseAreaPane,true);
-        passwordArea = new DisplayArea(passwordAreaPane,true);
-        saveArea  = new DisplayArea(saveAreaPane,false);
+        controlArea = new FXNodeContainer(controlsVBox,false);
+        userArea = new FXNodeContainer(userAreaPane,true);
+        infoArea = new FXNodeContainer(infoAreaPane,true);
+        licenseArea = new FXNodeContainer(licenseAreaPane,true);
+        passwordArea = new FXNodeContainer(passwordAreaPane,true);
+        saveArea  = new FXNodeContainer(saveAreaPane,false);
         allAreasExpanded(false);
 
         userListView.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
-                User selectedUser = userListView.getSelectionModel().getSelectedItem();
-                loadUser(selectedUser);
+                currentUser = userListView.getSelectionModel().getSelectedItem();
+                loadUser(currentUser);
             }
         });
 

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 public class User {
     private JSONObject user;
+    private boolean modified;
 
 
     //todo Write unit tests for this class
@@ -90,6 +91,7 @@ public class User {
     }
 
     public void setmInitial(String mInitial) {
+        modified = true;
     }
 
     public String getTitle() {
@@ -97,6 +99,7 @@ public class User {
     }
 
     public void setTitle(String title) {
+        modified = true;
     }
 
     public String getDepartment() {
@@ -104,6 +107,7 @@ public class User {
     }
 
     public void setDepartment(String department) {
+        modified = true;
     }
 
     public String getOffice() {
@@ -111,6 +115,7 @@ public class User {
     }
 
     public void setOffice(String office) {
+        modified = true;
     }
 
     public String getManger() {
@@ -118,6 +123,7 @@ public class User {
     }
 
     public void setManger(String manger) {
+        modified = true;
     }
 
     public String getOfficeNumber() {
@@ -125,6 +131,7 @@ public class User {
     }
 
     public void setOfficeNumber(String officeNumber) {
+        modified = true;
     }
 
     public String getMobilNumber() {
@@ -132,6 +139,7 @@ public class User {
     }
 
     public void setMobilNumber(String mobilNumber) {
+        modified = true;
     }
 
     @Override
@@ -140,4 +148,10 @@ public class User {
     }
 
 
+    public void setModified(boolean modified){
+        this.modified = modified;
+    }
+    public boolean isModified() {
+        return modified;
+    }
 }

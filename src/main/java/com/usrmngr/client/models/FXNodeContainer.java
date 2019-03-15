@@ -7,11 +7,14 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 
-public class DisplayArea {
+/**
+ * Treats a group of FX Nodes as a single node for manipulation.
+ */
+public class FXNodeContainer {
     private boolean disabled;
     private ArrayList<Node> nodes;
 
-    public DisplayArea(Parent node, boolean disabled) {
+    public FXNodeContainer(Parent node, boolean disabled) {
         this.nodes = getAllNodes(node);
         this.disabled = disabled;
         setDisable(disabled);
