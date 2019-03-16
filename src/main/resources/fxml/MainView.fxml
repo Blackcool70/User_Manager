@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
@@ -73,17 +72,17 @@
                     <children>
                         <VBox fx:id="buttonsArea" prefHeight="141.0" prefWidth="171.0" spacing="5.0">
                             <children>
-                                <Button fx:id="addButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add User" />
-                                <Button fx:id="deleteButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Delete User" />
-                                <Button fx:id="editButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Edit User" />
-                                <Button fx:id="passwordResetButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="16.0" prefWidth="171.0" text="Reset Password" />
+                                <Button fx:id="addButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addButtonClicked" text="Add User" />
+                                <Button fx:id="deleteButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteButtonClicked" text="Delete User" />
+                                <Button fx:id="editButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editButtonClicked" text="Edit User" />
+                                <Button fx:id="passwordResetButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#passwordResetButtonClicked" prefHeight="16.0" prefWidth="171.0" text="Reset Password" />
                             </children>
                             <padding>
                                 <Insets bottom="10.0" />
                             </padding>
                         </VBox>
                   <Label fx:id="usrCount" text="Users:" />
-                        <ListView fx:id="userListView" prefHeight="407.0" prefWidth="171.0" />
+                        <ListView fx:id="userList" prefHeight="407.0" prefWidth="171.0" />
                     </children>
                 </VBox>
             </left>
@@ -109,11 +108,11 @@
                                               <RowConstraints vgrow="SOMETIMES" />
                                           </rowConstraints>
                                           <children>
-                                              <TextField fx:id="usrFName" disable="true" promptText="John" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                              <TextField fx:id="usrInitFld" disable="true" maxWidth="-Infinity" prefWidth="30.0" promptText="A" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                              <TextField fx:id="usrLName" disable="true" promptText="Doe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                              <TextField fx:id="usrDisplayName" disable="true" promptText="John Doe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                              <TextField fx:id="usrEmail" disable="true" promptText="John.Doe@demo.net" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                              <TextField fx:id="firstNameField" disable="true" promptText="John" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                              <TextField fx:id="middleInitialField" disable="true" maxWidth="-Infinity" prefWidth="30.0" promptText="A" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                              <TextField fx:id="lastNameField" disable="true" promptText="Doe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                              <TextField fx:id="displayNameField" disable="true" promptText="John Doe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                              <TextField fx:id="emailField" disable="true" promptText="John.Doe@demo.net" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                               <Label text="First Name:" GridPane.rowIndex="1" />
                                               <Label text="Last Name:" GridPane.rowIndex="2" />
                                               <Label text="Dispaly Name:" GridPane.rowIndex="3" />
@@ -128,7 +127,7 @@
                                       </GridPane>
                            </content>
                         </TitledPane>
-                        <TitledPane fx:id="infoDropDown" animated="false" text="Contact Information">
+                        <TitledPane fx:id="infoDropDown" animated="false" expanded="false" text="Contact Information">
                            <content>
                               <GridPane fx:id="infoAreaPane" hgap="4.0" prefHeight="296.0" prefWidth="533.0" vgap="4.0">
                                 <columnConstraints>
@@ -149,20 +148,20 @@
                                               <Label text="Mobil Number" GridPane.rowIndex="5" />
                                               <Label text="Office:" GridPane.rowIndex="2" />
                                               <Label text="Manager:" GridPane.rowIndex="3" />
-                                              <TextField fx:id="usrPhone" disable="true" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                              <ChoiceBox fx:id="usrOffice" disable="true" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                              <ChoiceBox fx:id="usrManager" disable="true" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                              <TextField fx:id="userPhoneField" disable="true" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                               <Label text=" Job title" />
-                                              <ChoiceBox fx:id="usrTitle" disable="true" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
                                     <Label text="Department" GridPane.rowIndex="1" />
-                                    <ChoiceBox fx:id="usrDept" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Office Number" GridPane.rowIndex="4" />
-                                    <TextField fx:id="officeNumber" disable="true" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="officeNumberField" disable="true" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="managerField" disable="true" promptText="Mary Sue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="officeField" disable="true" promptText="Long View" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="departmentField" disable="true" promptText="Sales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="jobTitleField" disable="true" promptText="Engineer" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                            </content>
                         </TitledPane>
-                        <TitledPane fx:id="passwordDropDown" animated="false" text="Password" wrapText="true">
+                        <TitledPane fx:id="passwordDropDown" animated="false" expanded="false" text="Password" wrapText="true">
                            <content>
                               <GridPane fx:id="passwordAreaPane" alignment="CENTER" focusTraversable="true" hgap="4.0" vgap="4.0">
                                 <columnConstraints>
@@ -175,13 +174,13 @@
                                 </rowConstraints>
                                  <children>
                                               <CheckBox fx:id="usrRandPwCBox" disable="true" focusTraversable="false" mnemonicParsing="false" selected="true" text="Randomize Password" />
-                                              <PasswordField fx:id="usrPassword" disable="true" promptText="password" GridPane.rowIndex="1" />
-                                              <PasswordField fx:id="usrPasswordConfirm" disable="true" promptText="confirm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                              <PasswordField fx:id="passwordField" disable="true" promptText="password" GridPane.rowIndex="1" />
+                                              <PasswordField fx:id="passwordConfirmField" disable="true" promptText="confirm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </content>
                         </TitledPane>
-                        <TitledPane fx:id="licenseDropDown" animated="false" text="Product licenses">
+                        <TitledPane fx:id="licenseDropDown" animated="false" expanded="false" text="Product licenses">
                            <content>
                               <GridPane fx:id="licenseAreaPane" hgap="4.0" vgap="4.0">
                                 <columnConstraints>
@@ -195,9 +194,9 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <ListView fx:id="licenseList" GridPane.rowSpan="2147483647" />
-                                    <Button fx:id="addLicButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add" GridPane.columnIndex="1" />
-                                    <Button fx:id="delLicButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Delete" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <ListView fx:id="licenseList" disable="true" GridPane.rowSpan="2147483647" />
+                                    <Button fx:id="addLicButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add" GridPane.columnIndex="1" />
+                                    <Button fx:id="delLicButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Delete" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
                            </content>
@@ -213,12 +212,12 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                                        <Button fx:id="cancelButton" cancelButton="true" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Cancel" GridPane.rowIndex="1">
+                                        <Button fx:id="cancelButton" cancelButton="true" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
                               </Button>
-                                        <Button fx:id="saveButton" defaultButton="true" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="333.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Button fx:id="saveButton" defaultButton="true" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveButtonClicked" prefWidth="333.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                             </children>

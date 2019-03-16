@@ -2,7 +2,6 @@ package com.usrmngr.client.models;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
@@ -12,22 +11,25 @@ import java.util.ArrayList;
  */
 public class FXNodeContainer {
     private boolean disabled;
-    private ArrayList<Node> nodes;
-
+    private ArrayList<Node> children;
     public FXNodeContainer(Parent node, boolean disabled) {
-        this.nodes = getAllNodes(node);
+        this.children = getAllNodes(node);
         this.disabled = disabled;
         setDisable(disabled);
     }
 
 
-
+    /**
+     * Disables all children
+     */
     public void setDisable(boolean disabled) {
         this.disabled = disabled;
-        toggleWidgets();
+        for (Node node : children) {
+            node.setDisable(disabled);
+        }
     }
     /**
-     * Gets all the nodes inside a parent node.
+     * Gets all the children inside a parent node.
      */
     private static ArrayList<Node> getAllNodes(Parent root) {
         ArrayList<Node> nodes = new ArrayList<>();
@@ -45,31 +47,33 @@ public class FXNodeContainer {
                 addAllDescendents((Parent) node, nodes);
         }
     }
-    private void toggleWidgets() {
-        for (Node node : nodes) {
-            if (!(node instanceof Label)) {
-                node.setDisable(disabled);
-            }
-        }
-    }
 
     public boolean isDisabled() {
         return disabled;
     }
-    public ArrayList<Node> getNodes(){
-        return  this.nodes;
+    public ArrayList<Node> getChildren(){
+        return  this.children;
     }
 
     private void clearTextFields(Node node) {
         ((TextField) node).clear();
     }
     public void clearTextFields() {
-        for (Node node : nodes) {
+        for (Node node : children) {
             if (node instanceof TextField) {
                 clearTextFields(node);
             }
         }
 
+    }
+    public ArrayList<Node> getAllOfClass(Class c){
+        ArrayList<Node> nodes = new ArrayList<>();
+        for( Node n : children){
+            if( n.getClass() == c ){
+               nodes.add(n);
+            }
+        }
+        return  nodes;
     }
     public static void main(String[] args) {
 
