@@ -39,7 +39,7 @@ public class MainController implements Initializable {
     public ListView<User> userList;
     public TextField displayNameField, firstNameField, lastNameField, emailField, userPhoneField;
     public Label usrID;
-    public Label usrCount;
+    public Label userCount;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -87,7 +87,7 @@ public class MainController implements Initializable {
                 user = new User(data.getJSONObject(i));
                 displayableUsers.add(user);
             }
-            usrCount.setText(String.format("Users: %d", data.length()));
+            userCount.setText(String.format("Users: %d", data.length()));
             userList.setItems(displayableUsers);
         } catch (JSONException e) {
             displayError("Unable to load user list!");
