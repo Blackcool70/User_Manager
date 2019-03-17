@@ -13,32 +13,54 @@ import java.util.Map;
  */
 public class FXNodeContainer {
     private boolean disabled;
-    private Node parentNode;
     private HashMap<String, Node> children;
 
+    public FXNodeContainer() {
+        children = new HashMap<>();
+        disabled = false;
+    }
+
     public FXNodeContainer(Parent node, boolean disabled) {
-        this.parentNode = node;
-        this.children = getAllNodes(node);
+        children = new HashMap<>();
+        addNodesFromParent(node);
         this.disabled = disabled;
         setDisable(disabled);
     }
 
 
     /**
-     * Disables parent container
+     * Disables all nodes;
      */
     public void setDisable(boolean disabled) {
-        this.disabled = disabled;
-        parentNode.setDisable(disabled);
+        Iterator it = children.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            ((Node) pair.getValue()).setDisable(disabled);
+            it.remove(); // avoids a ConcurrentModificationException
+        }
     }
 
     /**
      * Gets all the children inside a parent node.
      */
+    //// TODO: 3/17/2019 Does not all ways work
     private static HashMap<String, Node> getAllNodes(Parent root) {
         HashMap<String, Node> nodes = new HashMap<>();
         addAllDescendents(root, nodes);
         return nodes;
+    }
+
+    public void addNodesFromParent(Parent node) {
+        children.putAll(getAllNodes(node));
+    }
+
+    public void addNodes(ArrayList<Node> nodes) {
+        for (Node node : nodes)
+            addNode(node);
+    }
+
+    private void addNode(Node node) {
+        children.putIfAbsent(node.getId(), node);
     }
 
     /**
@@ -54,6 +76,16 @@ public class FXNodeContainer {
 
     public boolean isDisabled() {
         return disabled;
+    }
+
+    /**
+     * Returns the child with id if it exists.
+     *
+     * @param id
+     * @return
+     */
+    public Node getChild(String id) {
+        return children.getOrDefault(id, null);
     }
 
     private ArrayList<Node> getChildren() {
@@ -74,7 +106,7 @@ public class FXNodeContainer {
      * @param c the wanted class
      * @return the found values
      */
-    public HashMap<String, Node> getChildrenOfClass(Class c) {
+    private HashMap<String, Node> getChildrenOfClass(Class c) {
         HashMap<String, Node> cNodes = new HashMap<>();
         Node value;
         String key;
