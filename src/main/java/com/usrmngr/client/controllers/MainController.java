@@ -195,7 +195,7 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Sets the next on the given field.If there is no such field nothing is set.
+     * Sets the text on the provided name.If there is no such field nothing is set.
      *
      * @param fieldName id of the field
      * @param text      the text to set on the field
