@@ -139,11 +139,13 @@ public class MainController implements Initializable {
 
     @FXML
     public void editButtonClicked() {
-        controlArea.setDisable(true);
-        userArea.setDisable(false);
-        infoArea.setDisable(false);
-        licenseArea.setDisable(false);
-        saveArea.setDisable(false);
+        if(currentUser != null) {
+            controlArea.setDisable(true);
+            userArea.setDisable(false);
+            infoArea.setDisable(false);
+            licenseArea.setDisable(false);
+            saveArea.setDisable(false);
+        }
     }
 
     @FXML

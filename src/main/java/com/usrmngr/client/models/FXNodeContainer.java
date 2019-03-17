@@ -15,9 +15,11 @@ import java.util.Map;
  */
 public class FXNodeContainer {
     private boolean disabled;
+    private Node parentNode;
     private HashMap<String, Node> children;
 
     public FXNodeContainer(Parent node, boolean disabled) {
+        this.parentNode = node;
         this.children = getAllNodes(node);
         this.disabled = disabled;
         setDisable(disabled);
@@ -25,14 +27,11 @@ public class FXNodeContainer {
 
 
     /**
-     * Disables all children that are not labels
+     * Disables parent container
      */
     public void setDisable(boolean disabled) {
         this.disabled = disabled;
-        for (Map.Entry<String, Node> stringNodeEntry : children.entrySet()) {
-            if(!(stringNodeEntry.getValue() instanceof Label))
-                stringNodeEntry.getValue().setDisable(disabled);
-        }
+        parentNode.setDisable(disabled);
     }
 
     /**
@@ -73,8 +72,9 @@ public class FXNodeContainer {
 
     /**
      * Returns the id and the node of class c as a key pair
+     *
      * @param c the wanted class
-     * @return  the found values
+     * @return the found values
      */
     public HashMap<String, Node> getChildrenOfClass(Class c) {
         HashMap<String, Node> cNodes = new HashMap<>();
@@ -83,11 +83,12 @@ public class FXNodeContainer {
         for (Map.Entry<String, Node> stringNodeEntry : children.entrySet()) {
             value = stringNodeEntry.getValue();
             key = stringNodeEntry.getKey();
-            if(value.getClass() == c)
+            if (value.getClass() == c)
                 cNodes.put(key, value);
         }
         return cNodes;
     }
+
     public static void main(String[] args) {
 
     }
