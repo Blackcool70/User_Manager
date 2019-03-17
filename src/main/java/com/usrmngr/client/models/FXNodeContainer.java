@@ -1,17 +1,22 @@
 package com.usrmngr.client.models;
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Treats a group of FX Nodes as a single node for manipulation.
  */
 public class FXNodeContainer {
     private boolean disabled;
-    private ArrayList<Node> children;
+    private HashMap<String, Node> children;
+
     public FXNodeContainer(Parent node, boolean disabled) {
         this.children = getAllNodes(node);
         this.disabled = disabled;
@@ -20,19 +25,21 @@ public class FXNodeContainer {
 
 
     /**
-     * Disables all children
+     * Disables all children that are not labels
      */
     public void setDisable(boolean disabled) {
         this.disabled = disabled;
-        for (Node node : children) {
-            node.setDisable(disabled);
+        for (Map.Entry<String, Node> stringNodeEntry : children.entrySet()) {
+            if(!(stringNodeEntry.getValue() instanceof Label))
+                stringNodeEntry.getValue().setDisable(disabled);
         }
     }
+
     /**
      * Gets all the children inside a parent node.
      */
-    private static ArrayList<Node> getAllNodes(Parent root) {
-        ArrayList<Node> nodes = new ArrayList<>();
+    private static HashMap<String, Node> getAllNodes(Parent root) {
+        HashMap<String, Node> nodes = new HashMap<>();
         addAllDescendents(root, nodes);
         return nodes;
     }
@@ -40,9 +47,9 @@ public class FXNodeContainer {
     /**
      * Gets all the descendents of each parent node.
      */
-    private static void addAllDescendents(Parent parent, ArrayList<Node> nodes) {
+    private static void addAllDescendents(Parent parent, HashMap<String, Node> nodes) {
         for (Node node : parent.getChildrenUnmodifiable()) {
-            nodes.add(node);
+            nodes.put(node.getId(), node);
             if (node instanceof Parent)
                 addAllDescendents((Parent) node, nodes);
         }
@@ -51,29 +58,35 @@ public class FXNodeContainer {
     public boolean isDisabled() {
         return disabled;
     }
-    public ArrayList<Node> getChildren(){
-        return  this.children;
-    }
 
-    private void clearTextFields(Node node) {
-        ((TextField) node).clear();
-    }
-    public void clearTextFields() {
-        for (Node node : children) {
-            if (node instanceof TextField) {
-                clearTextFields(node);
-            }
-        }
-
-    }
-    public ArrayList<Node> getAllOfClass(Class c){
+    private ArrayList<Node> getChildren() {
+        Iterator it = children.entrySet().iterator();
         ArrayList<Node> nodes = new ArrayList<>();
-        for( Node n : children){
-            if( n.getClass() == c ){
-               nodes.add(n);
-            }
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            nodes.add((Node) pair.getValue());
+            it.remove(); // avoids a ConcurrentModificationException
         }
-        return  nodes;
+        return nodes;
+    }
+
+
+    /**
+     * Returns the id and the node of class c as a key pair
+     * @param c the wanted class
+     * @return  the found values
+     */
+    public HashMap<String, Node> getChildrenOfClass(Class c) {
+        HashMap<String, Node> cNodes = new HashMap<>();
+        Node value;
+        String key;
+        for (Map.Entry<String, Node> stringNodeEntry : children.entrySet()) {
+            value = stringNodeEntry.getValue();
+            key = stringNodeEntry.getKey();
+            if(value.getClass() == c)
+                cNodes.put(key, value);
+        }
+        return cNodes;
     }
     public static void main(String[] args) {
 
