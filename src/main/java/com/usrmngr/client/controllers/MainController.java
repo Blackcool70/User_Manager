@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,7 +77,7 @@ public class MainController implements Initializable {
         loadSampleData();
     }
 
-    private void loadUser(@NotNull User selectedUser) {
+    private void loadUser(User selectedUser) {
         String[] userAttributes = selectedUser.getAttributes();
         for (String attribute : userAttributes) {
             setTextOnTextField(attribute, selectedUser.getAttribute(attribute));
