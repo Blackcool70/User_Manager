@@ -1,200 +1,119 @@
 package com.usrmngr.client.controllers;
 
-import com.usrmngr.client.User;
-import com.usrmngr.client.util.ControllerHelper;
+import com.usrmngr.client.models.FXNodeContainer;
+import com.usrmngr.client.models.User;
 import com.usrmngr.client.util.DataManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
-    private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\data.json";
-    public TitledPane extrasDropDown;
-    public GridPane extrasPane;
-    public GridPane requiredPane;
-    public VBox usrOptionsVBox;
-    public GridPane usrPasswordGPane;
-    public GridPane usrSaveGPane;
-    public TextField usrFName;
-    public TextField usrLName;
-    public TextField usrDisplayName;
-    public TextField usrEmail;
-    public TextField usrPhone;
-    public CheckBox usrRandPwCBox;
-    public PasswordField usrPassword;
-    public PasswordField usrPasswordConfirm;
-    public ChoiceBox<String> usrOffice;
-    public ChoiceBox<String> usrManager;
-    public ChoiceBox<String> usrTitle;
-    public Button editButton;
-    public Button cancelButton;
-    public Button saveButton;
-    public Button passwordResetButton;
-    public Button deleteButton;
-    public Button addButton;
-    public Button usrAddLicBtn;
-    public Button usrDelLicBtn;
-    public ListView<User> stringListView;
-    public Label usrID;
-    public Label usrCount;
-
-    private ArrayList<Node> controlsButtons;
-    private ArrayList<Node> requiredArea;
-    private ArrayList<Node> passwordArea;
-    private ArrayList<Node> saveArea;
-    private ArrayList<Node> extrasArea;
+    // private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\MOCK_DATA.json";
+    private final String DATA_PATH = "src/main/resources/samples/MOCK_DATA.json";
     private JSONArray data;
+
+    private User selectedUser;
+
+    @FXML
+    public VBox controlAreaPane;
+    @FXML
+    public GridPane userAreaPane, infoAreaPane, passwordAreaPane, licenseAreaPane, saveAreaPane;
+    @FXML
+    public TitledPane infoDropDown, passwordDropDown, licenseDropDown;
+
+    @FXML
+    public Label userCount;
+    @FXML
+    public ListView<User> userList;
+    @FXML
+    public Label id;
+    @FXML
+    public TextField display_name, first_name, last_name, email_address, user_phone, middle_initial;
+    @FXML
+    public TextField job_title, department_name, office_name, manager_name, office_number, user_number;
+    @FXML
+    public PasswordField password_entry, password_confirm_entry;
+    private FXNodeContainer allNodes;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        controlsButtons = ControllerHelper.getAllNodes(usrOptionsVBox);
 
-        requiredArea = ControllerHelper.getAllNodes(requiredPane);
-        extrasArea = ControllerHelper.getAllNodes(extrasPane);
-        passwordArea = ControllerHelper.getAllNodes(usrPasswordGPane);
-        saveArea = ControllerHelper.getAllNodes(usrSaveGPane);
+        allNodes = new FXNodeContainer();
+        allNodes.addNodesFromParent(userAreaPane);
+        allNodes.addNodesFromParent(infoAreaPane);
+        allNodes.addNodesFromParent(passwordAreaPane);
+        allNodes.addNodesFromParent(licenseAreaPane);
+        allNodes.addNodesFromParent(saveAreaPane);
 
-        stringListView.setOnMouseClicked(event -> {
+        disableAllAreas(true);
+        allAreasExpanded(false);
+
+        controlAreaPane.setDisable(false);
+
+        //action for when a user gets double clicked on the list
+        userList.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
-                User selectedUser = stringListView.getSelectionModel().getSelectedItem();
+                selectedUser = userList.getSelectionModel().getSelectedItem();
                 loadUser(selectedUser);
-            }
-        });
-
-        editButton.setOnMouseClicked(event -> {
-            disableControlButtons();
-            enableRequiredArea();
-            enableExtrasArea();
-            enableSaveArea();
-        });
-        addButton.setOnMouseClicked(event -> {
-            disableControlButtons();
-            clearFields();
-            enableAllAreas();
-        });
-        cancelButton.setOnMouseClicked(event -> {
-            disableAllAreas();
-            enableControlButtons();
-            clearFields();
-            addButton.requestFocus();
-        });
-        saveButton.setOnMouseClicked(event -> {
-            disableAllAreas();
-            disablePasswordArea();
-            enableControlButtons();
-        });
-        passwordResetButton.setOnMouseClicked(event -> {
-            disableControlButtons();
-            enablePasswordArea();
-            enableSaveArea();
-        });
-        deleteButton.setOnMouseClicked(event -> {
-            if (getConfirm("User will be deleted.")) {
-                System.out.println("User deleted!");
             }
         });
 
         loadSampleData();
     }
 
-    private void loadUser(User selectedUser) {
-
-        try {
-            JSONObject user = data.getJSONObject(Integer.parseInt(selectedUser.getId()) - 1);
-            usrDisplayName.setText(selectedUser.toString());
-            usrFName.setText(user.getString("first_name"));
-            usrLName.setText(user.getString("last_name"));
-            usrEmail.setText(user.getString("email"));
-            usrID.setText(selectedUser.getId());
-            usrPhone.setText(user.getString("phone"));
-        } catch (JSONException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unable to Load User");
-            alert.setContentText("An Error Occurred loading user.");
-            alert.showAndWait();
+    private void loadUser(@NotNull User selectedUser) {
+        String[] userAttributes = selectedUser.getAttributes();
+        for (String attribute : userAttributes) {
+            setTextOnTextField(attribute, selectedUser.getAttribute(attribute));
         }
-
     }
 
-    private void loadUserList(){
+    private void loadUserList() {
         ObservableList<User> displayableUsers = FXCollections.observableArrayList();
         try {
             data = new JSONArray(DataManager.readFile(DATA_PATH));
-            JSONObject user;
             for (int i = 0; i < data.length(); i++) {
-                user = data.getJSONObject(i);
-                displayableUsers.add(new User(String.format("%s %s",user.get("first_name"),user.getString("last_name") )
-                        , user.getString("id")));
+                JSONObject jsonObject = data.getJSONObject(i);
+                User user = new User(jsonObject);
+                displayableUsers.add(user);
             }
-            usrCount.setText(String.format("Users: %d",data.length()));
-            stringListView.setItems(displayableUsers);
+            userCount.setText(String.format("Users: %d", data.length()));
+            userList.setItems(displayableUsers);
         } catch (JSONException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Unable to Load Users");
-            alert.setContentText("An Error Occurred loading users.");
-            alert.showAndWait();
+            displayError("Unable to load user list!");
+            Platform.exit();
+            System.exit(0);
         }
 
     }
 
-    private void enableRequiredArea() {
-        toggleWidgets(requiredArea, true);
-    }
-
-    private void disableRequiredArea() {
-        toggleWidgets(requiredArea, false);
-    }
-
-    private void clearTextFields(Node node) {
-        ((TextField) node).clear();
-    }
-
-    private void clearTextFields(ArrayList<Node> nodes) {
-        for (Node node : nodes) {
-            if (node instanceof TextField) {
-                clearTextFields(node);
-            }
-        }
-
-    }
-
-    private void toggleWidgets(ArrayList<Node> nodes, boolean enabled) {
-        for (Node node : nodes) {
-            if (!(node instanceof Label)) {
-                node.setDisable(!enabled);
-            }
-        }
+    private void displayError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Error");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 
-    private void disableControlButtons() {
-        toggleWidgets(controlsButtons, false);
-    }
-
-    private void enableControlButtons() {
-        toggleWidgets(controlsButtons, true);
-
-    }
-
-
-    private boolean getConfirm(String message) {
+    private boolean requestConfirmation(String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm");
         alert.setHeaderText(message);
@@ -205,56 +124,91 @@ public class MainController implements Initializable {
 
     }
 
-
-
-    private void enablePasswordArea() {
-        toggleWidgets(passwordArea, true);
+    private void disableAllAreas(boolean disable) {
+        controlAreaPane.setDisable(disable);
+        userAreaPane.setDisable(disable);
+        infoAreaPane.setDisable(disable);
+        licenseAreaPane.setDisable(disable);
+        passwordAreaPane.setDisable(disable);
+        saveAreaPane.setDisable(disable);
     }
-
-    private void disablePasswordArea() {
-        toggleWidgets(passwordArea, false);
-
-    }
-
-    private void enableSaveArea() {
-        toggleWidgets(saveArea, true);
-        saveButton.requestFocus();
-    }
-
-    private void disableSaveArea() {
-        toggleWidgets(saveArea, false);
-    }
-
-    private void enableAllAreas() {
-        enableRequiredArea();
-        enableExtrasArea();
-        enableSaveArea();
-        enablePasswordArea();
-    }
-
-    private void disableAllAreas() {
-        disableRequiredArea();
-        disableExtrasArea();
-        disablePasswordArea();
-        disableSaveArea();
-    }
-
-    private void disableExtrasArea() {
-        toggleWidgets(extrasArea,false);
-        extrasDropDown.setExpanded(false);
-        extrasDropDown.setDisable(true);
-    }
-    private void enableExtrasArea() {
-        toggleWidgets(extrasArea,true);
-        extrasDropDown.setDisable(false);
-    }
-
 
     private void loadSampleData() {
-            loadUserList();
+        loadUserList();
     }
-    private void clearFields() {
-        clearTextFields(requiredArea);
+
+    private void allAreasExpanded(boolean expanded) {
+
+        infoDropDown.setExpanded(expanded);
+        passwordDropDown.setExpanded(expanded);
+        licenseDropDown.setExpanded(expanded);
+    }
+
+    @FXML
+    public void editButtonClicked() {
+        if (selectedUser != null) {
+            controlAreaPane.setDisable(true);
+            userAreaPane.setDisable(false);
+            infoAreaPane.setDisable(false);
+            licenseAreaPane.setDisable(false);
+            saveAreaPane.setDisable(false);
+        }
+    }
+
+    @FXML
+    public void addButtonClicked() {
+        controlAreaPane.setDisable(true);
+//            clearFields();
+        disableAllAreas(false);
+        allAreasExpanded(true);
+    }
+
+    @FXML
+    public void cancelButtonClicked() {
+        disableAllAreas(true);
+        controlAreaPane.setDisable(false);
+        allAreasExpanded(false);
+//            clearFields();
+    }
+
+    @FXML
+    public void saveButtonClicked() {
+        disableAllAreas(true);
+        allAreasExpanded(false);
+        controlAreaPane.setDisable(false);
+    }
+
+    @FXML
+    public void passwordResetButtonClicked() {
+        passwordDropDown.setExpanded(true);
+        controlAreaPane.setDisable(true);
+        passwordAreaPane.setDisable(false);
+        saveAreaPane.setDisable(false);
+    }
+
+    @FXML
+    public void deleteButtonClicked() {
+        if (selectedUser != null) {
+            if (requestConfirmation("User will be deleted.")) {
+                System.out.println("User deleted!");
+            }
+        }
+    }
+
+    /**
+     * Sets the next on the given field.If there is no such field nothing is set.
+     *
+     * @param fieldName id of the field
+     * @param text      the text to set on the field
+     */
+    private void setTextOnTextField(String fieldName, String text) {
+        Node node = getNode(fieldName);
+        if (node instanceof TextField)
+            ((TextField) node).setText(text);
+    }
+
+    private Node getNode(String fieldName) {
+        return allNodes.getChild(fieldName);
     }
 
 }
