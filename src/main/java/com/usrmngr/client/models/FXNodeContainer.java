@@ -1,8 +1,6 @@
 package com.usrmngr.client.models;
 
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-
 import javafx.scene.Parent;
 
 import java.util.ArrayList;
