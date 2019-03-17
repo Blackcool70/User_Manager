@@ -1,157 +1,93 @@
 package com.usrmngr.client.models;
 
+import com.usrmngr.client.util.DataManager;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.*;
+
 public class User {
-    private JSONObject user;
-    private boolean modified;
+    private HashMap<String, String> user;
 
 
-    //todo Write unit tests for this class
-    public User(){
-       this.user = createJSONObj("","","","","");
-    }
-    public User(JSONObject user) {
-        this.user = user;
-    }
-
-    public User(String id,String displayName, String fName, String lName, String mInitial) {
-        this.user = createJSONObj(displayName, fName, lName, mInitial, id);
-    }
-
-    public User(String id,String displayName) {
-        this.user = createJSONObj(id, displayName, "", "", "");
-
+    public User(JSONObject jsonObject) {
+        this.user = new HashMap<>();
+        Iterator keys = jsonObject.keys();
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
+            try {
+                user.put(key, jsonObject.getString(key));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public static void main(String[] args) {
-        User user = new User("1","Jonny Test");
-        System.out.printf("User: %s\n", user);
+    public User(String id, String displayName, String fName, String lName, String mInitial) {
+        this.user = new HashMap<>();
+        this.user.put("id", id);
+        this.user.put("display_name", displayName);
+        this.user.put("first_name", fName);
+        this.user.put("last_name", lName);
+        this.user.put("middle_initials", mInitial);
     }
-    public String getId() {
-        return getJSONStr("id");
+
+    public String[] getAttributes() {
+        ArrayList<String> arrayList = new ArrayList<>(user.size());
+        Collections.addAll(arrayList, user.keySet().toArray(new String[0]));
+        return arrayList.toArray(new String[user.size()]);
     }
-    private JSONObject createJSONObj(String id, String displayName, String fName, String lName, String mInitial) {
-        user = new JSONObject();
+
+    public String getAttribute(String string) {
+        return user.getOrDefault(string, "");
+    }
+
+    private void setAttribute(String key) {
+        setAttribute(key, "");
+    }
+
+    private void setAttribute(String key, String value) {
+        this.user.put(key, value);
+    }
+
+    public JSONObject toJSON() {
+        JSONObject jsonObject = new JSONObject();
         try {
-            user.put("id", id);
-            user.put("display_name", displayName);
-            user.put("first_name", fName);
-            user.put("last_name", lName);
-            user.put("last_name", lName);
-            user.put("middle_initial", mInitial);
+            String key;
+            String value;
+            for (Map.Entry<String, String> attribute : user.entrySet()) {
+                key = attribute.getKey();
+                value = attribute.getValue();
+                jsonObject.put(key, value);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return user;
-    }
-
-    /**
-     * Will return the string asked for from the internal json object.
-     *
-     * @param string the string to retrieve.
-     * @return the selected attribute or empty if attribute not found.
-     */
-    private String getJSONStr(String string) {
-        String result = "";
-        try {
-            result = user.getString(string);
-        } catch (JSONException ignored) {
-        }
-        return result;
-    }
-
-
-    public String getDisplayName() {
-//        return getJSONStr("display_name");
-        return String.format("%s %s",getfName(),getlName());
-    }
-
-    public void setDisplayName(String displayName) {
-        //
-    }
-
-    public String getfName() {
-        return getJSONStr("first_name");
-    }
-
-    public void setfName(String fName) {
-    }
-
-    public String getlName() {
-        return getJSONStr("last_name");
-    }
-
-    public void setlName(String lName) {
-    }
-
-    public String getmInitial() {
-        return getJSONStr("middle_initial");
-    }
-
-    public void setmInitial(String mInitial) {
-        modified = true;
-    }
-
-    public String getTitle() {
-        return getJSONStr("title");
-    }
-
-    public void setTitle(String title) {
-        modified = true;
-    }
-
-    public String getDepartment() {
-        return getJSONStr("department");
-    }
-
-    public void setDepartment(String department) {
-        modified = true;
-    }
-
-    public String getOffice() {
-        return getJSONStr("office");
-    }
-
-    public void setOffice(String office) {
-        modified = true;
-    }
-
-    public String getManger() {
-        return getJSONStr("manager_id");
-    }
-
-    public void setManger(String manger) {
-        modified = true;
-    }
-
-    public String getOfficeNumber() {
-        return getJSONStr("office_number");
-    }
-
-    public void setOfficeNumber(String officeNumber) {
-        modified = true;
-    }
-
-    public String getMobilNumber() {
-        return getJSONStr("mobil_number");
-    }
-
-    public void setMobilNumber(String mobilNumber) {
-        modified = true;
+        return jsonObject;
     }
 
     @Override
     public String toString() {
-        return getDisplayName();
+        return this.getAttribute("display_name");
     }
 
+    public static void main(String[] args) {
+        User user = null;
+        String DATA_PATH = "src/main/resources/samples/MOCK_DATA.json";
+        JSONArray data = null;
+        try {
+            data = new JSONArray(DataManager.readFile(DATA_PATH));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert data != null;
+            user = new User(data.getJSONObject(0));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(user);
+    }
 
-    public void setModified(boolean modified){
-        this.modified = modified;
-    }
-    public boolean isModified() {
-        return modified;
-    }
 }

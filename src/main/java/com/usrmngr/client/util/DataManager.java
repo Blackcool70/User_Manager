@@ -1,31 +1,33 @@
 package com.usrmngr.client.util;
 
+import org.json.JSONArray;
+
 import java.io.File;
 import java.util.Scanner;
 
+
 public class DataManager {
     public static String readFile(String filename) {
-        String result = "";
+        StringBuilder sb = new StringBuilder();
         try {
             File file = new File(filename);
 
             Scanner scanner = new Scanner(file);
-            StringBuilder sb = new StringBuilder();
             String line = scanner.nextLine();
 
             while (scanner.hasNextLine()) {
                 sb.append(line);
-                line = scanner.next();
+                line = scanner.nextLine();
             }
             sb.append(line);
-            result = sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return sb.toString();
     }
 
     public static void main(String[] args) {
-
+        String DATA_PATH = "src/main/resources/samples/MOCK_DATA.json";
+        String data = DataManager.readFile(DATA_PATH);
     }
 }
