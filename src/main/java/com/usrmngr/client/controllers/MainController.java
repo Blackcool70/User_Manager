@@ -193,15 +193,21 @@ public class MainController implements Initializable {
 
     @FXML
     public void deleteButtonClicked() {
+        boolean failed;
         if (selectedUser != null) {
             if (requestConfirmation("User will be deleted.")) {
-                deleteUser(selectedUser.getAttribute("id"));
+               failed = deleteUser(selectedUser.getAttribute("id"));
+               if(failed){
+                   displayError("Unable to complete request!");
+               }else {
+                   System.out.printf("User: %s deleted\n",selectedUser.getAttribute("id"));
+               }
             }
         }
     }
 
     private boolean deleteUser(String id) {
-        return  true;
+        return  false;
     }
 
     /**
