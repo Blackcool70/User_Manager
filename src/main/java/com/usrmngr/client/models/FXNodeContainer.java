@@ -2,6 +2,7 @@ package com.usrmngr.client.models;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -106,17 +107,21 @@ public class FXNodeContainer {
      * @param c the wanted class
      * @return the found values
      */
-    private HashMap<String, Node> getChildrenOfClass(Class c) {
-        HashMap<String, Node> cNodes = new HashMap<>();
+    private ArrayList<Node> getChildrenOfClass(Class c) {
+        ArrayList<Node> cNodes = new ArrayList<>();
         Node value;
-        String key;
         for (Map.Entry<String, Node> stringNodeEntry : children.entrySet()) {
             value = stringNodeEntry.getValue();
-            key = stringNodeEntry.getKey();
             if (value.getClass() == c)
-                cNodes.put(key, value);
+                cNodes.add(value);
         }
         return cNodes;
+    }
+    public void  clearTextFields(){
+        ArrayList<Node> textFields = getChildrenOfClass(TextField.class);
+        for(Node node: textFields){
+            ((TextField) node).clear();
+        }
     }
 
     public static void main(String[] args) {

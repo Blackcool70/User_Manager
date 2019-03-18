@@ -16,7 +16,6 @@ import javafx.scene.layout.VBox;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -156,10 +155,15 @@ public class MainController implements Initializable {
 
     @FXML
     public void addButtonClicked() {
-        controlAreaPane.setDisable(true);
-//            clearFields();
         disableAllAreas(false);
         allAreasExpanded(true);
+        clearAllTextFields();
+        selectedUser = null;
+        controlAreaPane.setDisable(true);
+    }
+
+    private void clearAllTextFields() {
+        allNodes.clearTextFields();
     }
 
     @FXML
@@ -179,19 +183,25 @@ public class MainController implements Initializable {
 
     @FXML
     public void passwordResetButtonClicked() {
-        passwordDropDown.setExpanded(true);
-        controlAreaPane.setDisable(true);
-        passwordAreaPane.setDisable(false);
-        saveAreaPane.setDisable(false);
+        if(selectedUser != null) {
+            passwordDropDown.setExpanded(true);
+            controlAreaPane.setDisable(true);
+            passwordAreaPane.setDisable(false);
+            saveAreaPane.setDisable(false);
+        }
     }
 
     @FXML
     public void deleteButtonClicked() {
         if (selectedUser != null) {
             if (requestConfirmation("User will be deleted.")) {
-                System.out.println("User deleted!");
+                deleteUser(selectedUser.getAttribute("id"));
             }
         }
+    }
+
+    private boolean deleteUser(String id) {
+        return  true;
     }
 
     /**
