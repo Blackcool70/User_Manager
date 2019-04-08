@@ -1,12 +1,12 @@
 package com.usrmngr.client.controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class ConfigController implements Initializable {
     @FXML
@@ -22,15 +22,19 @@ public class ConfigController implements Initializable {
     @FXML
     private Button save, cancel;
     @FXML
-    private TreeView<String> configOptions;
+    private TreeView<String> configOptionsTree;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TreeItem<String> companySettingsRoot = new TreeItem<>("Company Settings");
-        TreeItem<String> serverSettingsRoot = new TreeItem<>("Server Settings");
-        configOptions.getRoot().getChildren().add(companySettingsRoot);
-        configOptions.getRoot().getChildren().add(serverSettingsRoot);
+        TreeItem<String> configOptionsRoot = new TreeItem<>("Configurations");
+        configOptionsRoot.getChildren().add(new TreeItem<>("Company"));
+        configOptionsRoot.getChildren().add(new TreeItem<>("Server"));
+        configOptionsRoot.setExpanded(true);
+        configOptionsTree.setRoot(configOptionsRoot);
+        configOptionsTree.setEditable(false);
+
 
     }
+
 }
 

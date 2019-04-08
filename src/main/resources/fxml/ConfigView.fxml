@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ConfigController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.client.controllers.ConfigController">
    <center>
       <GridPane fx:id="companySettings" alignment="CENTER" maxHeight="20.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" vgap="10.0" BorderPane.alignment="TOP_CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="110.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="510.0" minWidth="10.0" prefWidth="200.0" />
-            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="510.0" minWidth="10.0" prefWidth="150.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="149.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="510.0" minWidth="10.0" prefWidth="174.0" />
+            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="510.0" minWidth="10.0" prefWidth="88.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -58,7 +58,7 @@
       </HBox>
    </bottom>
    <left>
-      <TreeView fx:id="configOptions" prefHeight="355.0" prefWidth="126.0" BorderPane.alignment="CENTER">
+      <TreeView fx:id="configOptionsTree" prefHeight="343.0" prefWidth="151.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets right="10.0" />
          </BorderPane.margin>
