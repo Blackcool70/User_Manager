@@ -1,5 +1,4 @@
 plugins {
-    id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.7'
 
@@ -7,7 +6,7 @@ plugins {
 
 javafx {
     version = "11.0.1"
-    modules = [ 'javafx.controls','javafx.fxml' ]
+    modules = [ 'javafx.controls','javafx.fxml', 'javafx.base' ]
 }
 
 version '1.0-SNAPSHOT'
@@ -22,11 +21,14 @@ dependencies {
     
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.json', name: 'json', version: '20090211'
-    implementation("org.openjfx:javafx-base:11:win")
-    implementation("org.openjfx:javafx-graphics:11:win")
-    implementation("org.openjfx:javafx-controls:11:win")
     testCompile group: 'com.unboundid', name: 'unboundid-ldapsdk', version: '4.0.10'
 
 
 }
-mainClassName = "Main"
+
+module main{
+    requires logic;
+    requires javafx.controls;
+    opens com.mhrimaz.gui to javafx.graphics;
+}
+mainClassName = "com.usrmngr.client.Main"
