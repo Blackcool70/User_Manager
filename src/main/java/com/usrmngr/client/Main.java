@@ -1,8 +1,10 @@
 package com.usrmngr.client;
 
+import com.usrmngr.client.controllers.ConfigController;
 import com.usrmngr.client.util.AlertManager;
 import com.usrmngr.client.util.Constants;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,17 +14,15 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.Properties;
 
-import static com.usrmngr.client.util.Constants.APP_NAME;
-
 public class Main extends Application {
-    public static  Stage primaryStage;
+    public static Stage primaryStage;
     public static Properties properties;
 
     @Override
     public void start(Stage window) throws Exception {
         primaryStage = window;
-
-        properties =  getProperties();
+        properties = new Properties();
+        checkForProperties();
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
         window.setTitle("User Manager: DEMO");
@@ -49,27 +49,25 @@ public class Main extends Application {
         }
     }
 
-    public static Properties getProperties(){
-        String dataPath= getUserDataDirectory();
+    public static void checkForProperties() {
+        String dataPath = ConfigController.getUserDataDirectory();
         File configFile = new File(dataPath.concat(Constants.CONFIG_FILE_NAME));
-        Properties properties = new Properties();
-        try {
+        if (!configFile.exists()) {
+            showConfigSetup();
             if (!configFile.exists()) {
-                showConfigSetup();
-                if (!configFile.exists()) {
-                    AlertManager.showError("No Configurations found, aborting!");
-                    System.exit(0);
+                AlertManager.showError("No Configurations found! Application Terminating");
+                Platform.exit();
+                System.exit(0);
+            }else{
+                try {
+                    Main.properties.load(new FileInputStream(configFile));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-            properties.load(new FileInputStream(configFile));
-        }catch ( IOException e) {
-            e.printStackTrace();
         }
-        return  properties;
     }
-    public static String getUserDataDirectory() {
-        return System.getProperty("user.home") + File.separator + ".".concat(APP_NAME.toLowerCase()) + File.separator;
-    }
+
     public static void main(String[] args) {
         launch(args);
     }
