@@ -14,8 +14,8 @@
    <bottom>
       <HBox alignment="TOP_CENTER" spacing="10.0">
          <children>
-            <Button fx:id="save" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="200.0" text="Save" />
-            <Button fx:id="cancel" cancelButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="200.0" text="Cancel" />
+            <Button fx:id="save" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#savedButtonClicked" prefWidth="200.0" text="Save" />
+            <Button fx:id="cancel" cancelButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelButtonClicked" prefWidth="200.0" text="Cancel" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -33,6 +33,6 @@
       </TreeView>
    </left>
    <center>
-      <AnchorPane fx:id="configDisplayPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="mainDisplayPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

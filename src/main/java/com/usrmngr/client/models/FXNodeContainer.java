@@ -44,7 +44,6 @@ public class FXNodeContainer {
     /**
      * Gets all the children inside a parent node.
      */
-    //// TODO: 3/17/2019 Does not all ways work
     private static HashMap<String, Node> getAllNodes(Parent root) {
         HashMap<String, Node> nodes = new HashMap<>();
         addAllDescendents(root, nodes);
