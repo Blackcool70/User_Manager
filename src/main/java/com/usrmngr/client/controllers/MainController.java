@@ -3,6 +3,7 @@ package com.usrmngr.client.controllers;
 import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
+import com.usrmngr.client.util.AlertManager;
 import com.usrmngr.client.util.DataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -125,14 +126,7 @@ public class MainController implements Initializable {
 
 
     private boolean requestConfirmation(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm");
-        alert.setHeaderText(message);
-        alert.setContentText("Are you sure?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == ButtonType.OK;
-
+        return AlertManager.requestConfirmation(message);
     }
 
     private void disableAllAreas(boolean disable) {
@@ -219,21 +213,9 @@ public class MainController implements Initializable {
         }
     }
     @FXML
-    public void configMenuSelected(){
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/ConfigView.fxml"));
-                Scene configMenuScene = new Scene(root);
-                Stage configWindow = new Stage();
-                // prevents the parent window from being modified before configs are closed.
-                configWindow.initModality(Modality.WINDOW_MODAL);
-                configWindow.initOwner(Main.primaryStage);
-                configWindow.setTitle("Configurations");
-                configWindow.setScene(configMenuScene);
-                configWindow.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public void configMenuSelected() {
+        Main.showConfigSetup();
+    }
     private boolean deleteUser(String id) {
         return  false;
     }

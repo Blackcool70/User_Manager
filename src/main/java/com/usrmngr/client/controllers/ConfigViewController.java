@@ -1,5 +1,8 @@
 package com.usrmngr.client.controllers;
 
+import com.usrmngr.client.Main;
+import com.usrmngr.client.util.AlertManager;
+import com.usrmngr.client.util.Constants;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,9 +15,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedHashMap;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class ConfigViewController implements Initializable {
@@ -31,7 +36,6 @@ public class ConfigViewController implements Initializable {
     // Stores all the configuration windows.
     private LinkedHashMap<String, Node> availableConfigurations;
     private String defaultConfig, rootTreeItem;
-
     /**
      * Adds and entry to the configuration menu tree
      *
@@ -64,7 +68,7 @@ public class ConfigViewController implements Initializable {
         availableConfigurations = new LinkedHashMap<>();
         rootTreeItem = "Configurations";
         configSelectionTree.setRoot(new TreeItem<>(rootTreeItem));
-        addConfiguration("Configure Active Directory", "/fxml/ConfigActiveDirectory.fxml");
+        addConfiguration("Configure Active Directory", "/fxml/ConfigActiveDirectoryView.fxml");
         defaultConfig = availableConfigurations.keySet().iterator().next();
         switchToConfiguration(defaultConfig);
 
@@ -78,14 +82,16 @@ public class ConfigViewController implements Initializable {
             }
         });
         cancelButton.setOnMouseClicked(event -> {
-            Node source = (Node) event.getSource();
-            Window thisStage = source.getScene().getWindow();
-            thisStage.fireEvent(
-                    new WindowEvent(
-                            thisStage,
-                            WindowEvent.WINDOW_CLOSE_REQUEST
-                    )
-            );
+            if (AlertManager.requestConfirmation("Unsaved Changes will Be lost!")) {
+                Node source = (Node) event.getSource();
+                Window thisStage = source.getScene().getWindow();
+                thisStage.fireEvent(
+                        new WindowEvent(
+                                thisStage,
+                                WindowEvent.WINDOW_CLOSE_REQUEST
+                        )
+                );
+            }
         });
     }
 
