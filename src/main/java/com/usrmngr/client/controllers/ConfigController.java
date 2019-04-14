@@ -18,6 +18,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -76,6 +77,7 @@ public class ConfigController implements Initializable {
         rootTreeItem = "Configurations";
         configSelectionTree.setRoot(new TreeItem<>(rootTreeItem));
 
+        // todo find away to move logic related to to the adconfig controller to its own controller
         addConfiguration("Configure Active Directory", "/fxml/ConfigActiveDirectoryView.fxml");
         defaultConfig = availableConfigurations.keySet().iterator().next();
         switchToConfiguration(defaultConfig);
@@ -117,10 +119,9 @@ public class ConfigController implements Initializable {
                 e.printStackTrace();
             }
         }
-        String[] fieldIds = new String[]{"authDomain", "ldapPath", "hostName", "userName", "port"};
-        for (String fieldId : fieldIds) {
-            TextField field = (TextField) currentConfigNodes.getItem(fieldId);
-            Main.properties.put(fieldId, field.getText().toLowerCase().trim());
+        ArrayList<TextField> textFields = currentConfigNodes.getTextFields();
+        for (TextField field : textFields) {
+            Main.properties.put(field.getId(), field.getText().toLowerCase().trim());
         }
         try {
             Main.properties.store(new FileOutputStream(configFile), "test");
@@ -147,10 +148,9 @@ public class ConfigController implements Initializable {
 
 
     @FXML
-    public void savedButtonClicked() {
-        String[] fieldIds = new String[]{"authDomain", "ldapPath", "hostName", "userName", "port"};
-        for (String fieldId : fieldIds) {
-            TextField field = (TextField) currentConfigNodes.getItem(fieldId);
+    public void savedButtonClicked(){
+        ArrayList<TextField> textFields = currentConfigNodes.getTextFields();
+        for (TextField field : textFields) {
             if (field.getText().equals("")) {
                 AlertManager.showError("Fields cannot be left empty.");
                 return;

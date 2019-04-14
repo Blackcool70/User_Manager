@@ -4,10 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Treats a group of FX Nodes as a single node for manipulation.
@@ -16,21 +13,20 @@ public class FXNodeContainer {
     private boolean disabled;
     private HashMap<String, Node> items;
     private String parent;
-    public FXNodeContainer(){
+
+    public FXNodeContainer() {
         items = new HashMap<>();
         parent = null;
         this.disabled = false;
     }
+
     public FXNodeContainer(Parent item, boolean disabled) {
-        if (item == null) throw new  NullPointerException("Parent is null");
+        if (item == null) throw new NullPointerException("Parent is null");
         items = new HashMap<>();
         parent = item.getId();
         addNodesFromParent(item);
         this.disabled = disabled;
         setDisable(disabled);
-    }
-    public void addItem(Parent item){
-        addNodesFromParent(item);
     }
 
     /**
@@ -55,17 +51,20 @@ public class FXNodeContainer {
 
     public static void main(String[] args) {
 
+
+    }
+
+    public void addItem(Parent item) {
+        addNodesFromParent(item);
     }
 
     /**
      * Disables all nodes;
      */
-    public void setDisable(boolean disabled) {
-        Iterator it = items.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            ((Node) pair.getValue()).setDisable(disabled);
-         //   it.remove(); // avoids a ConcurrentModificationException
+    private void setDisable(boolean disabled) {
+        for (Map.Entry<String, Node> stringNodeEntry : items.entrySet()) {
+            ((Node) ((Map.Entry) stringNodeEntry).getValue()).setDisable(disabled);
+            //   it.remove(); // avoids a ConcurrentModificationException
         }
     }
 
@@ -97,11 +96,11 @@ public class FXNodeContainer {
     }
 
     private ArrayList<Node> getItems() {
-        Iterator it = items.entrySet().iterator();
+        Iterator<Map.Entry<String, Node>> it = items.entrySet().iterator();
         ArrayList<Node> nodes = new ArrayList<>();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            nodes.add((Node) pair.getValue());
+            Map.Entry<String, Node> pair = it.next();
+            nodes.add(pair.getValue());
             it.remove(); // avoids a ConcurrentModificationException
         }
         return nodes;
@@ -113,7 +112,7 @@ public class FXNodeContainer {
      * @param c the wanted class
      * @return the found values
      */
-    private ArrayList<Node> getChildrenOfClass(Class c) {
+    private ArrayList<Node> getChildrenOfClass(Class<TextField> c) {
         ArrayList<Node> cNodes = new ArrayList<>();
         Node value;
         for (Map.Entry<String, Node> stringNodeEntry : items.entrySet()) {
@@ -131,6 +130,15 @@ public class FXNodeContainer {
         }
     }
 
+    public ArrayList<TextField> getTextFields() {
+        ArrayList<Node> rawNodes = getChildrenOfClass(TextField.class);
+        ArrayList<TextField> textFields = new ArrayList<>();
+        for (Node node : rawNodes) {
+            textFields.add(((TextField) node));
+        }
+        return textFields;
+    }
+
     /**
      * Sets the text on the provided field name if it exists.
      *
@@ -144,14 +152,15 @@ public class FXNodeContainer {
     }
 
     private Node getNode(String fieldName) {
-        return items.getOrDefault(fieldName,null);
+        return items.getOrDefault(fieldName, null);
     }
 
     /**
      * Returns the parent item if it exists.
-      * @return the parent item
+     *
+     * @return the parent item
      */
     public Node getParent() {
-        return  parent != null ? getItem(parent): null;
+        return parent != null ? getItem(parent) : null;
     }
 }
