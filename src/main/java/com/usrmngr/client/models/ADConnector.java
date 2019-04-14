@@ -1,50 +1,60 @@
 package com.usrmngr.client.models;
 
 import com.unboundid.ldap.sdk.*;
-import com.usrmngr.client.util.DialogManager;
-import javafx.application.Platform;
-import javafx.util.Pair;
-import java.util.Optional;
-
-
 public class ADConnector {
-    private  LDAPConnection connection;
+    private LDAPConnection ldapConnection;
+    private String errorMessage;
 
-    public ADConnector(){
-        connection = new LDAPConnection();
+
+    public ADConnector(String host, int port, String ldapSearchPath, String userName, String password) {
+        errorMessage = null;
+        connect(host, port, ldapSearchPath, userName, password);
     }
-    public ADConnector(String host, int port,String ldapSearchPath,String userName){
-        connect(host,port,ldapSearchPath,userName);
+
+    public ADConnector(String host, int port) {
+        errorMessage = null;
+        connect(host, port);
     }
-    public void connect(String host, int port, String ldapSearchPath,String userName){
-        Pair<String, String> credentials;
-        Optional<Pair<String, String>> result = DialogManager.getCredentials(userName,String.format("Enter credential for: %s on port %s", host, port));
-        if(!result.isPresent()){
-            DialogManager.showError("Password is required, Aborting.");
-            Platform.exit();
-            System.exit(0);
-        }
-        credentials = result.get();
-        userName = credentials.getKey();
-        String bindDN =  String.format("CN=%s,%s",userName,ldapSearchPath);
-//        System.out.printf("bindDN: %s\n",bindDN);
-//        System.out.printf("Username:%s",userName);
-//        System.out.printf("password: %s",credentials.getValue());
+
+    private void connect(String host, int port) {
         try {
-            connection = new LDAPConnection(host,port,  bindDN, credentials.getValue());
-            DialogManager.showInfo("Connected successfully.");
+            ldapConnection = new LDAPConnection(host, port);
         } catch (LDAPException e) {
-            e.printStackTrace();
-            DialogManager.showError("Connection failed! Aborting.");
+            errorMessage = e.getResultCode().toString();
         }
     }
-    public void search(String bindFilter){
+
+    private void connect(String host, int port, String ldapSearchPath, String userName, String password) {
+        clearErrorMessage();
+        String bindDN = String.format("CN=%s,%s", userName, ldapSearchPath);
+        try {
+            ldapConnection = new LDAPConnection(host, port, bindDN, password);
+        } catch (LDAPException e) {
+            errorMessage = e.getResultCode().toString();
+
+        }
     }
-    public  void closeConnection(){
-        connection.close();
+
+    public boolean isConnected() {
+        return ldapConnection != null && ldapConnection.isConnected();
     }
+
+    public void closeConnection() {
+        ldapConnection.close();
+        errorMessage = null;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    private void clearErrorMessage() {
+        errorMessage = null;
+    }
+
     public static void main(String[] args) {
 
     }
+
 }
 

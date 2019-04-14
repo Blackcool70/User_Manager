@@ -1,5 +1,6 @@
 package com.usrmngr.client.util;
 
+import com.usrmngr.client.models.ADConnector;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -20,7 +21,14 @@ public class DialogManager {
 
     }
 
-    public static void showError(String message) {
+    public static void showError(String message, boolean abort){
+        showError(message);
+        if(abort) {
+            Platform.exit();
+            System.exit(1);
+        }
+    }
+     private static void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(message);
@@ -42,7 +50,7 @@ public class DialogManager {
     public static Optional<Pair<String, String>> getCredentials(String defaultUserName, String message) {
         //source https://code.makery.ch/blog/javafx-dialogs-official/
         Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Login Dialog");
+        dialog.setTitle("Login");
         dialog.setHeaderText(message);
 
         ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
@@ -59,10 +67,13 @@ public class DialogManager {
         PasswordField password = new PasswordField();
         password.setPromptText("Password");
 
+        Label status = new Label("Connection:%s");
+
         grid.add(new Label("Username:"), 0, 0);
         grid.add(username, 1, 0);
         grid.add(new Label("Password:"), 0, 1);
         grid.add(password, 1, 1);
+        grid.add(status, 0, 2);
 
         // Enable/Disable login button depending on whether a username was entered.
         Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
@@ -86,7 +97,6 @@ public class DialogManager {
             }
             return null;
         });
-
         return dialog.showAndWait();
     }
 

@@ -5,20 +5,21 @@ import com.usrmngr.client.models.ADConnector;
 import com.usrmngr.client.util.DialogManager;
 import com.usrmngr.client.util.Constants;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.*;
+import java.util.Optional;
 import java.util.Properties;
 
 public class Main extends Application {
     public static Stage primaryStage;
     public static Properties properties;
-    private ADConnector adConnector;
+    public static ADConnector adConnector;
 
     @Override
     public void start(Stage window) throws Exception {
@@ -28,11 +29,17 @@ public class Main extends Application {
         checkForProperties();
         String userName = properties.getProperty("userName");
         String hostName = properties.getProperty("hostName");
-        Integer port = Integer.parseInt(properties.getProperty("port"));
+        int port = Integer.parseInt(properties.getProperty("port"));
         String ldapPath = properties.getProperty("ldapPath");
-
-        adConnector = new ADConnector(hostName, port, ldapPath, userName);
-
+        Optional<Pair<String, String>> result = DialogManager.getCredentials(userName, String.format("Credentials for: %s on port %s", hostName, port));
+        userName =  result.isPresent() ? result.get().getKey(): "";
+        String password =  result.isPresent() ? result.get().getValue(): "";
+        adConnector = new ADConnector(hostName, port, ldapPath, userName,password);
+        if(!adConnector.isConnected()){
+            DialogManager.showError(String.format("Error Occurred: %s",adConnector.getErrorMessage()),true);
+        }else{
+            DialogManager.showInfo("Successfully  connected.");
+        }
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
         window.setTitle("User Manager: DEMO");
@@ -65,9 +72,7 @@ public class Main extends Application {
         if (!configFile.exists()) {
             showConfigSetup();
             if (!configFile.exists()) {
-                DialogManager.showError("No Configurations found! Application Terminating");
-                Platform.exit();
-                System.exit(0);
+                DialogManager.showError("No Configurations found! Application Terminating",true);
             }
         }
         try {

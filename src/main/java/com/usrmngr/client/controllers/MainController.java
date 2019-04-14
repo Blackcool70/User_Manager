@@ -99,9 +99,7 @@ public class MainController implements Initializable {
             userCount.setText(String.format("Users: %d", data.length()));
             userList.setItems(displayableUsers);
         } catch (JSONException e) {
-            DialogManager.showError("Unable to load user list!");
-            Platform.exit();
-            System.exit(0);
+            DialogManager.showError("Unable to load user list!",true);
         }
 
     }
@@ -186,7 +184,7 @@ public class MainController implements Initializable {
             if (requestConfirmation("User will be deleted.")) {
                 failed = deleteUser(selectedUser.getAttribute("id"));
                 if (failed) {
-                    DialogManager.showError("Unable to complete request!");
+                    DialogManager.showError("Unable to complete request!",false);
                 } else {
                     System.out.printf("User: %s deleted\n", selectedUser.getAttribute("id"));
                 }
