@@ -12,54 +12,34 @@ import java.util.Map;
 /**
  * Treats a group of FX Nodes as a single node for manipulation.
  */
-public class FXNodeContainer{
+public class FXNodeContainer {
     private boolean disabled;
-    private HashMap<String, Node> children;
-    public FXNodeContainer() {
-        children = new HashMap<>();
-        disabled = false;
+    private HashMap<String, Node> items;
+    private String parent;
+    public FXNodeContainer(){
+        items = new HashMap<>();
+        parent = null;
+        this.disabled = false;
     }
-
-    public FXNodeContainer(Parent node, boolean disabled) {
-        children = new HashMap<>();
-        addNodesFromParent(node);
+    public FXNodeContainer(Parent item, boolean disabled) {
+        if (item == null) throw new  NullPointerException("Parent is null");
+        items = new HashMap<>();
+        parent = item.getId();
+        addNodesFromParent(item);
         this.disabled = disabled;
         setDisable(disabled);
     }
-
-
-    /**
-     * Disables all nodes;
-     */
-    public void setDisable(boolean disabled) {
-        Iterator it = children.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            ((Node) pair.getValue()).setDisable(disabled);
-            it.remove(); // avoids a ConcurrentModificationException
-        }
+    public void addItem(Parent item){
+        addNodesFromParent(item);
     }
 
     /**
-     * Gets all the children inside a parent node.
+     * Gets all the items inside a parent node.
      */
     private static HashMap<String, Node> getAllNodes(Parent root) {
-        HashMap<String, Node> nodes = new HashMap<>();
-        addAllDescendents(root, nodes);
-        return nodes;
-    }
-
-    public void addNodesFromParent(Parent node) {
-        children.putAll(getAllNodes(node));
-    }
-
-    public void addNodes(ArrayList<Node> nodes) {
-        for (Node node : nodes)
-            addNode(node);
-    }
-
-    private void addNode(Node node) {
-        children.putIfAbsent(node.getId(), node);
+        HashMap<String, Node> items = new HashMap<>();
+        addAllDescendents(root, items);
+        return items;
     }
 
     /**
@@ -73,6 +53,35 @@ public class FXNodeContainer{
         }
     }
 
+    public static void main(String[] args) {
+
+    }
+
+    /**
+     * Disables all nodes;
+     */
+    public void setDisable(boolean disabled) {
+        Iterator it = items.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            ((Node) pair.getValue()).setDisable(disabled);
+         //   it.remove(); // avoids a ConcurrentModificationException
+        }
+    }
+
+    private void addNodesFromParent(Parent node) {
+        items.putAll(getAllNodes(node));
+    }
+
+    public void addItems(ArrayList<Node> items) {
+        for (Node node : items)
+            addItem(node);
+    }
+
+    private void addItem(Node node) {
+        items.putIfAbsent(node.getId(), node);
+    }
+
     public boolean isDisabled() {
         return disabled;
     }
@@ -80,15 +89,15 @@ public class FXNodeContainer{
     /**
      * Returns the child with id if it exists.
      *
-     * @param id
-     * @return
+     * @param id the unique id for the item
+     * @return the node or null if not found
      */
-    public Node getChild(String id) {
-        return children.getOrDefault(id, null);
+    public Node getItem(String id) {
+        return items.getOrDefault(id, null);
     }
 
-    private ArrayList<Node> getChildren() {
-        Iterator it = children.entrySet().iterator();
+    private ArrayList<Node> getItems() {
+        Iterator it = items.entrySet().iterator();
         ArrayList<Node> nodes = new ArrayList<>();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
@@ -97,7 +106,6 @@ public class FXNodeContainer{
         }
         return nodes;
     }
-
 
     /**
      * Returns the id and the node of class c as a key pair
@@ -108,22 +116,23 @@ public class FXNodeContainer{
     private ArrayList<Node> getChildrenOfClass(Class c) {
         ArrayList<Node> cNodes = new ArrayList<>();
         Node value;
-        for (Map.Entry<String, Node> stringNodeEntry : children.entrySet()) {
+        for (Map.Entry<String, Node> stringNodeEntry : items.entrySet()) {
             value = stringNodeEntry.getValue();
             if (value.getClass() == c)
                 cNodes.add(value);
         }
         return cNodes;
     }
-    public void  clearTextFields(){
+
+    public void clearTextFields() {
         ArrayList<Node> textFields = getChildrenOfClass(TextField.class);
-        for(Node node: textFields){
+        for (Node node : textFields) {
             ((TextField) node).clear();
         }
     }
 
     /**
-     * Sets the text on the provided name.If there is no such field nothing is set.
+     * Sets the text on the provided field name if it exists.
      *
      * @param fieldName id of the field
      * @param text      the text to set on the field
@@ -135,11 +144,14 @@ public class FXNodeContainer{
     }
 
     private Node getNode(String fieldName) {
-        return children.get(fieldName);
+        return items.getOrDefault(fieldName,null);
     }
 
-    public static void main(String[] args) {
-
+    /**
+     * Returns the parent item if it exists.
+      * @return the parent item
+     */
+    public Node getParent() {
+        return  parent != null ? getItem(parent): null;
     }
-
 }

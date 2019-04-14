@@ -17,12 +17,7 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
 import java.io.*;
-import java.net.CookieStore;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.Key;
-import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -71,15 +66,11 @@ public class ConfigController implements Initializable {
         mainDisplayPane.getChildren().clear();
         Node parent = availableConfigurations.getOrDefault(configId, availableConfigurations.get(defaultConfig));
         mainDisplayPane.getChildren().add(parent);
-        currentConfigNodes = new FXNodeContainer();
-        currentConfigNodes.addNodesFromParent((Parent) parent);
-
-
+        currentConfigNodes = new FXNodeContainer((Parent) parent, false);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
 
         availableConfigurations = new LinkedHashMap<>();
         rootTreeItem = "Configurations";
@@ -128,7 +119,7 @@ public class ConfigController implements Initializable {
         }
         String[] fieldIds = new String[]{"authDomain", "ldapPath", "hostName", "userName", "port"};
         for (String fieldId : fieldIds) {
-            TextField field = (TextField) currentConfigNodes.getChild(fieldId);
+            TextField field = (TextField) currentConfigNodes.getItem(fieldId);
             Main.properties.put(fieldId, field.getText().toLowerCase().trim());
         }
         try {
@@ -144,8 +135,8 @@ public class ConfigController implements Initializable {
         if (configFile.exists()) {
             try {
                 Main.properties.load(new FileInputStream(configFile));
-                for(Map.Entry<Object, Object> e : Main.properties.entrySet()) {
-                    ((TextField)currentConfigNodes.getChild((String)e.getKey())).setText((String)e.getValue());
+                for (Map.Entry<Object, Object> e : Main.properties.entrySet()) {
+                    ((TextField) currentConfigNodes.getItem((String) e.getKey())).setText((String) e.getValue());
                 }
 
             } catch (IOException e) {
@@ -159,7 +150,7 @@ public class ConfigController implements Initializable {
     public void savedButtonClicked() {
         String[] fieldIds = new String[]{"authDomain", "ldapPath", "hostName", "userName", "port"};
         for (String fieldId : fieldIds) {
-            TextField field = (TextField) currentConfigNodes.getChild(fieldId);
+            TextField field = (TextField) currentConfigNodes.getItem(fieldId);
             if (field.getText().equals("")) {
                 AlertManager.showError("Fields cannot be left empty.");
                 return;

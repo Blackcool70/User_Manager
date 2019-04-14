@@ -8,27 +8,17 @@ import com.usrmngr.client.util.DataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -67,11 +57,11 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         allNodes = new FXNodeContainer();
-        allNodes.addNodesFromParent(userAreaPane);
-        allNodes.addNodesFromParent(infoAreaPane);
-        allNodes.addNodesFromParent(passwordAreaPane);
-        allNodes.addNodesFromParent(licenseAreaPane);
-        allNodes.addNodesFromParent(saveAreaPane);
+        allNodes.addItem(userAreaPane);
+        allNodes.addItem(infoAreaPane);
+        allNodes.addItem(passwordAreaPane);
+        allNodes.addItem(licenseAreaPane);
+        allNodes.addItem(saveAreaPane);
 
         disableAllAreas(true);
         allAreasExpanded(false);
@@ -115,6 +105,7 @@ public class MainController implements Initializable {
         }
 
     }
+
     private boolean requestConfirmation(String message) {
         return AlertManager.requestConfirmation(message);
     }
@@ -180,7 +171,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void passwordResetButtonClicked() {
-        if(selectedUser != null) {
+        if (selectedUser != null) {
             passwordDropDown.setExpanded(true);
             controlAreaPane.setDisable(true);
             passwordAreaPane.setDisable(false);
@@ -193,21 +184,23 @@ public class MainController implements Initializable {
         boolean failed;
         if (selectedUser != null) {
             if (requestConfirmation("User will be deleted.")) {
-               failed = deleteUser(selectedUser.getAttribute("id"));
-               if(failed){
-                   AlertManager.showError("Unable to complete request!");
-               }else {
-                   System.out.printf("User: %s deleted\n",selectedUser.getAttribute("id"));
-               }
+                failed = deleteUser(selectedUser.getAttribute("id"));
+                if (failed) {
+                    AlertManager.showError("Unable to complete request!");
+                } else {
+                    System.out.printf("User: %s deleted\n", selectedUser.getAttribute("id"));
+                }
             }
         }
     }
+
     @FXML
     public void configMenuSelected() {
         Main.showConfigSetup();
     }
+
     private boolean deleteUser(String id) {
-        return  false;
+        return false;
     }
 
 
