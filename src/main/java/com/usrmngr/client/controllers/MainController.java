@@ -3,7 +3,7 @@ package com.usrmngr.client.controllers;
 import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
-import com.usrmngr.client.util.AlertManager;
+import com.usrmngr.client.util.DialogManager;
 import com.usrmngr.client.util.DataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -99,7 +99,7 @@ public class MainController implements Initializable {
             userCount.setText(String.format("Users: %d", data.length()));
             userList.setItems(displayableUsers);
         } catch (JSONException e) {
-            AlertManager.showError("Unable to load user list!");
+            DialogManager.showError("Unable to load user list!");
             Platform.exit();
             System.exit(0);
         }
@@ -107,7 +107,7 @@ public class MainController implements Initializable {
     }
 
     private boolean requestConfirmation(String message) {
-        return AlertManager.requestConfirmation(message);
+        return DialogManager.requestConfirmation(message);
     }
 
     private void disableAllAreas(boolean disable) {
@@ -186,7 +186,7 @@ public class MainController implements Initializable {
             if (requestConfirmation("User will be deleted.")) {
                 failed = deleteUser(selectedUser.getAttribute("id"));
                 if (failed) {
-                    AlertManager.showError("Unable to complete request!");
+                    DialogManager.showError("Unable to complete request!");
                 } else {
                     System.out.printf("User: %s deleted\n", selectedUser.getAttribute("id"));
                 }

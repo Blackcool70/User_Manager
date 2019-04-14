@@ -1,7 +1,8 @@
 package com.usrmngr.client;
 
 import com.usrmngr.client.controllers.ConfigController;
-import com.usrmngr.client.util.AlertManager;
+import com.usrmngr.client.models.ADConnector;
+import com.usrmngr.client.util.DialogManager;
 import com.usrmngr.client.util.Constants;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,12 +18,21 @@ import java.util.Properties;
 public class Main extends Application {
     public static Stage primaryStage;
     public static Properties properties;
+    private ADConnector adConnector;
 
     @Override
     public void start(Stage window) throws Exception {
         primaryStage = window;
         properties = new Properties();
+        // make sure there are setting configured if not then configure them.
         checkForProperties();
+        String userName = properties.getProperty("userName");
+        String hostName = properties.getProperty("hostName");
+        Integer port = Integer.parseInt(properties.getProperty("port"));
+        String ldapPath = properties.getProperty("ldapPath");
+
+        adConnector = new ADConnector(hostName, port, ldapPath, userName);
+
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
         window.setTitle("User Manager: DEMO");
@@ -55,16 +65,15 @@ public class Main extends Application {
         if (!configFile.exists()) {
             showConfigSetup();
             if (!configFile.exists()) {
-                AlertManager.showError("No Configurations found! Application Terminating");
+                DialogManager.showError("No Configurations found! Application Terminating");
                 Platform.exit();
                 System.exit(0);
-            }else{
-                try {
-                    Main.properties.load(new FileInputStream(configFile));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
+        }
+        try {
+            Main.properties.load(new FileInputStream(configFile));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

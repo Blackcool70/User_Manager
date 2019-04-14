@@ -2,7 +2,7 @@ package com.usrmngr.client.controllers;
 
 import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXNodeContainer;
-import com.usrmngr.client.util.AlertManager;
+import com.usrmngr.client.util.DialogManager;
 import com.usrmngr.client.util.Constants;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -40,6 +40,7 @@ public class ConfigController implements Initializable {
     private LinkedHashMap<String, Node> availableConfigurations;
     private String defaultConfig, rootTreeItem;
     private static FXNodeContainer currentConfigNodes;
+
 
     /**
      * Adds and entry to the configuration menu tree
@@ -95,7 +96,7 @@ public class ConfigController implements Initializable {
             }
         });
         cancelButton.setOnMouseClicked(event -> {
-            if (AlertManager.requestConfirmation("Unsaved Changes will Be lost!")) {
+            if (DialogManager.requestConfirmation("Unsaved Changes will Be lost!")) {
                 Node source = (Node) event.getSource();
                 Window thisStage = source.getScene().getWindow();
                 thisStage.fireEvent(
@@ -128,7 +129,7 @@ public class ConfigController implements Initializable {
         } catch (IOException e) {
             catastrophicErrorOccurred(e, "Unable to Save Configurations. Try again.");
         }
-        AlertManager.showInfo(String.format("Configurations created: \n%s.\n", dataPath));
+        DialogManager.showInfo(String.format("Configurations created: \n%s.\n", dataPath));
     }
 
     private static void loadProperties() {
@@ -148,16 +149,16 @@ public class ConfigController implements Initializable {
 
 
     @FXML
-    public void savedButtonClicked(){
+    public void savedButtonClicked() {
         ArrayList<TextField> textFields = currentConfigNodes.getTextFields();
         for (TextField field : textFields) {
             if (field.getText().equals("")) {
-                AlertManager.showError("Fields cannot be left empty.");
+                DialogManager.showError("Fields cannot be left empty.");
                 return;
             }
         }
         saveConfigFile();
-        AlertManager.showInfo("Saved!");
+        DialogManager.showInfo("Saved!");
     }
 
     public static String getUserDataDirectory() {
@@ -165,7 +166,7 @@ public class ConfigController implements Initializable {
     }
 
     private static void catastrophicErrorOccurred(Exception e, String message) {
-        AlertManager.showError(message);
+        DialogManager.showError(message);
         e.printStackTrace();
         Platform.exit();
         System.exit(1);
