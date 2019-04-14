@@ -93,7 +93,7 @@ public class MainController implements Initializable {
     private void loadUser(User selectedUser) {
         String[] userAttributes = selectedUser.getAttributes();
         for (String attribute : userAttributes) {
-            setTextOnTextField(attribute, selectedUser.getAttribute(attribute));
+            allNodes.setTextOnTextField(attribute, selectedUser.getAttribute(attribute));
         }
     }
 
@@ -109,22 +109,12 @@ public class MainController implements Initializable {
             userCount.setText(String.format("Users: %d", data.length()));
             userList.setItems(displayableUsers);
         } catch (JSONException e) {
-            displayError("Unable to load user list!");
+            AlertManager.showError("Unable to load user list!");
             Platform.exit();
             System.exit(0);
         }
 
     }
-
-    private void displayError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Error");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-
     private boolean requestConfirmation(String message) {
         return AlertManager.requestConfirmation(message);
     }
@@ -205,7 +195,7 @@ public class MainController implements Initializable {
             if (requestConfirmation("User will be deleted.")) {
                failed = deleteUser(selectedUser.getAttribute("id"));
                if(failed){
-                   displayError("Unable to complete request!");
+                   AlertManager.showError("Unable to complete request!");
                }else {
                    System.out.printf("User: %s deleted\n",selectedUser.getAttribute("id"));
                }
@@ -220,20 +210,5 @@ public class MainController implements Initializable {
         return  false;
     }
 
-    /**
-     * Sets the text on the provided name.If there is no such field nothing is set.
-     *
-     * @param fieldName id of the field
-     * @param text      the text to set on the field
-     */
-    private void setTextOnTextField(String fieldName, String text) {
-        Node node = getNode(fieldName);
-        if (node instanceof TextField)
-            ((TextField) node).setText(text);
-    }
-
-    private Node getNode(String fieldName) {
-        return allNodes.getChild(fieldName);
-    }
 
 }

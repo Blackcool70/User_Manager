@@ -12,10 +12,9 @@ import java.util.Map;
 /**
  * Treats a group of FX Nodes as a single node for manipulation.
  */
-public class FXNodeContainer {
+public class FXNodeContainer{
     private boolean disabled;
     private HashMap<String, Node> children;
-
     public FXNodeContainer() {
         children = new HashMap<>();
         disabled = false;
@@ -123,7 +122,24 @@ public class FXNodeContainer {
         }
     }
 
+    /**
+     * Sets the text on the provided name.If there is no such field nothing is set.
+     *
+     * @param fieldName id of the field
+     * @param text      the text to set on the field
+     */
+    public void setTextOnTextField(String fieldName, String text) {
+        Node node = getNode(fieldName);
+        if (node instanceof TextField)
+            ((TextField) node).setText(text);
+    }
+
+    private Node getNode(String fieldName) {
+        return children.get(fieldName);
+    }
+
     public static void main(String[] args) {
 
     }
+
 }
