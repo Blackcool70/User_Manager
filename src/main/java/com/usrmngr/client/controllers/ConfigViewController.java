@@ -9,6 +9,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +21,7 @@ public class ConfigViewController implements Initializable {
     @FXML
     public Button save;
     @FXML
-    public Button cancel;
+    public Button cancelButton;
     @FXML
     // The list of available configurations
     public TreeView<String> configSelectionTree;
@@ -28,7 +30,7 @@ public class ConfigViewController implements Initializable {
     public AnchorPane mainDisplayPane;
     // Stores all the configuration windows.
     private LinkedHashMap<String, Node> availableConfigurations;
-    private String defaultConfig,rootTreeItem;
+    private String defaultConfig, rootTreeItem;
 
     /**
      * Adds and entry to the configuration menu tree
@@ -49,6 +51,7 @@ public class ConfigViewController implements Initializable {
     /**
      * Loads the configuration associated with the provided id.
      * If the provided id is not found then the first entry will be used.
+     *
      * @param configId a unique id to display on the tree
      */
     private void switchToConfiguration(String configId) {
@@ -61,7 +64,7 @@ public class ConfigViewController implements Initializable {
         availableConfigurations = new LinkedHashMap<>();
         rootTreeItem = "Configurations";
         configSelectionTree.setRoot(new TreeItem<>(rootTreeItem));
-        addConfiguration("Configure Active Directory", "/fxml/ConfigureActiveDirectory.fxml");
+        addConfiguration("Configure Active Directory", "/fxml/ConfigActiveDirectory.fxml");
         defaultConfig = availableConfigurations.keySet().iterator().next();
         switchToConfiguration(defaultConfig);
 
@@ -69,22 +72,26 @@ public class ConfigViewController implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
                 String selectedConfig = configSelectionTree.getSelectionModel().getSelectedItem().getValue();
-                if(!selectedConfig.equals(rootTreeItem)){
-                     switchToConfiguration(selectedConfig);
+                if (!selectedConfig.equals(rootTreeItem)) {
+                    switchToConfiguration(selectedConfig);
                 }
             }
+        });
+        cancelButton.setOnMouseClicked(event -> {
+            Node source = (Node) event.getSource();
+            Window thisStage = source.getScene().getWindow();
+            thisStage.fireEvent(
+                    new WindowEvent(
+                            thisStage,
+                            WindowEvent.WINDOW_CLOSE_REQUEST
+                    )
+            );
         });
     }
 
     @FXML
     public void savedButtonClicked() {
         System.out.println("Saved clicked");
-
-    }
-
-    @FXML
-    public void cancelButtonClicked() {
-        System.out.println("cancel clicked");
 
     }
 }

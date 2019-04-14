@@ -1,21 +1,31 @@
 package com.usrmngr.client.controllers;
 
+import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
 import com.usrmngr.client.util.DataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -47,7 +57,10 @@ public class MainController implements Initializable {
     public TextField job_title, department_name, office_name, manager_name, office_number, user_number;
     @FXML
     public PasswordField password_entry, password_confirm_entry;
+    @FXML
+    MenuItem preferencesMenu, configurationsMenu;
     private FXNodeContainer allNodes;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -205,7 +218,22 @@ public class MainController implements Initializable {
             }
         }
     }
-
+    @FXML
+    public void configMenuSelected(){
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/ConfigView.fxml"));
+                Scene configMenuScene = new Scene(root);
+                Stage configWindow = new Stage();
+                // prevents the parent window from being modified before configs are closed.
+                configWindow.initModality(Modality.WINDOW_MODAL);
+                configWindow.initOwner(Main.primaryStage);
+                configWindow.setTitle("Configurations");
+                configWindow.setScene(configMenuScene);
+                configWindow.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     private boolean deleteUser(String id) {
         return  false;
     }
