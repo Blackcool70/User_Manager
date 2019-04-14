@@ -1,12 +1,10 @@
 package com.usrmngr.client.util;
 
-import org.json.JSONArray;
 
 import java.io.File;
 import java.util.Scanner;
-
-
 public class DataManager {
+
     public static String readFile(String filename) {
         StringBuilder sb = new StringBuilder();
         try {
