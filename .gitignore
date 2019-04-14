@@ -1,3 +1,6 @@
-/idea/*[D[D[D[D[D[D[D[[Ci[C[C[C[C[C[C[D
+/idea/*
+.gradle/*
 .class
 .temp
+build/
+out/

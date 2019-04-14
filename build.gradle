@@ -25,10 +25,4 @@ dependencies {
 
 
 }
-
-module main{
-    requires logic;
-    requires javafx.controls;
-    opens com.mhrimaz.gui to javafx.graphics;
-}
 mainClassName = "com.usrmngr.client.Main"
