@@ -55,7 +55,6 @@ public class DialogManager {
         grid.setPadding(new Insets(20, 150, 10, 10));
 
         TextField username = new TextField();
-        username.setText(defaultUserName);
         username.setPromptText("Username");
         PasswordField password = new PasswordField();
         password.setPromptText("Password");
@@ -70,7 +69,7 @@ public class DialogManager {
         loginButton.setDisable(true);
 
         // Do some validation (using the Java 8 lambda syntax).
-        username.textProperty().addListener((observable, oldValue, newValue) -> {
+        password.textProperty().addListener((observable, oldValue, newValue) -> {
             loginButton.setDisable(newValue.trim().isEmpty());
         });
 
@@ -78,6 +77,7 @@ public class DialogManager {
 
         // Request focus on the username field by default.
         Platform.runLater(username::requestFocus);
+        username.setText(defaultUserName);
 
         // Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(dialogButton -> {
