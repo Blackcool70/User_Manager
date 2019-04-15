@@ -153,7 +153,7 @@ public class ConfigController implements Initializable {
         ArrayList<TextField> textFields = currentConfigNodes.getTextFields();
         for (TextField field : textFields) {
             if (field.getText().equals("")) {
-                DialogManager.showError("Fields cannot be left empty.",false);
+                DialogManager.showError("Fields cannot be left empty.", false);
                 return;
             }
         }
@@ -166,7 +166,7 @@ public class ConfigController implements Initializable {
     }
 
     private static void catastrophicErrorOccurred(Exception e, String message) {
-        DialogManager.showError(message,true);
+        DialogManager.showError(message, true);
         e.printStackTrace();
 
     }
