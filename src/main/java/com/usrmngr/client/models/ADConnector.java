@@ -1,36 +1,36 @@
 package com.usrmngr.client.models;
 
 import com.unboundid.ldap.sdk.*;
-import com.unboundid.util.args.ScopeArgument;
-import com.usrmngr.client.Main;
 
 public class ADConnector {
     private LDAPConnection ldapConnection;
     private String errorMessage;
-
-
     public  ADConnector(){
         ldapConnection = new LDAPConnection();
-        errorMessage = null;
     }
     public ADConnector(String host, int port, String ldapSearchPath, String userName, String password) {
         ldapConnection = new LDAPConnection();
-        errorMessage = null;
         connect(host, port, ldapSearchPath, userName, password);
     }
 
     public ADConnector(String host, int port) {
         ldapConnection = new LDAPConnection();
-        errorMessage = null;
         connect(host, port);
     }
 
-    private void connect(String host, int port) {
+    /**
+     * Connects to an ldap AD server.
+     * @param host server name
+     * @param port ldap server port
+     * @return  true if the connection was successful otherwise false
+     */
+    private boolean connect(String host, int port) {
         try {
             ldapConnection.connect(host,port);
         } catch (LDAPException e) {
-            errorMessage = e.getResultCode().toString();
+            errorMessage  =  e.getResultCode().toString();
         }
+        return  isConnected();
     }
 
     private void connect(String host, int port, String ldapSearchPath, String userName, String password) {
@@ -45,23 +45,30 @@ public class ADConnector {
 
     public void closeConnection() {
         ldapConnection.close();
+    }
+
+    /**
+     * Returns any errors generated and consumes the error.
+     * @return
+     */
+    public  String getError(){
+        String error = errorMessage != null ? errorMessage: "";
+        consumeError();
+        return error;
+    }
+    private  void   consumeError(){
         errorMessage = null;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
+    private void searchUser(String baseDN, String cn){
+        if(isConnected()) {
+            try {
+                SearchResult searchResult = ldapConnection.search(baseDN, SearchScope.SUB, String.format("(&(objectCategory=person)(objectClass=user)(cn=%s)",cn));
+                System.out.println(searchResult.getEntryCount());
 
-    private void clearErrorMessage() {
-        errorMessage = null;
-    }
-    private void searchUser(String baseDN, String filter){
-        try {
-            SearchResult searchResult = ldapConnection.search(baseDN,SearchScope.SUB,filter);
-            System.out.println(searchResult.getEntryCount());
-
-        } catch (LDAPSearchException e) {
-            e.printStackTrace();
+            } catch (LDAPSearchException e) {
+                e.printStackTrace();
+            }
         }
     }
     private  void bind(String bindDN, String password){
@@ -69,7 +76,7 @@ public class ADConnector {
             try {
                 this.ldapConnection.bind(bindDN,password);
             } catch (LDAPException e) {
-                e.printStackTrace();
+                errorMessage = e.getResultCode().toString();
             }
         }
     }
