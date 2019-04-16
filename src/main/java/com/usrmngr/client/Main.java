@@ -36,7 +36,7 @@ public class Main extends Application {
         String password =  result.isPresent() ? result.get().getValue(): "";
         adConnector = new ADConnector(hostName, port, ldapPath, userName,password);
         if(!adConnector.isConnected()){
-            DialogManager.showError(String.format("Error Occurred: %s",adConnector.getErrorMessage()),true);
+            DialogManager.showError(String.format("Error Occurred: %s",adConnector.getResultCode()),true);
         }else{
             DialogManager.showInfo("Successfully  connected.");
         }

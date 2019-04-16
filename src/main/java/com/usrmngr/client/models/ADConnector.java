@@ -1,13 +1,19 @@
 package com.usrmngr.client.models;
 
 import com.unboundid.ldap.sdk.*;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Collection;
 
 public class ADConnector {
     private LDAPConnection ldapConnection;
-    private String errorMessage;
-    public  ADConnector(){
+    private String resultCode,errorMessageFromServer;
+
+    public ADConnector() {
         ldapConnection = new LDAPConnection();
     }
+
     public ADConnector(String host, int port, String ldapSearchPath, String userName, String password) {
         ldapConnection = new LDAPConnection();
         connect(host, port, ldapSearchPath, userName, password);
@@ -20,23 +26,25 @@ public class ADConnector {
 
     /**
      * Connects to an ldap AD server.
-     * @param host server name
-     * @param port ldap server port
-     * @return  true if the connection was successful otherwise false
+     *
+     * @param host ldap enabled server name
+     * @param port ldap enabled server port
+     * @return true if the connection was successful otherwise false
      */
     private boolean connect(String host, int port) {
         try {
-            ldapConnection.connect(host,port);
+            ldapConnection.connect(host, port);
         } catch (LDAPException e) {
-            errorMessage  =  e.getResultCode().toString();
+            resultCode = e.getResultCode().toString();
+            errorMessageFromServer = e.getDiagnosticMessage();
         }
-        return  isConnected();
+        return isConnected();
     }
 
     private void connect(String host, int port, String ldapSearchPath, String userName, String password) {
-        connect(host,port);
+        connect(host, port);
         String bindDN = String.format("CN=%s,%s", userName, ldapSearchPath);
-        bind(bindDN,password);
+        bind(bindDN, password);
     }
 
     public boolean isConnected() {
@@ -48,54 +56,79 @@ public class ADConnector {
     }
 
     /**
-     * Returns any errors generated and consumes the error.
-     * @return
+     * Returns a json object of the requested cn and its attributes.
+     * @param baseDN base search
+     * @param cn cn entry to search for
+     * @param attributes what attributes to return
+     * @return a json object of the the requested cn and its attributes.
      */
-    public  String getError(){
-        String error = errorMessage != null ? errorMessage: "";
-        consumeError();
-        return error;
-    }
-    private  void   consumeError(){
-        errorMessage = null;
-    }
-
-    private void searchUser(String baseDN, String cn){
-        if(isConnected()) {
-            try {
-                SearchResult searchResult = ldapConnection.search(baseDN, SearchScope.SUB, String.format("(&(objectCategory=person)(objectClass=user)(cn=%s)",cn));
-                System.out.println(searchResult.getEntryCount());
-
-            } catch (LDAPSearchException e) {
-                e.printStackTrace();
-            }
+    private JSONObject getADUser(String baseDN,String cn, String ... attributes) {
+        if (!isConnected()) return null;
+        SearchResult searchResult = null;
+        StringBuilder filterSB = new StringBuilder(String.format("(&(objectCategory=person)(objectClass=user)(cn=%s))",cn));
+        try {
+            Filter  filter = Filter.create(filterSB.toString());
+            searchResult = ldapConnection.search(baseDN, SearchScope.SUB,filter.toString(),attributes);
+        } catch (LDAPException e) {
+            resultCode = e.getResultCode().toString();
+            errorMessageFromServer = e.getDiagnosticMessage();
         }
+        return toJSON(searchResult);
     }
-    private  void bind(String bindDN, String password){
-        if(this.isConnected()){
+
+    private void bind(String bindDN, String password) {
+        if (this.isConnected()) {
             try {
-                this.ldapConnection.bind(bindDN,password);
+                this.ldapConnection.bind(bindDN, password);
             } catch (LDAPException e) {
-                errorMessage = e.getResultCode().toString();
+                resultCode = e.getResultCode().toString();
             }
         }
+    }
+
+    private JSONObject toJSON(SearchResult sr) {
+        if(sr == null) return  null;
+        JSONObject object = new JSONObject();
+        for(SearchResultEntry se : sr.getSearchEntries()){
+             Collection<Attribute> attributes =se.getAttributes();
+             for( Attribute a : attributes){
+                 try {
+                     object.put(a.getName(),a.getValue());
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+
+             }
+        }
+        return  object;
     }
 
     public static void main(String[] args) {
         ADConnector adConnector = new ADConnector();
-        adConnector.connect("192.168.1.2",389);
-        if(adConnector.isConnected()){
+        adConnector.connect("192.168.1.2", 389);
+        if (adConnector.isConnected()) {
             System.out.println("connected");
-            adConnector.bind("CN=Administrator,OU=Users,OU=Company,DC=lab,DC=net", "xxxx!");
-            adConnector.searchUser("dc=lab,dc=net" ,"(objectClass=user)");
-            System.out.println("search success!");
+            adConnector.bind("CN=Administrator,OU=Users,OU=Company,DC=lab,DC=net", "xxxxxxxx");
+            JSONObject object = adConnector.getADUser("dc=lab,dc=net", "Administratr","distinguishedName");
+            if(object == null){
+                System.out.println(adConnector.errorMessageFromServer);
+            }else {
+                System.out.println(object);
+                System.out.println(adConnector.getErrorMessageFromServer());
+            }
 
-        }else{
+        } else {
             System.out.println("Connection failed");
-            System.out.println(adConnector.errorMessage);
+            System.out.println(adConnector.getResultCode());
         }
 
     }
 
+    public String getResultCode() {
+        return  this.resultCode;
+    }
+    public String getErrorMessageFromServer(){
+        return  this.errorMessageFromServer;
+    }
 }
 
