@@ -3,31 +3,22 @@ package com.usrmngr.client.controllers;
 import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
+import com.usrmngr.client.util.DialogManager;
 import com.usrmngr.client.util.DataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -66,11 +57,11 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         allNodes = new FXNodeContainer();
-        allNodes.addNodesFromParent(userAreaPane);
-        allNodes.addNodesFromParent(infoAreaPane);
-        allNodes.addNodesFromParent(passwordAreaPane);
-        allNodes.addNodesFromParent(licenseAreaPane);
-        allNodes.addNodesFromParent(saveAreaPane);
+        allNodes.addItem(userAreaPane);
+        allNodes.addItem(infoAreaPane);
+        allNodes.addItem(passwordAreaPane);
+        allNodes.addItem(licenseAreaPane);
+        allNodes.addItem(saveAreaPane);
 
         disableAllAreas(true);
         allAreasExpanded(false);
@@ -92,7 +83,7 @@ public class MainController implements Initializable {
     private void loadUser(User selectedUser) {
         String[] userAttributes = selectedUser.getAttributes();
         for (String attribute : userAttributes) {
-            setTextOnTextField(attribute, selectedUser.getAttribute(attribute));
+            allNodes.setTextOnTextField(attribute, selectedUser.getAttribute(attribute));
         }
     }
 
@@ -108,31 +99,13 @@ public class MainController implements Initializable {
             userCount.setText(String.format("Users: %d", data.length()));
             userList.setItems(displayableUsers);
         } catch (JSONException e) {
-            displayError("Unable to load user list!");
-            Platform.exit();
-            System.exit(0);
+            DialogManager.showError("Unable to load user list!",true);
         }
 
     }
 
-    private void displayError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Error");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-
     private boolean requestConfirmation(String message) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm");
-        alert.setHeaderText(message);
-        alert.setContentText("Are you sure?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == ButtonType.OK;
-
+        return DialogManager.requestConfirmation(message);
     }
 
     private void disableAllAreas(boolean disable) {
@@ -196,7 +169,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void passwordResetButtonClicked() {
-        if(selectedUser != null) {
+        if (selectedUser != null) {
             passwordDropDown.setExpanded(true);
             controlAreaPane.setDisable(true);
             passwordAreaPane.setDisable(false);
@@ -209,49 +182,24 @@ public class MainController implements Initializable {
         boolean failed;
         if (selectedUser != null) {
             if (requestConfirmation("User will be deleted.")) {
-               failed = deleteUser(selectedUser.getAttribute("id"));
-               if(failed){
-                   displayError("Unable to complete request!");
-               }else {
-                   System.out.printf("User: %s deleted\n",selectedUser.getAttribute("id"));
-               }
+                failed = deleteUser(selectedUser.getAttribute("id"));
+                if (failed) {
+                    DialogManager.showError("Unable to complete request!",false);
+                } else {
+                    System.out.printf("User: %s deleted\n", selectedUser.getAttribute("id"));
+                }
             }
         }
     }
+
     @FXML
-    public void configMenuSelected(){
-            try {
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/ConfigView.fxml"));
-                Scene configMenuScene = new Scene(root);
-                Stage configWindow = new Stage();
-                // prevents the parent window from being modified before configs are closed.
-                configWindow.initModality(Modality.WINDOW_MODAL);
-                configWindow.initOwner(Main.primaryStage);
-                configWindow.setTitle("Configurations");
-                configWindow.setScene(configMenuScene);
-                configWindow.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public void configMenuSelected() {
+        Main.showConfigSetup();
+    }
+
     private boolean deleteUser(String id) {
-        return  false;
+        return false;
     }
 
-    /**
-     * Sets the text on the provided name.If there is no such field nothing is set.
-     *
-     * @param fieldName id of the field
-     * @param text      the text to set on the field
-     */
-    private void setTextOnTextField(String fieldName, String text) {
-        Node node = getNode(fieldName);
-        if (node instanceof TextField)
-            ((TextField) node).setText(text);
-    }
-
-    private Node getNode(String fieldName) {
-        return allNodes.getChild(fieldName);
-    }
 
 }
