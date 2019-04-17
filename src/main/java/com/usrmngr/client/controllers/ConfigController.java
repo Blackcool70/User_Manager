@@ -3,8 +3,7 @@ package com.usrmngr.client.controllers;
 import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.util.DialogManager;
-import com.usrmngr.client.util.Constants;
-import javafx.application.Platform;
+import com.usrmngr.client.Constants;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,7 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import static com.usrmngr.client.util.Constants.APP_NAME;
+import static com.usrmngr.client.Constants.APP_NAME;
 
 public class ConfigController implements Initializable {
     @FXML
@@ -79,7 +78,7 @@ public class ConfigController implements Initializable {
         configSelectionTree.setRoot(new TreeItem<>(rootTreeItem));
 
         // todo find away to move logic related to to the adconfig controller to its own controller
-        addConfiguration("Configure Active Directory", "/fxml/ConfigActiveDirectoryView.fxml");
+        addConfiguration("Configure Active Directory", "/fxml/ConfigWindow/ConfigADView.fxml");
         defaultConfig = availableConfigurations.keySet().iterator().next();
         switchToConfiguration(defaultConfig);
 

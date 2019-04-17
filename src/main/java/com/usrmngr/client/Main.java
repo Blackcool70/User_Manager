@@ -3,7 +3,6 @@ package com.usrmngr.client;
 import com.usrmngr.client.controllers.ConfigController;
 import com.usrmngr.client.models.ADConnector;
 import com.usrmngr.client.util.DialogManager;
-import com.usrmngr.client.util.Constants;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -52,7 +51,7 @@ public class Main extends Application {
 
     public static void showConfigSetup() {
         try {
-            Parent root = FXMLLoader.load(Main.class.getResource("/fxml/ConfigView.fxml"));
+            Parent root = FXMLLoader.load(Main.class.getResource("/fxml/ConfigWindow/ConfigMainView.fxml"));
             Scene configMenuScene = new Scene(root);
             Stage configWindow = new Stage();
             // prevents the parent window from being modified before configs are closed.

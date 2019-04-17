@@ -127,7 +127,7 @@ public class ADConnector {
     public String getResultCode() {
         return  this.resultCode;
     }
-    public String getErrorMessageFromServer(){
+    private String getErrorMessageFromServer(){
         return  this.errorMessageFromServer;
     }
 }

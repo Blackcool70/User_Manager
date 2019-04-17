@@ -1,4 +1,4 @@
-package com.usrmngr.client.util;
+package com.usrmngr.client;
 
 public class Constants {
     public static final String APP_NAME = "UserManager";
