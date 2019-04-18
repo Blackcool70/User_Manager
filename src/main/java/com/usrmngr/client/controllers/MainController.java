@@ -42,11 +42,13 @@ public class MainController implements Initializable {
     @FXML
     MenuItem preferencesMenu, configurationsMenu;
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
+    private TitledPane[] panes;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allNodes = new FXNodeContainer();
         allNodes.addItem(centerPane);
+        panes = new TitledPane[]{basicInfoDropdown, contactInfoDropdown, passwordDropdown};
         loadDefaultView();
         //action for when a user gets double clicked on the list
         userList.setOnMouseClicked(event -> {
@@ -62,17 +64,8 @@ public class MainController implements Initializable {
 
     private void loadDefaultView() {
         clearAllTextFields();
-        leftPane.setDisable(false);
-
-        basicInfoDropdown.setExpanded(true);
-        basicInfoDropdown.setMouseTransparent(true);
-
-        contactInfoDropdown.setExpanded(false);
-        contactInfoDropdown.setDisable(true);
-        passwordDropdown.setExpanded(false);
-        passwordDropdown.setDisable(true);
-
-        bottomPane.setDisable(true);
+        disableMenu(false);
+        disableUserSection(false);
     }
 
     private void loadUser(User selectedUser) {
@@ -109,30 +102,20 @@ public class MainController implements Initializable {
 
     @FXML
     public void editButtonClicked() {
-        leftPane.setDisable(true);
-
-        passwordDropdown.setDisable(true);
+        disableMenu(true);
+        setAllFieldsDisabled(false);
+        setAllDropdownExpanded(true);
+        disableUserSection(false);
         passwordDropdown.setExpanded(false);
-        basicInfoDropdown.setExpanded(true);
-        basicInfoDropdown.setDisable(false);
-        contactInfoDropdown.setDisable(false);
-        contactInfoDropdown.setExpanded(true);
-        bottomPane.setDisable(false);
+        passwordDropdown.setDisable(true);
     }
 
     @FXML
     public void addButtonClicked() {
-      clearAllTextFields();
-        leftPane.setDisable(true);
-
-        passwordDropdown.setDisable(false);
-        passwordDropdown.setExpanded(true);
-        basicInfoDropdown.setExpanded(true);
-        basicInfoDropdown.setDisable(false);
-        contactInfoDropdown.setExpanded(true);
-        contactInfoDropdown.setDisable(false);
-
-        bottomPane.setDisable(false);
+        disableMenu(true);
+        clearAllTextFields();
+        setAllFieldsDisabled(false);
+        setAllDropdownExpanded(true);
     }
 
     private void clearAllTextFields() {
@@ -148,6 +131,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void saveButtonClicked() {
+        disableMenu(false);
         //do the save
         DialogManager.showInfo("Saved!");
         loadDefaultView();
@@ -155,37 +139,41 @@ public class MainController implements Initializable {
 
     @FXML
     public void passwordResetButtonClicked() {
-
-        //disable other buttons
-        leftPane.setDisable(true);
-
-        //able to see user info
-        basicInfoDropdown.setExpanded(true);
-        basicInfoDropdown.setMouseTransparent(true);
-
-        //allow password change
+        disableMenu(true);
+        disableUserSection(false);
         passwordDropdown.setExpanded(true);
         passwordDropdown.setDisable(false);
-        //all save
-        bottomPane.setDisable(false);
-
     }
 
     @FXML
     public void deleteButtonClicked() {
-        if (selectedUser == null) return;;
-        if(!requestConfirmation("User will be deleted.")) return;
-        leftPane.setDisable(true);
+        disableMenu(true);
+        disableUserSection(false);
+        if (selectedUser == null) return;
+        if (!requestConfirmation("User will be deleted.")) return;
+        disableMenu(false);
 
-        basicInfoDropdown.setMouseTransparent(true);
+    }
+
+    private void disableUserSection(boolean disable) {
+        basicInfoDropdown.setMouseTransparent(disable);
         basicInfoDropdown.setExpanded(true);
+    }
 
-        contactInfoDropdown.setExpanded(false);
-        contactInfoDropdown.setDisable(true);
-        passwordDropdown.setExpanded(false);
-        passwordDropdown.setDisable(true);
+    private void disableMenu(boolean disabled) {
+        setAllDropdownExpanded(false);
+        setAllFieldsDisabled(true);
+        leftPane.setDisable(disabled);
+    }
 
-        bottomPane.setDisable(false);
+    private void setAllDropdownExpanded(boolean expanded) {
+        for (TitledPane pane : panes)
+            pane.setExpanded(expanded);
+    }
+
+    private void setAllFieldsDisabled(boolean disabled) {
+        for (TitledPane pane : panes)
+            pane.setDisable(disabled);
     }
 
     public void configMenuSelected() {
