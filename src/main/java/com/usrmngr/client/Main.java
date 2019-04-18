@@ -34,11 +34,11 @@ public class Main extends Application {
         userName =  result.isPresent() ? result.get().getKey(): "";
         String password =  result.isPresent() ? result.get().getValue(): "";
         adConnector = new ADConnector(hostName, port, ldapPath, userName,password);
-        if(!adConnector.isConnected()){
+          boolean connected = adConnector.connect();
+        if(!connected){
             DialogManager.showError(String.format("Error Occurred: %s",adConnector.getResultCode()),true);
-        }else{
-            DialogManager.showInfo("Successfully  connected.");
         }
+        DialogManager.showInfo("Successfully  connected.");
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
         window.setTitle("User Manager: DEMO");

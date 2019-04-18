@@ -10,7 +10,7 @@ public class ADConnector {
     private final String USER_SEARCH_FILTER = "(&(objectClass=User)(anr=%s))";
     private LDAPConnection connection;
     private String resultCode, errorMessageFromServer;
-    private String server, bindDN, password;
+    private String server, bindCN, password;
     private int port;
     private String baseDN;
 
@@ -39,30 +39,31 @@ public class ADConnector {
 
     }
 
-    private void setConfigs(String server, int port, String baseDN, String bindDN, String password) {
+    private void setConfigs(String server, int port, String baseDN, String bindCN, String password) {
         if (isConnected()) disconnect();
         this.server = server;
         this.port = port;
-        this.bindDN = bindDN;
+        this.bindCN = String.format("CN=%s,%s",bindCN,baseDN);
         this.baseDN = baseDN;
         this.password = password;
+        System.out.println(this.toString());
     }
 
-    private boolean connect() {
+    public boolean connect() {
         try {
             connection.connect(server, port);
         } catch (LDAPException e) {
             resultCode = e.getResultCode().toString();
             errorMessageFromServer = e.getDiagnosticMessage();
         }
-        return isConnected() && bind(bindDN, password);
+        return isConnected() && bind(bindCN, password);
     }
 
-    private boolean bind(String bindDN, String password) {
+    private boolean bind(String bindCN, String password) {
         if (!this.isConnected()) return false;
         boolean result = true;
         try {
-            this.connection.bind(bindDN, password);
+            this.connection.bind(bindCN, password);
         } catch (LDAPException e) {
             resultCode = e.getResultCode().toString();
             result = false;
@@ -130,11 +131,11 @@ public class ADConnector {
 
     @Override
     public String toString() {
-        return "server=" + this.server + "\n" +
-                "port=" + this.port + "\n" +
-                "baseDN=" + this.baseDN + "\n" +
-                "bindDN=" + this.bindDN + "\n" +
-                "password=" + this.password + "\n";
+        return "server:   " + this.server + "\n" +
+                "port:    "  + this.port + "\n" +
+                "baseDN:  " + this.baseDN + "\n" +
+                "bindCN   " + this.bindCN + "\n" +
+                "password " + this.password + "\n";
     }
 }
 
