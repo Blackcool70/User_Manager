@@ -3,9 +3,8 @@ package com.usrmngr.client.controllers;
 import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
-import com.usrmngr.client.util.DialogManager;
 import com.usrmngr.client.util.DataManager;
-import javafx.application.Platform;
+import com.usrmngr.client.util.DialogManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,44 +29,25 @@ public class MainController implements Initializable {
     private User selectedUser;
 
     @FXML
-    public VBox controlAreaPane;
+    public VBox leftPane, centerPane;
+    public GridPane bottomPane;
     @FXML
-    public GridPane userAreaPane, infoAreaPane, passwordAreaPane, licenseAreaPane, saveAreaPane;
-    @FXML
-    public TitledPane infoDropDown, passwordDropDown, licenseDropDown;
-
+    TitledPane basicInfoDropdown, contactInfoDropdown, passwordDropdown;
     @FXML
     public Label userCount;
     @FXML
     public ListView<User> userList;
     @FXML
-    public Label id;
-    @FXML
-    public TextField display_name, first_name, last_name, email_address, user_phone, middle_initial;
-    @FXML
-    public TextField job_title, department_name, office_name, manager_name, office_number, user_number;
-    @FXML
     public PasswordField password_entry, password_confirm_entry;
     @FXML
     MenuItem preferencesMenu, configurationsMenu;
-    private FXNodeContainer allNodes;
-
+    private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         allNodes = new FXNodeContainer();
-        allNodes.addItem(userAreaPane);
-        allNodes.addItem(infoAreaPane);
-        allNodes.addItem(passwordAreaPane);
-        allNodes.addItem(licenseAreaPane);
-        allNodes.addItem(saveAreaPane);
-
-        disableAllAreas(true);
-        allAreasExpanded(false);
-
-        controlAreaPane.setDisable(false);
-
+        allNodes.addItem(centerPane);
+        loadDefaultView();
         //action for when a user gets double clicked on the list
         userList.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
@@ -78,6 +58,21 @@ public class MainController implements Initializable {
         });
 
         loadSampleData();
+    }
+
+    private void loadDefaultView() {
+        clearAllTextFields();
+        leftPane.setDisable(false);
+
+        basicInfoDropdown.setExpanded(true);
+        basicInfoDropdown.setMouseTransparent(true);
+
+        contactInfoDropdown.setExpanded(false);
+        contactInfoDropdown.setDisable(true);
+        passwordDropdown.setExpanded(false);
+        passwordDropdown.setDisable(true);
+
+        bottomPane.setDisable(true);
     }
 
     private void loadUser(User selectedUser) {
@@ -99,7 +94,7 @@ public class MainController implements Initializable {
             userCount.setText(String.format("Users: %d", data.length()));
             userList.setItems(displayableUsers);
         } catch (JSONException e) {
-            DialogManager.showError("Unable to load user list!",true);
+            DialogManager.showError("Unable to load user list!", true);
         }
 
     }
@@ -108,44 +103,36 @@ public class MainController implements Initializable {
         return DialogManager.requestConfirmation(message);
     }
 
-    private void disableAllAreas(boolean disable) {
-        controlAreaPane.setDisable(disable);
-        userAreaPane.setDisable(disable);
-        infoAreaPane.setDisable(disable);
-        licenseAreaPane.setDisable(disable);
-        passwordAreaPane.setDisable(disable);
-        saveAreaPane.setDisable(disable);
-    }
-
     private void loadSampleData() {
         loadUserList();
     }
 
-    private void allAreasExpanded(boolean expanded) {
-
-        infoDropDown.setExpanded(expanded);
-        passwordDropDown.setExpanded(expanded);
-        licenseDropDown.setExpanded(expanded);
-    }
-
     @FXML
     public void editButtonClicked() {
-        if (selectedUser != null) {
-            controlAreaPane.setDisable(true);
-            userAreaPane.setDisable(false);
-            infoAreaPane.setDisable(false);
-            licenseAreaPane.setDisable(false);
-            saveAreaPane.setDisable(false);
-        }
+        leftPane.setDisable(true);
+
+        passwordDropdown.setDisable(true);
+        passwordDropdown.setExpanded(false);
+        basicInfoDropdown.setExpanded(true);
+        basicInfoDropdown.setDisable(false);
+        contactInfoDropdown.setDisable(false);
+        contactInfoDropdown.setExpanded(true);
+        bottomPane.setDisable(false);
     }
 
     @FXML
     public void addButtonClicked() {
-        disableAllAreas(false);
-        allAreasExpanded(true);
-        clearAllTextFields();
-        selectedUser = null;
-        controlAreaPane.setDisable(true);
+      clearAllTextFields();
+        leftPane.setDisable(true);
+
+        passwordDropdown.setDisable(false);
+        passwordDropdown.setExpanded(true);
+        basicInfoDropdown.setExpanded(true);
+        basicInfoDropdown.setDisable(false);
+        contactInfoDropdown.setExpanded(true);
+        contactInfoDropdown.setDisable(false);
+
+        bottomPane.setDisable(false);
     }
 
     private void clearAllTextFields() {
@@ -154,48 +141,57 @@ public class MainController implements Initializable {
 
     @FXML
     public void cancelButtonClicked() {
-        disableAllAreas(true);
-        controlAreaPane.setDisable(false);
-        allAreasExpanded(false);
-//            clearFields();
+        if (!DialogManager.requestConfirmation("All changes will be lost.")) return;
+        clearAllTextFields();
+        loadDefaultView();
     }
 
     @FXML
     public void saveButtonClicked() {
-        disableAllAreas(true);
-        allAreasExpanded(false);
-        controlAreaPane.setDisable(false);
+        //do the save
+        DialogManager.showInfo("Saved!");
+        loadDefaultView();
     }
 
     @FXML
     public void passwordResetButtonClicked() {
-        if (selectedUser != null) {
-            passwordDropDown.setExpanded(true);
-            controlAreaPane.setDisable(true);
-            passwordAreaPane.setDisable(false);
-            saveAreaPane.setDisable(false);
-        }
+
+        //disable other buttons
+        leftPane.setDisable(true);
+
+        //able to see user info
+        basicInfoDropdown.setExpanded(true);
+        basicInfoDropdown.setMouseTransparent(true);
+
+        //allow password change
+        passwordDropdown.setExpanded(true);
+        passwordDropdown.setDisable(false);
+        //all save
+        bottomPane.setDisable(false);
+
     }
 
     @FXML
     public void deleteButtonClicked() {
-        boolean failed;
-        if (selectedUser != null) {
-            if (requestConfirmation("User will be deleted.")) {
-                failed = deleteUser(selectedUser.getAttribute("id"));
-                if (failed) {
-                    DialogManager.showError("Unable to complete request!",false);
-                } else {
-                    System.out.printf("User: %s deleted\n", selectedUser.getAttribute("id"));
-                }
-            }
-        }
+        if (selectedUser == null) return;;
+        if(!requestConfirmation("User will be deleted.")) return;
+        leftPane.setDisable(true);
+
+        basicInfoDropdown.setMouseTransparent(true);
+        basicInfoDropdown.setExpanded(true);
+
+        contactInfoDropdown.setExpanded(false);
+        contactInfoDropdown.setDisable(true);
+        passwordDropdown.setExpanded(false);
+        passwordDropdown.setDisable(true);
+
+        bottomPane.setDisable(false);
     }
 
-    @FXML
     public void configMenuSelected() {
         Main.showConfigSetup();
     }
+
 
     private boolean deleteUser(String id) {
         return false;
