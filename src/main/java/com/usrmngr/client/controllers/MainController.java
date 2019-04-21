@@ -4,7 +4,7 @@ import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
 import com.usrmngr.client.util.DataManager;
-import com.usrmngr.client.util.DialogManager;
+import com.usrmngr.client.models.FXDialogs.DialogManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -25,9 +26,7 @@ public class MainController implements Initializable {
     // private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\MOCK_DATA.json";
     private final String DATA_PATH = "src/main/resources/samples/MOCK_DATA.json";
     private JSONArray data;
-
     private User selectedUser;
-
     @FXML
     public VBox leftPane, centerPane;
     public GridPane bottomPane;
@@ -176,14 +175,12 @@ public class MainController implements Initializable {
             pane.setDisable(disabled);
     }
 
-    public void configMenuSelected() {
-        Main.showConfigSetup();
+    public void configMenuSelected(){
+        String configViewFXML = "/fxml/ConfigWindow/ConfigMainView.fxml";
+        Main.screenLoader(configViewFXML,"Configurations");
     }
-
-
     private boolean deleteUser(String id) {
         return false;
     }
-
 
 }

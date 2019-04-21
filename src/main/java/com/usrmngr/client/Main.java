@@ -1,87 +1,100 @@
 package com.usrmngr.client;
 
 import com.usrmngr.client.controllers.ConfigController;
-import com.usrmngr.client.models.ADConnector;
-import com.usrmngr.client.util.DialogManager;
+import com.usrmngr.client.models.FXDialogs.ExceptionDialog;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
-import java.io.*;
-import java.util.Optional;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
+import static com.usrmngr.client.Constants.APP_NAME;
+import static com.usrmngr.client.Constants.CONFIG_FILE_NAME;
+
 public class Main extends Application {
-    public static Stage primaryStage;
-    public static Properties properties;
-    public static ADConnector adConnector;
+    private static Stage primaryStage;
 
-    @Override
-    public void start(Stage window) throws Exception {
-        primaryStage = window;
-        properties = new Properties();
-        // make sure there are setting configured if not then configure them.
-        checkForProperties();
-        String userName = properties.getProperty("userName");
-        String hostName = properties.getProperty("hostName");
-        int port = Integer.parseInt(properties.getProperty("port"));
-        String ldapPath = properties.getProperty("ldapPath");
-        Optional<Pair<String, String>> result = DialogManager.getCredentials(userName, String.format("Credentials for: %s on port %s", hostName, port));
-        userName =  result.isPresent() ? result.get().getKey(): "";
-        String password =  result.isPresent() ? result.get().getValue(): "";
-        adConnector = new ADConnector(hostName, port, ldapPath, userName,password);
-          boolean connected = adConnector.connect();
-        if(!connected){
-            DialogManager.showError(String.format("Error Occurred: %s",adConnector.getResultCode()),true);
-        }
-        DialogManager.showInfo("Successfully  connected.");
-
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
-        window.setTitle("User Manager: DEMO");
-        Scene scene = new Scene(root);
-        window.setScene(scene);
-        window.setResizable(false);
-
-        window.show();
+    public static void main(String[] args) {
+        launch(args);
     }
 
-    public static void showConfigSetup() {
+    @Override
+    public void start(Stage window) {
+        primaryStage = window;
+        loadProperties();
+        loadMainView();
+    }
+
+    private void loadProperties() {
+        Properties properties = getProperties(ConfigController.getUserDataDirectory().concat(CONFIG_FILE_NAME));
+        if (properties.isEmpty()) {
+            loadConfigView();
+        }
+    }
+
+    private void loadConfigView() {
+        String configViewFXML = "/fxml/ConfigWindow/ConfigMainView.fxml";
+        screenLoader(configViewFXML, "Configurations");
+    }
+
+    /**
+     * Returns the programs properties file if they exists.
+     *
+     * @param path path to the properties file
+     * @return loaded portieres if found or empty properties.
+     */
+    public static Properties getProperties(String path) {
+        Properties properties = new Properties();
+        File file = new File(path);
         try {
-            Parent root = FXMLLoader.load(Main.class.getResource("/fxml/ConfigWindow/ConfigMainView.fxml"));
+            properties.load(new FileInputStream(file));
+        } catch (IOException ignored) {
+        }
+        return properties;
+    }
+    // default properties
+    public static Properties getProperties(){
+        return  getProperties(ConfigController.getUserDataDirectory().concat(CONFIG_FILE_NAME));
+    }
+
+    private void loadMainView() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
+            primaryStage.setTitle(APP_NAME);
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+        } catch (IOException e) {
+            new ExceptionDialog("Problem loading program.", e).showAndWait();
+            e.printStackTrace();
+            Platform.exit();
+        }
+    }
+
+    public static void screenLoader(String fxmlPath, String title) {
+        try {
+            Parent root = FXMLLoader.load(Main.class.getResource(fxmlPath));
             Scene configMenuScene = new Scene(root);
             Stage configWindow = new Stage();
             // prevents the parent window from being modified before configs are closed.
             configWindow.initModality(Modality.WINDOW_MODAL);
-            configWindow.initOwner(Main.primaryStage);
-            configWindow.setTitle("Configurations");
+            configWindow.initOwner(primaryStage);
+            configWindow.setTitle(title);
             configWindow.setScene(configMenuScene);
             configWindow.showAndWait();
         } catch (IOException e) {
+            new ExceptionDialog("Problem loading Configurations window.", e).showAndWait();
             e.printStackTrace();
+            Platform.exit();
         }
-    }
 
-    public static void checkForProperties() {
-        String dataPath = ConfigController.getUserDataDirectory();
-        File configFile = new File(dataPath.concat(Constants.CONFIG_FILE_NAME));
-        if (!configFile.exists()) {
-            showConfigSetup();
-            if (!configFile.exists()) {
-                DialogManager.showError("No Configurations found! Application Terminating",true);
-            }
-        }
-        try {
-            Main.properties.load(new FileInputStream(configFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
