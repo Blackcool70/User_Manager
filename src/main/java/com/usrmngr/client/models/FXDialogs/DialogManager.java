@@ -1,4 +1,4 @@
-package com.usrmngr.client.util;
+package com.usrmngr.client.models.FXDialogs;
 
 import com.usrmngr.client.models.ADConnector;
 import javafx.application.Platform;
