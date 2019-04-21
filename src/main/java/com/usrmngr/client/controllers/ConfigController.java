@@ -139,7 +139,7 @@ public class ConfigController implements Initializable {
                 DialogManager.showError("Fields cannot be left empty.", false);
                 return;
             }
-            properties.put(field.getId(), field.getText().trim().toLowerCase());
+            properties.put(field.getId(), field.getText());
         }
         saveConfigFile(properties);
         DialogManager.showInfo("Saved!");

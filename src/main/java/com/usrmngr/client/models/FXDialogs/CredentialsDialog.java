@@ -33,6 +33,10 @@ public class CredentialsDialog extends Dialog {
         buildGUI();
         setBehavior();
     }
+    private void passwordOnly(boolean b){
+        this.username.setEditable(!b);
+
+    }
 
     private void setBehavior() {
         // Enable/Disable login button depending on whether a username was entered.

@@ -59,6 +59,10 @@ public class Main extends Application {
         }
         return properties;
     }
+    // default properties
+    public static Properties getProperties(){
+        return  getProperties(ConfigController.getUserDataDirectory().concat(CONFIG_FILE_NAME));
+    }
 
     private void loadMainView() {
         try {

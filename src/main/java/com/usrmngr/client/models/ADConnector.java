@@ -13,7 +13,7 @@ public class ADConnector {
     private String server, bindCN, password;
     private int port;
     private String baseDN;
-    private ADConnector() {
+    public ADConnector() {
         setConfigs("", 289, "", "", "");
         connection = new LDAPConnection();
     }
@@ -38,7 +38,7 @@ public class ADConnector {
 
     }
 
-    private void setConfigs(String server, int port, String baseDN, String bindCN, String password) {
+    public void setConfigs(String server, int port, String baseDN, String bindCN, String password) {
         if (isConnected()) disconnect();
         this.server = server;
         this.port = port;
@@ -74,7 +74,7 @@ public class ADConnector {
         return connection != null && connection.isConnected();
     }
 
-    private void disconnect() {
+    public void disconnect() {
         connection.close();
     }
 
@@ -124,7 +124,7 @@ public class ADConnector {
         return this.resultCode == null ? "" : this.resultCode;
     }
 
-    private String getErrorMessageFromServer() {
+    public String getErrorMessageFromServer() {
         return this.errorMessageFromServer == null ? "" : this.resultCode;
     }
 
