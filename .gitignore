@@ -1,6 +1,7 @@
-/idea/*
+.idea/
 .gradle/*
 .class
 .temp
 build/
 out/
+.DS_Store
