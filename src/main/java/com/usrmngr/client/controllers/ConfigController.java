@@ -40,9 +40,8 @@ public class ConfigController implements Initializable {
     public AnchorPane mainDisplayPane;
     // Stores all the configuration windows.
     private LinkedHashMap<String, Node> availableConfigurations;
-    private String defaultConfig, rootTreeItem;
+    private String defaultConfig;
     private static FXNodeContainer currentConfigNodes;
-    private boolean validConfiguration;
     private Properties properties;
 
     /**
@@ -77,7 +76,7 @@ public class ConfigController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         availableConfigurations = new LinkedHashMap<>();
-        rootTreeItem = "Configurations";
+        String rootTreeItem = "Configurations";
         configSelectionTree.setRoot(new TreeItem<>(rootTreeItem));
 
         // todo find away to move logic related to to the adconfig controller to its own controller
@@ -93,7 +92,7 @@ public class ConfigController implements Initializable {
     }
 
     private void cancelButtonClicked() {
-        validConfiguration = propertiesNotEmpty(properties);
+        boolean validConfiguration = propertiesNotEmpty(properties);
         if (!validConfiguration) {
             boolean quit = DialogManager.requestConfirmation("Invalid settings detected. Application will terminate..");
             if (quit) {
@@ -150,7 +149,7 @@ public class ConfigController implements Initializable {
     }
 
     /**
-     * Check to make sure there are no balnk properties,
+     * Check to make sure there are no blank properties,
      *
      * @param properties
      * @return true if not empty false if empty
