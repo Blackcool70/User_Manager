@@ -46,8 +46,9 @@ public class ADConnector {
         this.bindCN = bindCN;
         this.baseDN = baseDN;
         this.password = password;
-        System.out.println(this.toString());
+//        System.out.println(this.toString());
     }
+
 
     public boolean connect() {
         try {
@@ -91,8 +92,8 @@ public class ADConnector {
         boolean result = true;
         try {
             Filter filter = Filter.create(filterSB.toString());
-            System.out.println("Filter:" + filter.toString());
-            System.out.println("Attributes:" + attributes[0]);
+//            System.out.println("Filter:" + filter.toString());
+//            System.out.println("Attributes:" + attributes[0]);
             SearchRequest searchRequest =
                     new SearchRequest(baseDN, SearchScope.SUB, filter,
                             attributes);
