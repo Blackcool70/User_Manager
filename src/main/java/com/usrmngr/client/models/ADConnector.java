@@ -13,6 +13,7 @@ public class ADConnector {
     private String server, bindCN, password;
     private int port;
     private String baseDN;
+
     public ADConnector() {
         setConfigs("", 389, "", "", "");
         connection = new LDAPConnection();

@@ -23,8 +23,6 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable {
 
     // private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\MOCK_DATA.json";
-    //todo add user,delete usr does not enable save and delete buttons.
-    //
     private final String DATA_PATH = "src/main/resources/samples/MOCK_DATA.json";
     private JSONArray data;
     private User selectedUser;
