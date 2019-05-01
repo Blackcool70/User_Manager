@@ -7,14 +7,14 @@ import org.json.JSONObject;
 import java.util.Collection;
 
 public class ADConnector {
-    private final String USER_SEARCH_FILTER = "(&(objectClass=User)(anr=%s))";
+
     private LDAPConnection connection;
     private String resultCode, errorMessageFromServer;
     private String server, bindCN, password;
     private int port;
     private String baseDN;
     public ADConnector() {
-        setConfigs("", 289, "", "", "");
+        setConfigs("", 389, "", "", "");
         connection = new LDAPConnection();
     }
 
@@ -86,7 +86,7 @@ public class ADConnector {
      */
     private JSONObject getADUser(String userName, String... attributes) {
         SearchResult searchResult = null;
-        StringBuilder filterSB = new StringBuilder(String.format(USER_SEARCH_FILTER, userName));
+        StringBuilder filterSB = new StringBuilder(String.format(LDAPFilters.USER_SEARCH_FILTER, userName));
         boolean result = true;
         try {
             Filter filter = Filter.create(filterSB.toString());
@@ -130,11 +130,14 @@ public class ADConnector {
 
     @Override
     public String toString() {
-        return "server:   " + this.server + "\n" +
-                "port:    "  + this.port + "\n" +
-                "baseDN:  " + this.baseDN + "\n" +
-                "bindCN   " + this.bindCN + "\n" +
-                "password " + this.password + "\n";
+        return "server:" + this.server + "\n" +
+                "port:"  + this.port + "\n" +
+                "baseDN:" + this.baseDN + "\n" +
+                "bindCN:" + this.bindCN + "\n" +
+                "password:" + this.password + "\n";
+    }
+    private static class LDAPFilters{
+        private static final String USER_SEARCH_FILTER = "(&(objectClass=User)(anr=%s))";
     }
 }
 
