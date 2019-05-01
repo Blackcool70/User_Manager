@@ -1,10 +1,10 @@
 package com.usrmngr.client.controllers;
 
 import com.usrmngr.client.Main;
+import com.usrmngr.client.models.FXDialogs.DialogManager;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
 import com.usrmngr.client.util.DataManager;
-import com.usrmngr.client.models.FXDialogs.DialogManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,12 +18,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
     // private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\MOCK_DATA.json";
+    //todo add user,delete usr does not enable save and delete buttons.
+    //
     private final String DATA_PATH = "src/main/resources/samples/MOCK_DATA.json";
     private JSONArray data;
     private User selectedUser;
@@ -65,6 +66,7 @@ public class MainController implements Initializable {
         clearAllTextFields();
         disableMenu(false);
         disableUserSection(false);
+        disableSave(true);
     }
 
     private void loadUser(User selectedUser) {
@@ -77,7 +79,7 @@ public class MainController implements Initializable {
     private void loadUserList() {
         ObservableList<User> displayableUsers = FXCollections.observableArrayList();
         try {
-            data = new JSONArray(DataManager.readFile(DATA_PATH));
+            data = getDataFromSource();
             for (int i = 0; i < data.length(); i++) {
                 JSONObject jsonObject = data.getJSONObject(i);
                 User user = new User(jsonObject);
@@ -91,6 +93,10 @@ public class MainController implements Initializable {
 
     }
 
+    private JSONArray getDataFromSource() throws JSONException {
+        return new JSONArray(DataManager.readFile((DATA_PATH)));
+    }
+
     private boolean requestConfirmation(String message) {
         return DialogManager.requestConfirmation(message);
     }
@@ -101,20 +107,26 @@ public class MainController implements Initializable {
 
     @FXML
     public void editButtonClicked() {
-        disableMenu(true);
         setAllFieldsDisabled(false);
         setAllDropdownExpanded(true);
         disableUserSection(false);
         passwordDropdown.setExpanded(false);
         passwordDropdown.setDisable(true);
+        disableSave(false);
+        disableMenu(true);
     }
 
     @FXML
     public void addButtonClicked() {
-        disableMenu(true);
         clearAllTextFields();
         setAllFieldsDisabled(false);
         setAllDropdownExpanded(true);
+        disableSave(false);
+        disableMenu(true);
+    }
+
+    private void disableSave(boolean b) {
+        this.bottomPane.setDisable(b);
     }
 
     private void clearAllTextFields() {
@@ -134,6 +146,7 @@ public class MainController implements Initializable {
         //do the save
         DialogManager.showInfo("Saved!");
         loadDefaultView();
+        loadUser(selectedUser);
     }
 
     @FXML
@@ -142,20 +155,21 @@ public class MainController implements Initializable {
         disableUserSection(false);
         passwordDropdown.setExpanded(true);
         passwordDropdown.setDisable(false);
+        disableSave(false);
     }
 
     @FXML
     public void deleteButtonClicked() {
         disableMenu(true);
         disableUserSection(false);
-        if (selectedUser == null) return;
-        if (!requestConfirmation("User will be deleted.")) return;
-        disableMenu(false);
+        disableMenu(true);
+        disableSave(false);
+
 
     }
 
-    private void disableUserSection(boolean disable) {
-        basicInfoDropdown.setMouseTransparent(disable);
+    private void disableUserSection(boolean disabled) {
+        basicInfoDropdown.setMouseTransparent(disabled);
         basicInfoDropdown.setExpanded(true);
     }
 
@@ -175,12 +189,10 @@ public class MainController implements Initializable {
             pane.setDisable(disabled);
     }
 
-    public void configMenuSelected(){
+    public void configMenuSelected() {
         String configViewFXML = "/fxml/ConfigWindow/ConfigMainView.fxml";
-        Main.screenLoader(configViewFXML,"Configurations");
+        Main.screenLoader(configViewFXML, "Configurations");
     }
-    private boolean deleteUser(String id) {
-        return false;
-    }
+
 
 }

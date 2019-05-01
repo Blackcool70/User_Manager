@@ -42,7 +42,7 @@ public class ADConnector {
         if (isConnected()) disconnect();
         this.server = server;
         this.port = port;
-        this.bindCN = String.format("CN=%s,%s",bindCN,baseDN);
+        this.bindCN = bindCN;
         this.baseDN = baseDN;
         this.password = password;
         System.out.println(this.toString());
@@ -131,12 +131,13 @@ public class ADConnector {
     @Override
     public String toString() {
         return "server:" + this.server + "\n" +
-                "port:"  + this.port + "\n" +
+                "port:" + this.port + "\n" +
                 "baseDN:" + this.baseDN + "\n" +
                 "bindCN:" + this.bindCN + "\n" +
                 "password:" + this.password + "\n";
     }
-    private static class LDAPFilters{
+
+    private static class LDAPFilters {
         private static final String USER_SEARCH_FILTER = "(&(objectClass=User)(anr=%s))";
     }
 }
