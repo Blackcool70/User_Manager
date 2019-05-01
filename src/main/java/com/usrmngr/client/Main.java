@@ -1,7 +1,7 @@
 package com.usrmngr.client;
 
-import com.usrmngr.client.controllers.ConfigController;
 import com.usrmngr.client.models.FXDialogs.ExceptionDialog;
+import com.usrmngr.client.util.DataManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -10,13 +10,10 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 import static com.usrmngr.client.Constants.APP_NAME;
-import static com.usrmngr.client.Constants.CONFIG_FILE_NAME;
 
 public class Main extends Application {
     private static Stage primaryStage;
@@ -33,7 +30,7 @@ public class Main extends Application {
     }
 
     private void loadProperties() {
-        Properties properties = getProperties(ConfigController.getUserDataDirectory().concat(CONFIG_FILE_NAME));
+        Properties properties = DataManager.getProperties();
         if (properties.isEmpty()) {
             loadConfigView();
         }
@@ -44,24 +41,10 @@ public class Main extends Application {
         screenLoader(configViewFXML, "Configurations");
     }
 
-    /**
-     * Returns the programs properties file if they exists.
-     *
-     * @param path path to the properties file
-     * @return loaded portieres if found or empty properties.
-     */
-    public static Properties getProperties(String path) {
-        Properties properties = new Properties();
-        File file = new File(path);
-        try {
-            properties.load(new FileInputStream(file));
-        } catch (IOException ignored) {
-        }
-        return properties;
-    }
+
     // default properties
     public static Properties getProperties(){
-        return  getProperties(ConfigController.getUserDataDirectory().concat(CONFIG_FILE_NAME));
+        return DataManager.getProperties();
     }
 
     private void loadMainView() {

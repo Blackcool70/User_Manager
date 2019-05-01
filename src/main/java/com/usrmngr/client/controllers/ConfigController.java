@@ -1,9 +1,9 @@
 package com.usrmngr.client.controllers;
 
-import com.usrmngr.client.Main;
 import com.usrmngr.client.models.FXDialogs.DialogManager;
 import com.usrmngr.client.models.FXDialogs.ExceptionDialog;
 import com.usrmngr.client.models.FXNodeContainer;
+import com.usrmngr.client.util.DataManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +25,7 @@ import java.net.URL;
 import java.util.*;
 
 import static com.usrmngr.client.Constants.APP_NAME;
-import static com.usrmngr.client.Constants.CONFIG_FILE_NAME;
+import static com.usrmngr.client.Constants.PROPERTIES_FILE_NAME;
 
 public class ConfigController implements Initializable {
     @FXML
@@ -86,7 +86,7 @@ public class ConfigController implements Initializable {
         switchToConfiguration(defaultConfig);
 
         //try to load properties
-        properties = Main.getProperties(ConfigController.getUserDataDirectory().concat(CONFIG_FILE_NAME));
+        properties = DataManager.getProperties();
         loadProperties(properties);
         saveButton.setOnMouseClicked(event -> savedButtonClicked());
         cancelButton.setOnMouseClicked(event -> cancelButtonClicked());
@@ -108,7 +108,7 @@ public class ConfigController implements Initializable {
     }
 
     private void saveConfigFile(Properties properties) {
-        String dataPath = getUserDataDirectory().concat(CONFIG_FILE_NAME);
+        String dataPath = getUserDataDirectory().concat(PROPERTIES_FILE_NAME);
         File configFile = new File(dataPath);
         try {
             configFile.getParentFile().mkdir();
