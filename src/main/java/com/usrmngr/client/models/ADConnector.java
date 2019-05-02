@@ -12,7 +12,7 @@ import java.util.Properties;
 public class ADConnector {
 
     private LDAPConnection connection;
-    private String server;
+    private String hostName;
     private int port;
     private String bindCN;
     private String baseDN;
@@ -25,18 +25,18 @@ public class ADConnector {
         connection = new LDAPConnection();
     }
 
-    public ADConnector(String server, int port, String baseDN, String bindDN, String password) {
-        setConfigs(server, port, baseDN, bindDN, password);
+    public ADConnector(String hostName, int port, String baseDN, String bindDN, String password) {
+        setConfigs(hostName, port, baseDN, bindDN, password);
         connection = new LDAPConnection();
     }
 
     public ADConnector(Properties properties) {
         if (properties == null) return;
-        setConfigs((String) properties.getOrDefault("hostname", ""),
+        setConfigs((String) properties.getOrDefault("hostName", ""),
                 Integer.parseInt((String) properties.getOrDefault("port", "389")),
                 (String) properties.getOrDefault("baseDN", ""),
                 (String) properties.getOrDefault("bindDN", ""),
-                (String) properties.getOrDefault("password", ""));
+                (String) properties.getOrDefault("bindPW", ""));
         connection = new LDAPConnection();
     }
 
@@ -57,9 +57,9 @@ public class ADConnector {
 
     }
 
-    public void setConfigs(String server, int port, String baseDN, String bindCN, String password) {
+    public void setConfigs(String hostName, int port, String baseDN, String bindCN, String password) {
         if (isConnected()) disconnect();
-        this.server = server;
+        this.hostName = hostName;
         this.port = port;
         this.bindCN = bindCN;
         this.baseDN = baseDN;
@@ -70,7 +70,7 @@ public class ADConnector {
 
     public boolean connect() {
         try {
-            connection.connect(server, port);
+            connection.connect(hostName, port);
         } catch (LDAPException e) {
             resultCode = e.getResultCode().toString();
             errorMessageFromServer = e.getDiagnosticMessage();
@@ -127,17 +127,17 @@ public class ADConnector {
         return object;
     }
 
-    private String getResultCode() {
+    public String getResultCode() {
         return this.resultCode == null ? "" : this.resultCode;
     }
 
     public String getErrorMessageFromServer() {
-        return this.errorMessageFromServer == null ? "" : this.resultCode;
+        return this.errorMessageFromServer == null ? "" : this.errorMessageFromServer;
     }
 
     @Override
     public String toString() {
-        return "server:" + this.server + "\n" +
+        return "hostName:" + this.hostName + "\n" +
                 "port:" + this.port + "\n" +
                 "baseDN:" + this.baseDN + "\n" +
                 "bindCN:" + this.bindCN + "\n" +
@@ -168,7 +168,6 @@ public class ADConnector {
         }
         return result;
     }
-
     private static class LDAPFilters {
         private static final String USER_SEARCH_FILTER = "(&(objectClass=User)(anr=%s))";
         private static final String ALL_USER_SEARCH_FILTER = "(objectClass=User)";
