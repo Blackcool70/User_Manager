@@ -4,12 +4,8 @@
     <list default="true" id="5ca30dac-8b3b-48d6-aa0e-b9b669c201cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/DialogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/DialogManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigADView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigADView.fxml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -421,11 +417,25 @@
       <option name="project" value="LOCAL" />
       <updated>1556782253113</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Delegated load ad configs to the config controller&#10;Minor refraction on method names and structure.">
+      <created>1556839402750</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1556839402750</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Refraction on controller to make it work better with ADConnector&#10;Removed functionality that did not need to be on this controller.">
+      <created>1556839500799</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1556839500799</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18858000" />
+    <option name="totallyTimeSpent" value="19191000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1873" height="1096" extended-state="6" />
@@ -440,8 +450,8 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3997923" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32917964" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -504,7 +514,10 @@
     <MESSAGE value="re-add project to win-pc ... caused problems but its working." />
     <MESSAGE value="corrected gui issues that came from merge with pc version project" />
     <MESSAGE value="Updated to support settings via properties.&#10;Re implemented searchUser and SearchAll along&#10;as result to json and json arrays." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated to support settings via properties.&#10;Re implemented searchUser and SearchAll along&#10;as result to json and json arrays." />
+    <MESSAGE value="Delegated load ad configs to the config controller&#10;Minor refraction on method names and strucutre." />
+    <MESSAGE value="Delegated load ad configs to the config controller&#10;Minor refraction on method names and structure." />
+    <MESSAGE value="Refraction on controller to make it work better with ADConnector&#10;Removed functionality that did not need to be on this controller." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refraction on controller to make it work better with ADConnector&#10;Removed functionality that did not need to be on this controller." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

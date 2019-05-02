@@ -11,7 +11,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Properties;
 
 import static com.usrmngr.client.Constants.APP_NAME;
 
@@ -30,21 +29,14 @@ public class Main extends Application {
     }
 
     private void loadProperties() {
-        Properties properties = DataManager.getProperties();
-        if (properties.isEmpty()) {
+        if(DataManager.getProperties().isEmpty()){
             loadConfigView();
         }
     }
 
     private void loadConfigView() {
         String configViewFXML = "/fxml/ConfigWindow/ConfigMainView.fxml";
-        screenLoader(configViewFXML, "Configurations");
-    }
-
-
-    // default properties
-    public static Properties getProperties(){
-        return DataManager.getProperties();
+        loadAsChildWindow(configViewFXML, "Configurations");
     }
 
     private void loadMainView() {
@@ -62,16 +54,14 @@ public class Main extends Application {
         }
     }
 
-    public static void screenLoader(String fxmlPath, String title) {
+    public static void loadAsChildWindow(String fxmlPath, String title) {
         try {
-            Parent root = FXMLLoader.load(Main.class.getResource(fxmlPath));
-            Scene configMenuScene = new Scene(root);
             Stage configWindow = new Stage();
             // prevents the parent window from being modified before configs are closed.
             configWindow.initModality(Modality.WINDOW_MODAL);
             configWindow.initOwner(primaryStage);
             configWindow.setTitle(title);
-            configWindow.setScene(configMenuScene);
+            configWindow.setScene( new Scene(FXMLLoader.load(Main.class.getResource(fxmlPath))));
             configWindow.showAndWait();
         } catch (IOException e) {
             new ExceptionDialog("Problem loading Configurations window.", e).showAndWait();
