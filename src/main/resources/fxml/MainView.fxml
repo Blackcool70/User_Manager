@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -65,8 +66,13 @@
                       <Label text="Dispaly Name:" GridPane.rowIndex="3" />
                       <Label text="Email:" GridPane.rowIndex="4" />
                       <Label text="Inital:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                      <Label text="ID:" />
                       <Label fx:id="id" GridPane.columnIndex="1" />
+               <HBox spacing="10.0" GridPane.columnSpan="2147483647">
+                  <children>
+                     <Label text="DN:" />
+                     <Label fx:id="DN" />
+                  </children>
+               </HBox>
                   </GridPane>
               </TitledPane>
               <TitledPane fx:id="contactInfoDropdown" animated="false" text="Contact Information">
@@ -88,15 +94,15 @@
                       <Label text="Mobil Number" GridPane.rowIndex="5" />
                       <Label text="Office:" GridPane.rowIndex="2" />
                       <Label text="Manager:" GridPane.rowIndex="3" />
-                      <TextField fx:id="mobile" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                       <Label text=" Job title" />
                       <Label text="Department" GridPane.rowIndex="1" />
                       <Label text="Office Number" GridPane.rowIndex="4" />
-                      <TextField fx:id="otherTelephone" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                      <TextField fx:id="manager" promptText="Mary Sue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                      <TextField fx:id="physicalDeliveryOfficeName" promptText="Long View" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                      <TextField fx:id="department" promptText="Sales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                       <TextField fx:id="title" promptText="Engineer" GridPane.columnIndex="1" />
+                      <TextField fx:id="department" promptText="Sales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      <TextField fx:id="physicalDeliveryOfficeName" promptText="Long View" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                      <TextField fx:id="manager" promptText="Mary Sue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                      <TextField fx:id="otherTelephone" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                      <TextField fx:id="mobile" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   </GridPane>
               </TitledPane>
               <TitledPane fx:id="passwordDropdown" animated="false" text="Password" wrapText="true">

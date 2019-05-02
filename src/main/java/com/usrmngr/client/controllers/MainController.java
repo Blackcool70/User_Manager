@@ -1,6 +1,7 @@
 package com.usrmngr.client.controllers;
 
 import com.usrmngr.client.Main;
+import com.usrmngr.client.models.ADConnector;
 import com.usrmngr.client.models.FXDialogs.DialogManager;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -34,7 +36,7 @@ public class MainController implements Initializable {
     @FXML
     TitledPane basicInfoDropdown, contactInfoDropdown, passwordDropdown;
     @FXML
-    public Label userCount;
+    public Label userCount,DN;
     @FXML
     public ListView<User> userList;
     @FXML
@@ -43,12 +45,14 @@ public class MainController implements Initializable {
     MenuItem preferencesMenu, configurationsMenu;
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
     private ArrayList<TitledPane> panes;
+    private ADConnector adConnector;
+    private Properties properties;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allNodes = new FXNodeContainer();
-        allNodes.addItem((Parent)basicInfoDropdown.getContent());
-        allNodes.addItem((Parent)contactInfoDropdown.getContent());
+        allNodes.addItem((Parent) basicInfoDropdown.getContent());
+        allNodes.addItem((Parent) contactInfoDropdown.getContent());
         panes = new ArrayList<>();
         panes.add(basicInfoDropdown);
         panes.add(contactInfoDropdown);
@@ -58,11 +62,22 @@ public class MainController implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
+                selectedUser =  new User(adConnector.getADUser(selectedUser.getAttribute("CN")));
                 loadUser(selectedUser);
             }
         });
+        loadData();
         loadSampleData();
         loadDefaultView();
+    }
+
+    private void loadData() {
+        properties = DataManager.getProperties();
+        if(properties.isEmpty()) DialogManager.showError(
+                "Unable to load data from connector. Aborting!",true);
+        adConnector = new ADConnector(properties);
+
+
     }
 
     private void loadDefaultView() {
@@ -81,9 +96,9 @@ public class MainController implements Initializable {
     }
 
 
-
     private void loadUser(User selectedUser) {
-        if(selectedUser == null) return;
+        if (selectedUser == null) return;
+        DN.setText(selectedUser.getAttribute("DN"));
         allNodes.getTextFields().forEach(textField ->
                 textField.setText(selectedUser.getAttribute(textField.getId())));
     }
@@ -98,15 +113,21 @@ public class MainController implements Initializable {
             }
             userCount.setText(String.format("Users: %d", data.length()));
             userList.setItems(displayableUsers);
-            selectedUser = displayableUsers.get(0);
         } catch (JSONException e) {
             DialogManager.showError("Unable to load user list!", true);
         }
 
     }
 
-    private JSONArray getDataFromSource() throws JSONException {
-        return new JSONArray(DataManager.readFile((DATA_PATH)));
+    private JSONArray getDataFromSource() {
+        //return new JSONArray(DataManager.readFile((DATA_PATH)));
+        JSONArray jsonArray = new JSONArray();
+        adConnector = new ADConnector(properties);
+        adConnector.connect();
+        if(adConnector.isConnected()){
+            jsonArray = adConnector.getAllADUsers("displayName","cn");
+        }
+       return  jsonArray;
     }
 
     private boolean requestConfirmation(String message) {
@@ -119,7 +140,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void editButtonClicked() {
-        if(selectedUser == null) return;
+        if (selectedUser == null) return;
         disableEdit(false);
         setPasswordDisabled(true);
     }
@@ -163,7 +184,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void passwordResetButtonClicked() {
-        if(selectedUser == null) return;
+        if (selectedUser == null) return;
         setMenuDisabled(true);
         setUserSectionDisabled(false);
         setPasswordDisabled(false);
@@ -172,7 +193,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void deleteButtonClicked() {
-        if(selectedUser == null) return;
+        if (selectedUser == null) return;
         setMenuDisabled(true);
         setUserSectionDisabled(false);
         setMenuDisabled(true);
