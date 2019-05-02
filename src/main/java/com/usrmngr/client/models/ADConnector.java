@@ -32,11 +32,12 @@ public class ADConnector {
 
     public ADConnector(Properties properties) {
         if (properties == null) return;
-        setConfigs((String) properties.getOrDefault("server", ""),
+        setConfigs((String) properties.getOrDefault("hostname", ""),
                 Integer.parseInt((String) properties.getOrDefault("port", "389")),
                 (String) properties.getOrDefault("baseDN", ""),
                 (String) properties.getOrDefault("bindDN", ""),
                 (String) properties.getOrDefault("password", ""));
+        connection = new LDAPConnection();
     }
 
     public static void main(String[] args) {
@@ -103,7 +104,7 @@ public class ADConnector {
      * @param attributes what attributes to return
      * @return a json object of the the requested cn and its attributes.
      */
-    private JSONObject getADUser(String userName, String... attributes) {
+    public JSONObject getADUser(String userName, String... attributes) {
         JSONObject jsonObject = new JSONObject();
         Optional<SearchResult> optionalSearchResult = searchAD(String.format(LDAPFilters.USER_SEARCH_FILTER, userName), attributes);
         if (optionalSearchResult.isPresent()) {
