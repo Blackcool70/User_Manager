@@ -16,7 +16,7 @@ public class User {
         while (keys.hasNext()) {
             String key = (String) keys.next();
             try {
-                user.put(key, jsonObject.getString(key));
+                user.put(key.toLowerCase(), jsonObject.getString(key));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -30,15 +30,15 @@ public class User {
     }
 
     public String getAttribute(String string) {
-        return user.getOrDefault(string, "");
+        return user.getOrDefault(string.toLowerCase(), "");
     }
 
     private void setAttribute(String key) {
-        setAttribute(key, "");
+        setAttribute(key.toLowerCase(), "");
     }
 
     private void setAttribute(String key, String value) {
-        this.user.put(key, value);
+        this.user.put(key.toLowerCase(), value);
     }
 
     public JSONObject toJSON() {
@@ -59,7 +59,9 @@ public class User {
 
     @Override
     public String toString() {
-        return this.getAttribute("displayName");
+        String dn = this.getAttribute("displayName");
+        String cn =  this.getAttribute("cn");
+        return  dn.isEmpty() ? cn : dn;
     }
 
     public static void main(String[] args) {
