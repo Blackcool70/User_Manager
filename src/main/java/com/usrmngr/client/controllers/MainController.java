@@ -131,7 +131,6 @@ public class MainController implements Initializable {
     }
 
     private void setSaveDisabled(boolean disabled) {
-        if(selectedUser == null) return;
         this.bottomPane.setDisable(disabled);
     }
 
@@ -190,7 +189,7 @@ public class MainController implements Initializable {
     }
 
     private void setAllFieldsDisabled(boolean disabled) {
-        panes.forEach(pane -> pane.setMouseTransparent(disabled));
+        panes.forEach(pane -> pane.getContent().setMouseTransparent(disabled));
     }
 
     public void configMenuSelected() {
