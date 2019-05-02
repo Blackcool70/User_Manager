@@ -51,7 +51,7 @@ public class MainController implements Initializable {
         allNodes.addItem((Parent)contactInfoDropdown.getContent());
         panes = new ArrayList<>();
         panes.add(basicInfoDropdown);
-        panes.add(basicInfoDropdown);
+        panes.add(contactInfoDropdown);
         panes.add(passwordDropdown);
         //action for when a user gets double clicked on the list
         userList.setOnMouseClicked(event -> {
@@ -71,6 +71,7 @@ public class MainController implements Initializable {
         setMenuDisabled(false);
         setUserSectionDisabled(false);
         setSaveDisabled(true);
+        setPasswordDisabled(true);
     }
 
     private void disableEdit(boolean disabled) {
@@ -120,6 +121,12 @@ public class MainController implements Initializable {
     public void editButtonClicked() {
         if(selectedUser == null) return;
         disableEdit(false);
+        setPasswordDisabled(true);
+    }
+
+    private void setPasswordDisabled(boolean disabled) {
+        passwordDropdown.getContent().setMouseTransparent(disabled);
+        passwordDropdown.setExpanded(!disabled);
     }
 
     @FXML
@@ -131,7 +138,6 @@ public class MainController implements Initializable {
     }
 
     private void setSaveDisabled(boolean disabled) {
-        if(selectedUser == null) return;
         this.bottomPane.setDisable(disabled);
     }
 
@@ -160,8 +166,7 @@ public class MainController implements Initializable {
         if(selectedUser == null) return;
         setMenuDisabled(true);
         setUserSectionDisabled(false);
-        passwordDropdown.setExpanded(true);
-        passwordDropdown.setDisable(false);
+        setPasswordDisabled(false);
         setSaveDisabled(false);
     }
 
@@ -190,7 +195,7 @@ public class MainController implements Initializable {
     }
 
     private void setAllFieldsDisabled(boolean disabled) {
-        panes.forEach(pane -> pane.setMouseTransparent(disabled));
+        panes.forEach(pane -> pane.getContent().setMouseTransparent(disabled));
     }
 
     public void configMenuSelected() {
