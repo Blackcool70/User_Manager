@@ -6,6 +6,7 @@ import com.usrmngr.client.models.FXDialogs.DialogManager;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.models.User;
 import com.usrmngr.client.util.DataManager;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class MainController implements Initializable {
     @FXML
     TitledPane basicInfoDropdown, contactInfoDropdown, passwordDropdown;
     @FXML
-    public Label userCount,DN;
+    public Label userCount, DN;
     @FXML
     public ListView<User> userList;
     @FXML
@@ -50,6 +50,14 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        properties = getProgramProperties();
+        connectToAD(properties); // will connect or quit
+        initController();
+        loadUserList();
+        loadDefaultView();
+    }
+
+    private void initController() {
         allNodes = new FXNodeContainer();
         allNodes.addItem((Parent) basicInfoDropdown.getContent());
         allNodes.addItem((Parent) contactInfoDropdown.getContent());
@@ -62,22 +70,27 @@ public class MainController implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
-                selectedUser =  new User(adConnector.getADUser(selectedUser.getAttribute("CN")));
+                selectedUser = new User(adConnector.getADUser(selectedUser.getAttribute("CN")));
                 loadUser(selectedUser);
             }
         });
-        loadData();
-        loadSampleData();
-        loadDefaultView();
     }
 
-    private void loadData() {
-        properties = DataManager.getProperties();
-        if(properties.isEmpty()) DialogManager.showError(
-                "Unable to load data from connector. Aborting!",true);
-        adConnector = new ADConnector(properties);
+    private void connectToAD(Properties properties) {
+        this.adConnector = new ADConnector(properties);
+        this.adConnector.connect();
+        while (!adConnector.isConnected()) {
+            if(DialogManager.requestConfirmation("Unable to connect,Open configurations?",adConnector.getResultCode())){
+                configMenuSelected();
+            }else{
+                Platform.exit();
+                System.exit(0);
+            }
+        }
+    }
 
-
+    private Properties getProgramProperties() {
+        return DataManager.getProperties();
     }
 
     private void loadDefaultView() {
@@ -96,6 +109,7 @@ public class MainController implements Initializable {
     }
 
 
+    //gets full details for the selected user from datasource
     private void loadUser(User selectedUser) {
         if (selectedUser == null) return;
         DN.setText(selectedUser.getAttribute("DN"));
@@ -103,35 +117,26 @@ public class MainController implements Initializable {
                 textField.setText(selectedUser.getAttribute(textField.getId())));
     }
 
+    // loads a list of users fetched from source with enough information to be able to query for details on select.
     private void loadUserList() {
         ObservableList<User> displayableUsers = FXCollections.observableArrayList();
+        data = getDataFromSource();
         try {
-            data = getDataFromSource();
             for (int i = 0; i < data.length(); i++) {
-                JSONObject jsonObject = data.getJSONObject(i);
-                displayableUsers.add(new User(jsonObject));
+                displayableUsers.add(new User(data.getJSONObject(i)));
             }
-            userCount.setText(String.format("Users: %d", data.length()));
-            userList.setItems(displayableUsers);
         } catch (JSONException e) {
-            DialogManager.showError("Unable to load user list!", true);
+            DialogManager.showError("Unable to load user list.",e.getMessage(), true);
         }
+        userCount.setText(String.format("Users: %d", data.length()));
+        userList.setItems(displayableUsers);
 
     }
 
     private JSONArray getDataFromSource() {
         //return new JSONArray(DataManager.readFile((DATA_PATH)));
-        JSONArray jsonArray = new JSONArray();
-        adConnector = new ADConnector(properties);
-        adConnector.connect();
-        if(adConnector.isConnected()){
-            jsonArray = adConnector.getAllADUsers("displayName","cn");
-        }
-       return  jsonArray;
-    }
-
-    private boolean requestConfirmation(String message) {
-        return DialogManager.requestConfirmation(message);
+        assert adConnector != null;
+        return adConnector.isConnected() ? adConnector.getAllADUsers("displayName", "cn") : new JSONArray();
     }
 
     private void loadSampleData() {
@@ -168,7 +173,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void cancelButtonClicked() {
-        if (!DialogManager.requestConfirmation("All changes will be lost.")) return;
+        if (!DialogManager.requestConfirmation("All changes will be lost.","Are you sure?")) return;
         clearAllTextFields();
         loadDefaultView();
     }
@@ -221,7 +226,7 @@ public class MainController implements Initializable {
 
     public void configMenuSelected() {
         String configViewFXML = "/fxml/ConfigWindow/ConfigMainView.fxml";
-        Main.screenLoader(configViewFXML, "Configurations");
+        Main.loadAsChildWindow(configViewFXML, "Configurations");
     }
 
 
