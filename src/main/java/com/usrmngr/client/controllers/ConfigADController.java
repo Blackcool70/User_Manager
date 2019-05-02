@@ -23,11 +23,10 @@ public class ConfigADController implements Initializable {
     public Label message;
 
     private Properties properties;
-    private FXNodeContainer allNodes;
     private ArrayList<TextField> textFields;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        allNodes = new FXNodeContainer();
+        FXNodeContainer allNodes = new FXNodeContainer();
         allNodes.addItem(root);
         textFields = allNodes.getTextFields();
 

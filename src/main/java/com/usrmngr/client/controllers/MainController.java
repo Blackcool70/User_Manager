@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -40,14 +42,17 @@ public class MainController implements Initializable {
     @FXML
     MenuItem preferencesMenu, configurationsMenu;
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
-    private TitledPane[] panes;
+    private ArrayList<TitledPane> panes;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allNodes = new FXNodeContainer();
-        allNodes.addItem(centerPane);
-        panes = new TitledPane[]{basicInfoDropdown, contactInfoDropdown, passwordDropdown};
-        loadDefaultView();
+        allNodes.addItem((Parent)basicInfoDropdown.getContent());
+        allNodes.addItem((Parent)contactInfoDropdown.getContent());
+        panes = new ArrayList<>();
+        panes.add(basicInfoDropdown);
+        panes.add(basicInfoDropdown);
+        panes.add(passwordDropdown);
         //action for when a user gets double clicked on the list
         userList.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
@@ -56,22 +61,30 @@ public class MainController implements Initializable {
                 loadUser(selectedUser);
             }
         });
-
         loadSampleData();
+        loadDefaultView();
     }
 
     private void loadDefaultView() {
-        clearAllTextFields();
-        disableMenu(false);
-        disableUserSection(false);
-        disableSave(true);
+        loadUser(selectedUser);
+        setAllFieldsDisabled(true);
+        setMenuDisabled(false);
+        setUserSectionDisabled(false);
+        setSaveDisabled(true);
     }
 
+    private void disableEdit(boolean disabled) {
+        setAllFieldsDisabled(disabled);
+        setSaveDisabled(disabled);
+        setMenuDisabled(!disabled);
+    }
+
+
+
     private void loadUser(User selectedUser) {
-        String[] userAttributes = selectedUser.getAttributes();
-        for (String attribute : userAttributes) {
-            allNodes.setTextOnTextField(attribute, selectedUser.getAttribute(attribute));
-        }
+        if(selectedUser == null) return;
+        allNodes.getTextFields().forEach(textField ->
+                textField.setText(selectedUser.getAttribute(textField.getId())));
     }
 
     private void loadUserList() {
@@ -80,11 +93,11 @@ public class MainController implements Initializable {
             data = getDataFromSource();
             for (int i = 0; i < data.length(); i++) {
                 JSONObject jsonObject = data.getJSONObject(i);
-                User user = new User(jsonObject);
-                displayableUsers.add(user);
+                displayableUsers.add(new User(jsonObject));
             }
             userCount.setText(String.format("Users: %d", data.length()));
             userList.setItems(displayableUsers);
+            selectedUser = displayableUsers.get(0);
         } catch (JSONException e) {
             DialogManager.showError("Unable to load user list!", true);
         }
@@ -105,26 +118,21 @@ public class MainController implements Initializable {
 
     @FXML
     public void editButtonClicked() {
-        setAllFieldsDisabled(false);
-        setAllDropdownExpanded(true);
-        disableUserSection(false);
-        passwordDropdown.setExpanded(false);
-        passwordDropdown.setDisable(true);
-        disableSave(false);
-        disableMenu(true);
+        if(selectedUser == null) return;
+        disableEdit(false);
     }
 
     @FXML
     public void addButtonClicked() {
-        clearAllTextFields();
-        setAllFieldsDisabled(false);
+        disableEdit(false);
         setAllDropdownExpanded(true);
-        disableSave(false);
-        disableMenu(true);
+        clearAllTextFields();
+        selectedUser = null;
     }
 
-    private void disableSave(boolean b) {
-        this.bottomPane.setDisable(b);
+    private void setSaveDisabled(boolean disabled) {
+        if(selectedUser == null) return;
+        this.bottomPane.setDisable(disabled);
     }
 
     private void clearAllTextFields() {
@@ -140,7 +148,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void saveButtonClicked() {
-        disableMenu(false);
+        setMenuDisabled(false);
         //do the save
         DialogManager.showInfo("Saved!");
         loadDefaultView();
@@ -149,42 +157,40 @@ public class MainController implements Initializable {
 
     @FXML
     public void passwordResetButtonClicked() {
-        disableMenu(true);
-        disableUserSection(false);
+        if(selectedUser == null) return;
+        setMenuDisabled(true);
+        setUserSectionDisabled(false);
         passwordDropdown.setExpanded(true);
         passwordDropdown.setDisable(false);
-        disableSave(false);
+        setSaveDisabled(false);
     }
 
     @FXML
     public void deleteButtonClicked() {
-        disableMenu(true);
-        disableUserSection(false);
-        disableMenu(true);
-        disableSave(false);
+        if(selectedUser == null) return;
+        setMenuDisabled(true);
+        setUserSectionDisabled(false);
+        setMenuDisabled(true);
+        setSaveDisabled(false);
 
 
     }
 
-    private void disableUserSection(boolean disabled) {
+    private void setUserSectionDisabled(boolean disabled) {
         basicInfoDropdown.setMouseTransparent(disabled);
         basicInfoDropdown.setExpanded(true);
     }
 
-    private void disableMenu(boolean disabled) {
-        setAllDropdownExpanded(false);
-        setAllFieldsDisabled(true);
+    private void setMenuDisabled(boolean disabled) {
         leftPane.setDisable(disabled);
     }
 
     private void setAllDropdownExpanded(boolean expanded) {
-        for (TitledPane pane : panes)
-            pane.setExpanded(expanded);
+        panes.forEach(pane -> pane.setExpanded(expanded));
     }
 
     private void setAllFieldsDisabled(boolean disabled) {
-        for (TitledPane pane : panes)
-            pane.setDisable(disabled);
+        panes.forEach(pane -> pane.setMouseTransparent(disabled));
     }
 
     public void configMenuSelected() {
