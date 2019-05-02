@@ -106,20 +106,7 @@ public class ConfigController implements Initializable {
         thisStage.fireEvent(new WindowEvent(thisStage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
-    private void saveConfigFile(Properties properties) {
-        String dataPath = getUserDataDirectory().concat(PROPERTIES_FILE_NAME);
-        File configFile = new File(dataPath);
-        try {
-            configFile.getParentFile().mkdir();
-            configFile.createNewFile();
-            DialogManager.showInfo(String.format("Configurations created: \n%s.\n", dataPath));
-            properties.store(new FileOutputStream(configFile), "configurations");
-        } catch (IOException e) {
-            new ExceptionDialog("Unable to save configurations", e).showAndWait();
-            Platform.exit();
-        }
 
-    }
 
     private static void loadProperties(Properties properties) {
         if (properties.isEmpty()) return;
@@ -140,13 +127,11 @@ public class ConfigController implements Initializable {
             }
             properties.put(field.getId(), field.getText());
         }
-        saveConfigFile(properties);
+        DataManager.saveConfigFile(properties);
         DialogManager.showInfo("Saved!");
     }
 
-    public static String getUserDataDirectory() {
-        return System.getProperty("user.home") + File.separator + ".".concat(APP_NAME.toLowerCase()) + File.separator;
-    }
+
 
     /**
      * Check to make sure there are no blank properties,

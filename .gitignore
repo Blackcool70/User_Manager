@@ -1,4 +1,5 @@
-.gradle/*
+.idea/
+.gradle/
 .class
 .temp
 build/

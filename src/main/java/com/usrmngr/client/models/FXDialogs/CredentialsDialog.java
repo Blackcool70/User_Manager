@@ -44,9 +44,7 @@ public class CredentialsDialog extends Dialog {
         loginButton.setDisable(true);
 
         // Do some validation (using the Java 8 lambda syntax).
-        password.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
-        });
+        password.textProperty().addListener((observable, oldValue, newValue) -> loginButton.setDisable(newValue.trim().isEmpty()));
 
         this.getDialogPane().setContent(grid);
 
@@ -55,7 +53,7 @@ public class CredentialsDialog extends Dialog {
         username.setText(defaultUsername);
 
         // Convert the result to a username-password-pair when the login button is clicked.
-        this.setResultConverter(dialogButton -> {
+        setResultConverter(dialogButton -> {
             if (dialogButton == loginButtonType) {
                 return new Pair<>(username.getText(), password.getText());
             }

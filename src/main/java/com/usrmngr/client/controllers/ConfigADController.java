@@ -21,6 +21,12 @@ public class ConfigADController implements Initializable {
     public Button testButton;
     @FXML
     public Label message;
+    public TextField authDomain;
+    public TextField server;
+    public TextField baseDN;
+    public TextField bindDN;
+    public TextField port;
+    public TextField bindPW;
 
     private Properties properties;
     private ArrayList<TextField> textFields;

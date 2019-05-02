@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="33ba29c6-a222-4927-8ace-7c218b2ba08d" name="Default Changelist" comment="" />
+    <list default="true" id="5ca30dac-8b3b-48d6-aa0e-b9b669c201cd" name="Default Changelist" comment="re-add project to win-pc ... caused problems but its working.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/externalDependencies.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CODE_OF_CONDUCT.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/CredentialsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/CredentialsDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/DialogManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/DialogManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/ExceptionDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/ExceptionDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXNodeContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXNodeContainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LDAPTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LDAPTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/DataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/ScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/ScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigADView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigADView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigMainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigMainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/samples/MOCK_DATA.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/samples/MOCK_DATA.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/com/usrmngr/client/models/ADConnectorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/com/usrmngr/client/models/ADConnectorTest.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -11,101 +45,22 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CodeInsightWorkspaceSettings">
-    <option name="optimizeImportsOnTheFly" value="true" />
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
-  <component name="ExternalProjectsManager">
-    <system id="GRADLE">
-      <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
-        <projects_view />
-      </state>
-    </system>
-  </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="718">
-              <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#931#932#0" expanded="true" />
-                <element signature="e#983#984#0" expanded="true" />
-                <element signature="e#1028#1029#0" expanded="true" />
-                <element signature="e#1065#1066#0" expanded="true" />
-                <element signature="e#1124#1125#0" expanded="true" />
-                <element signature="e#1165#1166#0" expanded="true" />
-                <element signature="e#1691#1692#0" expanded="true" />
-                <element signature="e#1746#1747#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1026">
-              <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="74" column="24" lean-forward="true" selection-start-line="74" selection-start-column="24" selection-end-line="74" selection-end-column="24" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2390#2391#0" expanded="true" />
-                <element signature="e#2459#2460#0" expanded="true" />
-                <element signature="e#2491#2492#0" expanded="true" />
-                <element signature="e#2525#2526#0" expanded="true" />
-                <element signature="e#4228#4229#0" expanded="true" />
-                <element signature="e#4297#4298#0" expanded="true" />
-                <element signature="e#4346#4347#0" expanded="true" />
-                <element signature="e#4427#4428#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/tests/com/usrmngr/client/models/ADConnectorTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="564">
-              <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+            <state relative-caret-position="-350">
+              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -113,40 +68,76 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="613">
-              <caret line="136" selection-start-line="136" selection-end-line="136" />
+            <state relative-caret-position="175">
+              <caret line="27" column="81" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/DataManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
               <folding>
-                <element signature="e#3934#3935#0" expanded="true" />
-                <element signature="e#3999#4000#0" expanded="true" />
-                <element signature="e#4036#4037#0" expanded="true" />
-                <element signature="e#4066#4067#0" expanded="true" />
-                <element signature="e#4557#4558#0" expanded="true" />
-                <element signature="e#4599#4600#0" expanded="true" />
-                <element signature="e#5759#5760#0" expanded="true" />
-                <element signature="e#5804#5805#0" expanded="true" />
-                <element signature="e#5865#5866#0" expanded="true" />
-                <element signature="e#5930#5931#0" expanded="true" />
-                <element signature="e#5989#5990#0" expanded="true" />
-                <element signature="e#6062#6063#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-fxml/11.0.1/da60fbbf2197eeb3ae9e7c56ae9c93e5a3fb887c/javafx-fxml-11.0.1-sources.jar!/javafx/fxml/FXMLLoader.java">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="2606" selection-start-line="2606" selection-end-line="2606" />
+            <state>
+              <caret column="5" selection-start-column="5" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXNodeContainer.java">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigADView.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="759">
-              <caret line="138" selection-start-line="138" selection-end-line="138" />
+            <state relative-caret-position="1400">
+              <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2275">
+              <caret line="94" column="42" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1099">
+              <caret line="129" column="33" lean-forward="true" selection-start-line="129" selection-start-column="33" selection-end-line="129" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -154,43 +145,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/samples/MOCK_DATA.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1190">
-              <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
-            </state>
+            <state relative-caret-position="-900" />
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>user.put</find>
-      <find>password</find>
-      <find>bind</find>
-      <find>auth</find>
-      <find>connect</find>
-      <find>LDAPConnection</find>
-      <find>getConnection</find>
-      <find>serverSet</find>
-      <find>createBindRequest</find>
-      <find>bindConnection</find>
-      <find>first_Name</find>
-      <find>manager</find>
-      <find>manager:%</find>
-      <find>disable</find>
-      <find>reset</find>
-      <find>clicked</find>
+      <find>unable</find>
     </findStrings>
-    <replaceStrings>
-      <replace>setAttribute</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -198,136 +162,52 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/GUIArea.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/DisplayArea.java" />
-        <option value="$PROJECT_DIR$/src/main/res/com/usrmngr/client/fxml/MainView.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LdapConnectionFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LdapAuthenticator.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/usrmngr/client/samples/MOCK_DATA.json" />
-        <option value="$PROJECT_DIR$/src/main/resources/com/usrmngr/client/samples/MOCK_DATA1.json" />
-        <option value="$PROJECT_DIR$/src/main/resources/fxml/ConfigView.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ConfigOptions.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LDAPConnector.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ConfigWindow.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ConfigurationEntry.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/PreferencesController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/CredentialsDialog.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/DialogManager.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/test/com/usrmngr/client/models/ADConnectorTest.java" />
-        <option value="$PROJECT_DIR$/src/test/com/usrmngr/client/models/ADConnectorTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigADView.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/DataManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/resources/samples/MOCK_DATA.json" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/DataManager.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigADView.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java" />
-        <option value="$PROJECT_DIR$/src/tests/com/usrmngr/client/models/ADConnectorTest.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="User_Manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="user_manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="User_Manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="user_manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="User_Manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="User_Manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="User_Manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="User_Manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="User_Manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
-              <item name="User_Manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556769642335" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.build.tools" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/com/usrmngr/client/models" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/main/resources/com/usrmngr/client/samples" />
-      <recent name="$PROJECT_DIR$/src/main/java" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -341,11 +221,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ADConnectorTest.testToString (1)">
+  <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.usrmngr.client.Main" />
       <module name="user_manager.main" />
-      <option name="VM_PARAMETERS" value="--module-path $PROJECT_DIR$/../lib/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files (x86)\Java\javafx-sdk-11.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml " />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.usrmngr.client.*" />
@@ -356,92 +238,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="User_Manager [dependencies]" type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="dependencies" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="User_Manager [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="ADConnectorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="user_manager.test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ADConnectorTest" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ADConnectorTest.testToString (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="user_manager.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.usrmngr.client.models.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.usrmngr.client.models" />
-      <option name="MAIN_CLASS_NAME" value="com.usrmngr.client.models.ADConnectorTest" />
-      <option name="METHOD_NAME" value="testToString" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ADConnectorTest.testToString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="user_manager.test" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ADConnectorTest" />
-      <option name="METHOD_NAME" value="testToString" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.Main" />
-      <item itemvalue="Gradle.User_Manager [dependencies]" />
-      <item itemvalue="Gradle.User_Manager [test]" />
-      <item itemvalue="JUnit.ADConnectorTest.testToString" />
-      <item itemvalue="JUnit.ADConnectorTest" />
-      <item itemvalue="JUnit.ADConnectorTest.testToString (1)" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ADConnectorTest.testToString (1)" />
-        <item itemvalue="JUnit.ADConnectorTest" />
-        <item itemvalue="JUnit.ADConnectorTest.testToString" />
-        <item itemvalue="Gradle.User_Manager [test]" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -451,604 +249,160 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="33ba29c6-a222-4927-8ace-7c218b2ba08d" name="Default Changelist" comment="" />
-      <created>1552364613017</created>
+      <changelist id="5ca30dac-8b3b-48d6-aa0e-b9b669c201cd" name="Default Changelist" comment="" />
+      <created>1556772476542</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1552364613017</updated>
-      <workItem from="1552364614531" duration="19697000" />
-      <workItem from="1552461248453" duration="8285000" />
-      <workItem from="1553150062080" duration="352000" />
-      <workItem from="1553308446592" duration="1980000" />
-      <workItem from="1553310629585" duration="8456000" />
-      <workItem from="1554714205593" duration="3731000" />
-      <workItem from="1555130109133" duration="1628000" />
-      <workItem from="1555170628457" duration="733000" />
-      <workItem from="1555270093435" duration="1571000" />
-      <workItem from="1555568795849" duration="7782000" />
-      <workItem from="1555630852858" duration="2995000" />
-      <workItem from="1555821185399" duration="3340000" />
-      <workItem from="1556085317782" duration="242000" />
-      <workItem from="1556413935753" duration="1618000" />
-      <workItem from="1556653210637" duration="21625000" />
+      <updated>1556772476542</updated>
+      <workItem from="1556772477706" duration="2543000" />
     </task>
-    <task id="LOCAL-00001" summary="updated gui to look more like office 365">
-      <created>1552368566813</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1552368566813</updated>
-    </task>
-    <task id="LOCAL-00002" summary="created new classes to manage interface areas.&#10;Minor var refraction.">
-      <created>1552395699244</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1552395699244</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Updated user class to have an internal representation of a JSONObject.">
-      <created>1552453783781</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1552453783782</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Added todo, minor change (needs way to resolve rsc paths)">
-      <created>1552456177010</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1552456177010</updated>
-    </task>
-    <task id="LOCAL-00005" summary="updated config view and controller to use tree view for  different configs options">
-      <created>1554716139667</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1554716139667</updated>
-    </task>
-    <task id="LOCAL-00006" summary="updated controller to work with refactored fxml">
-      <created>1555572441194</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1555572441195</updated>
-    </task>
-    <task id="LOCAL-00007" summary="added test option in config window for ldap settings">
-      <created>1555822254348</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1555822254349</updated>
-    </task>
-    <task id="LOCAL-00008" summary="updated gradle to allow junit tests to be added along with folder paths.">
-      <created>1556685319193</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1556685319193</updated>
-    </task>
-    <task id="LOCAL-00009" summary="added first junit test">
-      <created>1556686192416</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1556686192416</updated>
-    </task>
-    <task id="LOCAL-00010" summary="corrected onClicks behaviors in main controller that were reverted by a merge.">
-      <created>1556734439816</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1556734439816</updated>
-    </task>
-    <task id="LOCAL-00011" summary="removed unneeded todo">
-      <created>1556734478788</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1556734478788</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Delegated responsibilities of loading properties to the data manager.">
-      <created>1556737201797</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1556737201797</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Changed names of fields to be used as the names for the properties to be saved.&#10;Updated field names.">
-      <created>1556737273931</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1556737273931</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Updated to use data manager to load properties. &#10;Updated config file name to properties.">
-      <created>1556737369908</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1556737369908</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Updated config file name to properties.&#10;Minor cleanup.">
-      <created>1556737408488</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1556737408488</updated>
-    </task>
-    <task id="LOCAL-00016" summary="minor cleanup , fixed typo">
-      <created>1556737830152</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1556737830152</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Minor refraction and corrected issues with gui buttons not loading the centerPane in the right state.">
-      <created>1556759413705</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1556759413705</updated>
-    </task>
-    <task id="LOCAL-00018" summary="updated mock data to match AD naming scheme.">
-      <created>1556761273804</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1556761273804</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Corrected error with disable wrong nodes.">
-      <created>1556761881530</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1556761881530</updated>
-    </task>
-    <task id="LOCAL-00020" summary="added Tests blanks">
-      <created>1556762982031</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1556762982031</updated>
-    </task>
-    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="User_Manager_[test] - 2019.05.01 at 20h 59m 22s.xml">
-      <configuration name="User_Manager [test]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="ADConnectorTest_testToString - 2019.05.01 at 20h 59m 38s.xml">
-      <configuration name="ADConnectorTest.testToString" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ADConnectorTest - 2019.05.01 at 20h 59m 44s.xml">
-      <configuration name="ADConnectorTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ADConnectorTest_testToString_(1) - 2019.05.01 at 20h 59m 48s.xml">
-      <configuration name="ADConnectorTest.testToString (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ADConnectorTest_testToString_(1) - 2019.05.01 at 21h 00m 07s.xml">
-      <configuration name="ADConnectorTest.testToString (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ADConnectorTest_testToString_(1) - 2019.05.01 at 21h 00m 44s.xml">
-      <configuration name="ADConnectorTest.testToString (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ADConnectorTest_testToString_(1) - 2019.05.01 at 21h 01m 47s.xml">
-      <configuration name="ADConnectorTest.testToString (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ADConnectorTest_testToString_(1) - 2019.05.01 at 21h 02m 57s.xml">
-      <configuration name="ADConnectorTest.testToString (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ADConnectorTest_testToString_(1) - 2019.05.01 at 21h 03m 39s.xml">
-      <configuration name="ADConnectorTest.testToString (1)" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ADConnectorTest_testToString_(1) - 2019.05.01 at 21h 04m 41s.xml">
-      <configuration name="ADConnectorTest.testToString (1)" configurationId="JUnit" />
-    </history-entry>
-  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84035000" />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
+    <option name="totallyTimeSpent" value="2543000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="-8" y="-8" width="1873" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Image Layers" order="0" />
-      <window_info id="UI Designer" order="1" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info id="Learn" order="4" weight="0.3297568" />
-      <window_info id="Designer" order="5" />
-      <window_info content_ui="combo" id="Project" order="6" visible="true" weight="0.3004292" />
-      <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" weight="0.31445783" />
-      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Docker" order="2" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="3" weight="0.32771084" />
-      <window_info anchor="bottom" id="Database Changes" order="4" />
-      <window_info anchor="bottom" id="Version Control" order="5" weight="0.32891566" />
-      <window_info anchor="bottom" id="Build" order="6" weight="0.32891566" />
-      <window_info anchor="bottom" id="Message" order="7" />
-      <window_info anchor="bottom" id="Find" order="8" weight="0.32891566" />
-      <window_info anchor="bottom" id="Run" order="9" weight="0.3987952" />
-      <window_info anchor="bottom" id="Debug" order="10" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="11" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="12" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="13" weight="0.32953367" />
-      <window_info anchor="right" id="Palette" order="0" />
-      <window_info anchor="right" id="Capture Analysis" order="1" />
-      <window_info anchor="right" id="Gradle" order="2" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Maven" order="6" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="7" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="8" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
+      <window_info id="Designer" />
+      <window_info id="Image Layers" />
+      <window_info id="Capture Tool" />
+      <window_info id="UI Designer" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2498621" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Build" weight="0.32917964" />
+      <window_info anchor="bottom" id="Terminal" weight="0.32917964" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.32917964" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32917964" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Gradle" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="updated gui to look more like office 365" />
-    <MESSAGE value="created new classes to manage interface areas.&#10;Minor var refraction." />
-    <MESSAGE value="Updated user class to have an internal representation of a JSONObject." />
-    <MESSAGE value="Added todo, minor change (needs way to resolve rsc paths)" />
-    <MESSAGE value="updated config view and controller to use tree view for  different configs options" />
-    <MESSAGE value="updated controller to work with refactored fxml" />
-    <MESSAGE value="added test option in config window for ldap settings" />
-    <MESSAGE value="updated gradle to allow junit tests to be added along with folder paths." />
-    <MESSAGE value="added first junit test" />
-    <MESSAGE value="corrected onClicks behaviors in main controller that were reverted by a merge." />
-    <MESSAGE value="removed unneeded todo" />
-    <MESSAGE value="Delegated responsibilities of loading properties to the data manager." />
-    <MESSAGE value="Changed names of fields to be used as the names for the properties to be saved.&#10;Updated field names." />
-    <MESSAGE value="Updated to use data manager to load properties. &#10;Updated config file name to properties." />
-    <MESSAGE value="Updated config file name to properties.&#10;Minor cleanup." />
-    <MESSAGE value="minor cleanup , fixed typo" />
-    <MESSAGE value="Minor refraction and corrected issues with gui buttons not loading the centerPane in the right state." />
-    <MESSAGE value="updated mock data to match AD naming scheme." />
-    <MESSAGE value="Corrected error with disable wrong nodes." />
-    <MESSAGE value="added Tests blanks" />
-    <option name="LAST_COMMIT_MESSAGE" value="added Tests blanks" />
+    <MESSAGE value="re-add project to win-pc ... caused problems but its working." />
+    <option name="LAST_COMMIT_MESSAGE" value="re-add project to win-pc ... caused problems but its working." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java</url>
-          <line>44</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/tests/com/usrmngr/client/models/ADConnectorTest.java</url>
-          <line>2</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java</url>
-          <line>98</line>
+          <line>90</line>
           <properties />
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-field">
-          <url>file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java</url>
-          <line>30</line>
-          <properties field="leftPane" class="com.usrmngr.client.controllers.MainController" />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java</url>
-          <line>193</line>
-          <properties class="com.usrmngr.client.controllers.MainController">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="10" />
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/ControllerHelper.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/DisplayArea.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/res/com/usrmngr/client/fxml/MainView.fxml" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/usrmngr/client/fxml/MainView.fxml" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/usrmngr/client/images/defaultUser.png" />
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LdapConnectionFactory.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LdapAuthenticator.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/usrmngr/client/samples/MOCK_DATA.json" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/ScreenController.java">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="96">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unboundid/unboundid-ldapsdk/4.0.10/a583353b69371545a36f752b1a690460da7fc3ed/unboundid-ldapsdk-4.0.10-sources.jar!/com/unboundid/ldap/sdk/examples/AuthRate.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/samples/MOCK_DATA.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19822">
-          <caret line="991" column="26" selection-start-line="991" selection-start-column="26" selection-end-line="991" selection-end-column="26" />
+        <state relative-caret-position="-900" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-350">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1099">
+          <caret line="129" column="33" lean-forward="true" selection-start-line="129" selection-start-column="33" selection-end-line="129" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/DataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unboundid/unboundid-ldapsdk/4.0.10/a583353b69371545a36f752b1a690460da7fc3ed/unboundid-ldapsdk-4.0.10-sources.jar!/com/unboundid/ldap/sdk/examples/AuthRateThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9372">
-          <caret line="468" column="6" selection-start-line="468" selection-start-column="6" selection-end-line="468" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unboundid/unboundid-ldapsdk/4.0.10/a583353b69371545a36f752b1a690460da7fc3ed/unboundid-ldapsdk-4.0.10-sources.jar!/com/unboundid/util/LDAPCommandLineTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28996">
-          <caret line="1407" column="18" selection-start-line="1407" selection-start-column="18" selection-end-line="1407" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ConfigOptions.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LDAPConnector.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/Prefrence.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ConfigurationEntry.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/PreferencesController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigViewController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/AlertController.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/ConfigView.fxml" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unboundid/unboundid-ldapsdk/4.0.10/a583353b69371545a36f752b1a690460da7fc3ed/unboundid-ldapsdk-4.0.10-sources.jar!/com/unboundid/util/CommandLineTool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3872">
-          <caret line="223" column="10" selection-start-line="223" selection-start-column="10" selection-end-line="223" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#56167#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unboundid/unboundid-ldapsdk/4.0.10/a583353b69371545a36f752b1a690460da7fc3ed/unboundid-ldapsdk-4.0.10-sources.jar!/com/unboundid/ldap/sdk/PLAINBindRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unboundid/unboundid-ldapsdk/4.0.10/a583353b69371545a36f752b1a690460da7fc3ed/unboundid-ldapsdk-4.0.10-sources.jar!/com/unboundid/util/SASLUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
-          <caret line="1078" column="34" selection-start-line="1078" selection-start-column="34" selection-end-line="1078" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/DialogManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXDialogs/CredentialsDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.unboundid/unboundid-ldapsdk/4.0.10/a583353b69371545a36f752b1a690460da7fc3ed/unboundid-ldapsdk-4.0.10-sources.jar!/com/unboundid/ldap/sdk/LDAPConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20680">
-          <caret line="1009" selection-start-line="1009" selection-end-line="1009" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/LDAPTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/reports/tests/test/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2398" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+        <state>
+          <caret column="5" selection-start-column="5" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="95" column="35" selection-start-line="95" selection-start-column="35" selection-end-line="95" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/com/usrmngr/client/models/ADConnectorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="300">
+          <caret line="34" column="39" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/ConfigWindow/ConfigADView.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="32" column="60" selection-start-line="32" selection-start-column="60" selection-end-line="32" selection-end-column="60" />
-          <folding>
-            <element signature="e#1384#1385#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/DataManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigADController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-fxml/11.0.1/da60fbbf2197eeb3ae9e7c56ae9c93e5a3fb887c/javafx-fxml-11.0.1-sources.jar!/javafx/fxml/FXMLLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="2606" selection-start-line="2606" selection-end-line="2606" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/com/usrmngr/client/models/ADConnectorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/samples/MOCK_DATA.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1190">
-          <caret line="63" column="35" selection-start-line="63" selection-start-column="35" selection-end-line="63" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/ConfigController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1026">
-          <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
+        <state relative-caret-position="1400">
+          <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/controllers/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="136" selection-start-line="136" selection-end-line="136" />
-          <folding>
-            <element signature="e#3934#3935#0" expanded="true" />
-            <element signature="e#3999#4000#0" expanded="true" />
-            <element signature="e#4036#4037#0" expanded="true" />
-            <element signature="e#4066#4067#0" expanded="true" />
-            <element signature="e#4557#4558#0" expanded="true" />
-            <element signature="e#4599#4600#0" expanded="true" />
-            <element signature="e#5759#5760#0" expanded="true" />
-            <element signature="e#5804#5805#0" expanded="true" />
-            <element signature="e#5865#5866#0" expanded="true" />
-            <element signature="e#5930#5931#0" expanded="true" />
-            <element signature="e#5989#5990#0" expanded="true" />
-            <element signature="e#6062#6063#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="175">
+          <caret line="27" column="81" selection-start-line="27" selection-start-column="81" selection-end-line="27" selection-end-column="81" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/FXNodeContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="138" selection-start-line="138" selection-end-line="138" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="718">
-          <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#931#932#0" expanded="true" />
-            <element signature="e#983#984#0" expanded="true" />
-            <element signature="e#1028#1029#0" expanded="true" />
-            <element signature="e#1065#1066#0" expanded="true" />
-            <element signature="e#1124#1125#0" expanded="true" />
-            <element signature="e#1165#1166#0" expanded="true" />
-            <element signature="e#1691#1692#0" expanded="true" />
-            <element signature="e#1746#1747#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/models/ADConnector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="74" column="24" lean-forward="true" selection-start-line="74" selection-start-column="24" selection-end-line="74" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2390#2391#0" expanded="true" />
-            <element signature="e#2459#2460#0" expanded="true" />
-            <element signature="e#2491#2492#0" expanded="true" />
-            <element signature="e#2525#2526#0" expanded="true" />
-            <element signature="e#4228#4229#0" expanded="true" />
-            <element signature="e#4297#4298#0" expanded="true" />
-            <element signature="e#4346#4347#0" expanded="true" />
-            <element signature="e#4427#4428#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tests/com/usrmngr/client/models/ADConnectorTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="564">
-          <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+        <state relative-caret-position="2275">
+          <caret line="94" column="42" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
         </state>
       </provider>
     </entry>
   </component>
   <component name="masterDetails">
     <states>
-      <state key="ArtifactsStructureConfigurable.UI">
+      <state key="ArquillianSettingsConfigurable.UI">
         <settings>
-          <artifact-editor />
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1058,58 +412,9 @@
           </splitter-proportions>
         </settings>
       </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Global Libraries</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
+      <state key="ProjectJDKs.UI">
         <settings>
           <last-edited>11</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>test|user_manager</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Gradle: junit:junit:4.12</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
