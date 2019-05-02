@@ -1,5 +1,6 @@
 package com.usrmngr.client.controllers;
 
+import com.usrmngr.client.models.ADConnector;
 import com.usrmngr.client.models.FXNodeContainer;
 import com.usrmngr.client.util.DataManager;
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ public class ConfigADController implements Initializable {
     @FXML
     public Label message;
     public TextField authDomain;
-    public TextField server;
+    public TextField hostName;
     public TextField baseDN;
     public TextField bindDN;
     public TextField port;
@@ -35,6 +36,8 @@ public class ConfigADController implements Initializable {
         FXNodeContainer allNodes = new FXNodeContainer();
         allNodes.addItem(root);
         textFields = allNodes.getTextFields();
+        load();
+        testButton.setOnMouseClicked(event -> testConnection());
 
     }
     private void load(){
@@ -43,9 +46,15 @@ public class ConfigADController implements Initializable {
                 textField.setText((String)properties.getOrDefault(textField.getId(),"")));
 
     }
-    private   void save(){
+    private   void tempSave(){
         textFields.forEach(textField ->
                 properties.setProperty(textField.getId(),textField.getText()));
 
+    }
+    private void testConnection(){
+        tempSave();
+        ADConnector adConnector = new ADConnector(properties);
+        message.setText(adConnector.connect() ? "Success." : adConnector.getResultCode());
+        adConnector.disconnect();
     }
 }

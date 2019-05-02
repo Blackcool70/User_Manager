@@ -85,33 +85,21 @@ public class ConfigController implements Initializable {
         switchToConfiguration(defaultConfig);
 
         //try to load properties
-        properties = DataManager.getProperties();
-        loadProperties(properties);
         saveButton.setOnMouseClicked(event -> savedButtonClicked());
         cancelButton.setOnMouseClicked(event -> cancelButtonClicked());
     }
 
     private void cancelButtonClicked() {
-        boolean validConfiguration = propertiesNotEmpty(properties);
-        if (!validConfiguration) {
-            boolean quit = DialogManager.requestConfirmation("Invalid settings detected. Application will terminate..");
-            if (quit) {
-                Platform.exit();
-                System.exit(0);
-            } else {
-                return;
-            }
-        }
-        Window thisStage = this.cancelButton.getScene().getWindow();
-        thisStage.fireEvent(new WindowEvent(thisStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-    }
-
-
-
-    private static void loadProperties(Properties properties) {
-        if (properties.isEmpty()) return;
-        for (Map.Entry<Object, Object> e : properties.entrySet()) {
-            ((TextField) currentConfigNodes.getItem((String) e.getKey())).setText((String) e.getValue());
+        if (!propertiesNotEmpty(properties)) {
+             boolean ans = DialogManager.requestConfirmation(
+                      "Invalid settings detected. Application will terminate.","");
+             if(ans){
+                 Platform.exit();
+                 System.exit(0);
+             }
+        }else{
+            Window thisStage = this.cancelButton.getScene().getWindow();
+            thisStage.fireEvent(new WindowEvent(thisStage, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
     }
 
@@ -122,7 +110,7 @@ public class ConfigController implements Initializable {
         Properties properties = new Properties();
         for (TextField field : textFields) {
             if (field.getText().equals("")) {
-                DialogManager.showError("Fields cannot be left empty.", false);
+                DialogManager.showError("Fields cannot be left empty.","", false);
                 return;
             }
             properties.put(field.getId(), field.getText());

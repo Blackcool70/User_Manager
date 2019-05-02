@@ -41,7 +41,7 @@
         <TextField fx:id="authDomain" promptText="domain.com" GridPane.rowIndex="1"/>
         <TextField fx:id="baseDN" promptText="dc=domain, dc=com" GridPane.columnSpan="2147483647"
                    GridPane.rowIndex="3"/>
-        <TextField fx:id="server" promptText="localhost" GridPane.rowIndex="5"/>
+        <TextField fx:id="hostName" promptText="localhost" GridPane.rowIndex="5"/>
         <TextField fx:id="bindDN" promptText="cn=LDAPUsr,ou=ldap,dc=demo,dc=net" GridPane.columnSpan="2147483647"
                    GridPane.rowIndex="7"/>
         <Label text="*Port" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
