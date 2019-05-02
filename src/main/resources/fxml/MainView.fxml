@@ -9,7 +9,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
@@ -19,212 +18,150 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="855.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.client.controllers.MainController">
-    <children>
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Open…" />
-                        <Menu mnemonicParsing="false" text="Open Recent" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                        <MenuItem mnemonicParsing="false" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Save As…" />
-                        <MenuItem mnemonicParsing="false" text="Revert" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Quit" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem fx:id="configurationsMenu" mnemonicParsing="false" onAction="#configMenuSelected" text="Configurations..." />
-                        <MenuItem fx:id="preferencesMenu" mnemonicParsing="false" text="Preferences…" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <BorderPane fx:id="rootPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="853.0" prefWidth="697.0">
-            <VBox.margin>
-                <Insets />
-            </VBox.margin>
-            <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </padding>
-            <left>
-                <VBox fx:id="controlAreaPane" maxHeight="1.7976931348623157E308" prefHeight="569.0" prefWidth="142.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <VBox prefHeight="141.0" prefWidth="171.0" spacing="5.0">
-                            <children>
-                                <Button fx:id="addButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addButtonClicked" text="Add User" />
-                                <Button fx:id="deleteButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteButtonClicked" text="Delete User" />
-                                <Button fx:id="editButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editButtonClicked" text="Edit User" />
-                                <Button fx:id="passwordResetButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#passwordResetButtonClicked" prefHeight="16.0" prefWidth="171.0" text="Reset Password" />
-                            </children>
-                            <padding>
-                                <Insets bottom="10.0" />
-                            </padding>
-                        </VBox>
-                  <Label fx:id="userCount" text="Users:" />
-                        <ListView fx:id="userList" prefHeight="407.0" prefWidth="171.0" />
-                    </children>
-                </VBox>
-            </left>
-            <center>
-            <ScrollPane hbarPolicy="NEVER" hmax="0.0">
-               <content>
-                        <VBox fx:id="fieldsBody" maxHeight="1.7976931348623157E308" prefWidth="555.0" spacing="5.0">
-                            <children>
-                        <TitledPane fx:id="userDropDown" animated="false" collapsible="false" text="User">
-                           <content>
-                                      <GridPane fx:id="userAreaPane" hgap="4.0" vgap="4.0">
-                                          <columnConstraints>
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="139.0" />
-                                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="166.0" prefWidth="205.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="48.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="75.0" />
-                                          </columnConstraints>
-                                          <rowConstraints>
-                                              <RowConstraints vgrow="SOMETIMES" />
-                                              <RowConstraints vgrow="SOMETIMES" />
-                                              <RowConstraints vgrow="SOMETIMES" />
-                                              <RowConstraints vgrow="SOMETIMES" />
-                                              <RowConstraints vgrow="SOMETIMES" />
-                                          </rowConstraints>
-                                          <children>
-                                              <TextField fx:id="first_name" promptText="John" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                              <TextField fx:id="middle_initial" maxWidth="-Infinity" prefWidth="30.0" promptText="A" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                              <TextField fx:id="last_name" promptText="Doe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                              <TextField fx:id="display_name" promptText="John Doe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                              <TextField fx:id="email_address" promptText="John.Doe@demo.net" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                              <Label text="First Name:" GridPane.rowIndex="1" />
-                                              <Label text="Last Name:" GridPane.rowIndex="2" />
-                                              <Label text="Dispaly Name:" GridPane.rowIndex="3" />
-                                              <Label text="Email:" GridPane.rowIndex="4" />
-                                              <Label text="Inital:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                              <Label text="ID:" />
-                                              <Label fx:id="id" GridPane.columnIndex="1" />
-                                          </children>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                                      </GridPane>
-                           </content>
-                        </TitledPane>
-                        <TitledPane fx:id="infoDropDown" animated="false" text="Contact Information">
-                           <content>
-                              <GridPane fx:id="infoAreaPane" hgap="4.0" prefHeight="296.0" prefWidth="533.0" vgap="4.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="152.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="209.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="48.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="94.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                              <Label text="Mobil Number" GridPane.rowIndex="5" />
-                                              <Label text="Office:" GridPane.rowIndex="2" />
-                                              <Label text="Manager:" GridPane.rowIndex="3" />
-                                              <TextField fx:id="user_phone" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                              <Label text=" Job title" />
-                                    <Label text="Department" GridPane.rowIndex="1" />
-                                    <Label text="Office Number" GridPane.rowIndex="4" />
-                                    <TextField fx:id="office_phone" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <TextField fx:id="manager_name" promptText="Mary Sue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <TextField fx:id="office_name" promptText="Long View" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="department_name" promptText="Sales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="job_title" promptText="Engineer" GridPane.columnIndex="1" />
-                                 </children>
-                              </GridPane>
-                           </content>
-                        </TitledPane>
-                        <TitledPane fx:id="passwordDropDown" animated="false" expanded="false" text="Password" wrapText="true">
-                           <content>
-                              <GridPane fx:id="passwordAreaPane" alignment="CENTER" focusTraversable="true" hgap="4.0" vgap="4.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="258.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="250.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints maxHeight="28.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                              <CheckBox fx:id="usrRandPwCBox" focusTraversable="false" mnemonicParsing="false" selected="true" text="Randomize Password" />
-                                              <PasswordField fx:id="password_entry" promptText="password" GridPane.rowIndex="1" />
-                                              <PasswordField fx:id="password_confirm_entry" promptText="confirm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                 </children>
-                              </GridPane>
-                           </content>
-                        </TitledPane>
-                        <TitledPane fx:id="licenseDropDown" animated="false" expanded="false" text="Product licenses">
-                           <content>
-                              <GridPane fx:id="licenseAreaPane" hgap="4.0" vgap="4.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="309.0" minWidth="10.0" prefWidth="297.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="77.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="72.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <ListView fx:id="licenseList" GridPane.rowSpan="2147483647" />
-                                    <Button fx:id="addLicButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add" GridPane.columnIndex="1" />
-                                    <Button fx:id="delLicButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Delete" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                 </children>
-                              </GridPane>
-                           </content>
-                        </TitledPane>
-                        <TitledPane animated="false" expanded="false" text="Group Membership" />
-                        <GridPane fx:id="saveAreaPane" alignment="CENTER_LEFT" disable="true" hgap="4.0" vgap="4.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                                        <Button fx:id="cancelButton" cancelButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </Button>
-                                        <Button fx:id="saveButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveButtonClicked" prefWidth="333.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                           </children>
-                        </GridPane>
-                            </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                        </VBox>
-               </content>
-               <BorderPane.margin>
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.client.controllers.MainController">
+     <left>
+         <VBox fx:id="leftPane" prefWidth="150.0" spacing="5.0" BorderPane.alignment="CENTER">
+              <Button fx:id="addButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addButtonClicked" text="Add User" />
+              <Button fx:id="deleteButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteButtonClicked" text="Delete User" />
+              <Button fx:id="editButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editButtonClicked" text="Edit User" />
+              <Button fx:id="passwordResetButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#passwordResetButtonClicked" prefHeight="16.0" prefWidth="171.0" text="Reset Password" />
+             <Label fx:id="userCount" text="Users:" />
+             <ListView fx:id="userList" />
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         </VBox>
+     </left>
+     <center>
+          <VBox fx:id="centerPane" maxHeight="1.7976931348623157E308" spacing="5.0">
+              <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
-            </ScrollPane>
-            </center>
-         <bottom>
-            <VBox BorderPane.alignment="CENTER" />
-         </bottom>
-        </BorderPane>
-    </children>
-</VBox>
+              </padding>
+              <TitledPane fx:id="basicInfoDropdown" animated="false" collapsible="false" text="User">
+                  <GridPane fx:id="userAreaPane" hgap="4.0" vgap="4.0">
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="236.0" minWidth="10.0" prefWidth="139.0" />
+                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="211.0" minWidth="166.0" prefWidth="205.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="29.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="396.0" minWidth="10.0" prefWidth="112.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints vgrow="SOMETIMES" />
+                          <RowConstraints vgrow="SOMETIMES" />
+                          <RowConstraints vgrow="SOMETIMES" />
+                          <RowConstraints vgrow="SOMETIMES" />
+                          <RowConstraints vgrow="SOMETIMES" />
+                      </rowConstraints>
+                      <padding>
+                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                      </padding>
+                      <TextField fx:id="givenName" promptText="John" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      <TextField fx:id="initials" maxWidth="-Infinity" prefWidth="30.0" promptText="A" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                      <TextField fx:id="sn" promptText="Doe" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                      <TextField fx:id="displayName" promptText="John Doe" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                      <TextField fx:id="mail" promptText="John.Doe@demo.net" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                      <Label text="First Name:" GridPane.rowIndex="1" />
+                      <Label text="Last Name:" GridPane.rowIndex="2" />
+                      <Label text="Dispaly Name:" GridPane.rowIndex="3" />
+                      <Label text="Email:" GridPane.rowIndex="4" />
+                      <Label text="Inital:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                      <Label text="ID:" />
+                      <Label fx:id="id" GridPane.columnIndex="1" />
+                  </GridPane>
+              </TitledPane>
+              <TitledPane fx:id="contactInfoDropdown" animated="false" text="Contact Information">
+                  <GridPane fx:id="infoAreaPane" hgap="4.0" vgap="4.0">
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="152.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="209.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="48.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="94.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                      <Label text="Mobil Number" GridPane.rowIndex="5" />
+                      <Label text="Office:" GridPane.rowIndex="2" />
+                      <Label text="Manager:" GridPane.rowIndex="3" />
+                      <TextField fx:id="mobile" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                      <Label text=" Job title" />
+                      <Label text="Department" GridPane.rowIndex="1" />
+                      <Label text="Office Number" GridPane.rowIndex="4" />
+                      <TextField fx:id="otherTelephone" promptText="8061114444" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                      <TextField fx:id="manager" promptText="Mary Sue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                      <TextField fx:id="physicalDeliveryOfficeName" promptText="Long View" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                      <TextField fx:id="department" promptText="Sales" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      <TextField fx:id="title" promptText="Engineer" GridPane.columnIndex="1" />
+                  </GridPane>
+              </TitledPane>
+              <TitledPane fx:id="passwordDropdown" animated="false" text="Password" wrapText="true">
+                  <GridPane fx:id="passwordAreaPane" alignment="CENTER" focusTraversable="true" hgap="4.0" vgap="4.0">
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="258.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="404.0" minWidth="10.0" prefWidth="250.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints maxHeight="28.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+                          <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                      <CheckBox fx:id="usrRandPwCBox" focusTraversable="false" mnemonicParsing="false" selected="true" text="Randomize Password" />
+                      <PasswordField fx:id="password_entry" promptText="password" GridPane.rowIndex="1" />
+                      <PasswordField fx:id="password_confirm_entry" promptText="confirm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  </GridPane>
+              </TitledPane>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+          </VBox>
+     </center>
+   <top>
+       <MenuBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+           <Menu mnemonicParsing="false" text="File">
+               <MenuItem mnemonicParsing="false" text="New" />
+               <MenuItem mnemonicParsing="false" text="Open…" />
+               <Menu mnemonicParsing="false" text="Open Recent" />
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <MenuItem mnemonicParsing="false" text="Close" />
+               <MenuItem mnemonicParsing="false" text="Save" />
+               <MenuItem mnemonicParsing="false" text="Save As…" />
+               <MenuItem mnemonicParsing="false" text="Revert" />
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <SeparatorMenuItem mnemonicParsing="false" />
+               <MenuItem mnemonicParsing="false" text="Quit" />
+           </Menu>
+           <Menu mnemonicParsing="false" text="Edit">
+               <MenuItem fx:id="configurationsMenu" mnemonicParsing="false" onAction="#configMenuSelected" text="Configurations..." />
+               <MenuItem fx:id="preferencesMenu" mnemonicParsing="false" text="Preferences…" />
+           </Menu>
+           <Menu mnemonicParsing="false" text="Help">
+               <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+           </Menu>
+       </MenuBar>
+   </top>
+   <bottom>
+           <GridPane fx:id="bottomPane" alignment="CENTER_LEFT" disable="true" hgap="5.0" vgap="5.0" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                   <RowConstraints />
+                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <Button fx:id="cancelButton" cancelButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelButtonClicked" text="Cancel" GridPane.rowIndex="1">
+                   <GridPane.margin>
+                       <Insets />
+                   </GridPane.margin>
+               </Button>
+               <Button fx:id="saveButton" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveButtonClicked" prefWidth="333.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+           </GridPane>
+   </bottom>
+ </BorderPane>
