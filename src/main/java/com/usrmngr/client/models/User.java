@@ -10,7 +10,6 @@ import java.util.*;
 public class User {
     private HashMap<String, String> user;
 
-
     public User(JSONObject jsonObject) {
         this.user = new HashMap<>();
         Iterator keys = jsonObject.keys();
@@ -22,15 +21,6 @@ public class User {
                 e.printStackTrace();
             }
         }
-    }
-
-    public User(String id, String displayName, String fName, String lName, String mInitial) {
-        this.user = new HashMap<>();
-        this.user.put("id", id);
-        this.user.put("display_name", displayName);
-        this.user.put("first_name", fName);
-        this.user.put("last_name", lName);
-        this.user.put("middle_initials", mInitial);
     }
 
     public String[] getAttributes() {
@@ -69,7 +59,7 @@ public class User {
 
     @Override
     public String toString() {
-        return this.getAttribute("display_name");
+        return this.getAttribute("displayName");
     }
 
     public static void main(String[] args) {
