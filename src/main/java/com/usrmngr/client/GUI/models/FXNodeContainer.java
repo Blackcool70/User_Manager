@@ -1,4 +1,4 @@
-package com.usrmngr.client.models;
+package com.usrmngr.client.GUI.models;
 
 import javafx.scene.Node;
 import javafx.scene.Parent;

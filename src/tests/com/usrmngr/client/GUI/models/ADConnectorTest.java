@@ -1,4 +1,4 @@
-package com.usrmngr.client.models;
+package com.usrmngr.client.GUI.models;
 
 import org.junit.Test;
 public class ADConnectorTest {

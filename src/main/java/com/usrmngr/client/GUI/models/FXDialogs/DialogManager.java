@@ -1,4 +1,4 @@
-package com.usrmngr.client.models.FXDialogs;
+package com.usrmngr.client.GUI.models.FXDialogs;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;

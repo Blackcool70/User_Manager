@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.client.controllers.MainController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.client.GUI.controllers.MainController">
      <left>
          <VBox fx:id="leftPane" prefWidth="150.0" spacing="5.0" BorderPane.alignment="CENTER">
               <Button fx:id="addButton" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addButtonClicked" text="Add User" />

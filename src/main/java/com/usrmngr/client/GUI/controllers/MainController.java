@@ -1,11 +1,11 @@
-package com.usrmngr.client.controllers;
+package com.usrmngr.client.GUI.controllers;
 
-import com.usrmngr.client.Main;
-import com.usrmngr.client.models.ADConnector;
-import com.usrmngr.client.models.FXDialogs.DialogManager;
-import com.usrmngr.client.models.FXNodeContainer;
-import com.usrmngr.client.models.User;
-import com.usrmngr.client.util.DataManager;
+import com.usrmngr.client.GUI.FXUserManagerMain;
+import com.usrmngr.client.GUI.models.ADConnector;
+import com.usrmngr.client.GUI.models.FXDialogs.DialogManager;
+import com.usrmngr.client.GUI.models.FXNodeContainer;
+import com.usrmngr.client.GUI.models.User;
+import com.usrmngr.client.GUI.util.DataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -226,7 +226,7 @@ public class MainController implements Initializable {
 
     public void configMenuSelected() {
         String configViewFXML = "/fxml/ConfigWindow/ConfigMainView.fxml";
-        Main.loadAsChildWindow(configViewFXML, "Configurations");
+        FXUserManagerMain.loadAsChildWindow(configViewFXML, "Configurations");
     }
 
 

@@ -1,8 +1,8 @@
-package com.usrmngr.client.controllers;
+package com.usrmngr.client.GUI.controllers;
 
-import com.usrmngr.client.models.ADConnector;
-import com.usrmngr.client.models.FXNodeContainer;
-import com.usrmngr.client.util.DataManager;
+import com.usrmngr.client.GUI.models.ADConnector;
+import com.usrmngr.client.GUI.models.FXNodeContainer;
+import com.usrmngr.client.GUI.util.DataManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

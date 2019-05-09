@@ -1,4 +1,4 @@
-package com.usrmngr.client.models.FXDialogs;
+package com.usrmngr.client.GUI.models.FXDialogs;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
-import static com.usrmngr.client.Constants.APP_NAME;
+import static com.usrmngr.client.GUI.Constants.APP_NAME;
 
 public class CredentialsDialog extends Dialog {
     private ButtonType loginButtonType;

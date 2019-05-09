@@ -1,4 +1,4 @@
-package com.usrmngr.client.models.FXDialogs;
+package com.usrmngr.client.GUI.models.FXDialogs;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -9,7 +9,7 @@ import javafx.scene.layout.Priority;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import static com.usrmngr.client.Constants.APP_NAME;
+import static com.usrmngr.client.GUI.Constants.APP_NAME;
 
 // thanks to https://code.makery.ch/blog/javafx-dialogs-official/
 public class ExceptionDialog extends Alert {

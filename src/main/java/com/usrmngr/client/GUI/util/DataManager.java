@@ -1,8 +1,8 @@
-package com.usrmngr.client.util;
+package com.usrmngr.client.GUI.util;
 
 
-import com.usrmngr.client.models.FXDialogs.DialogManager;
-import com.usrmngr.client.models.FXDialogs.ExceptionDialog;
+import com.usrmngr.client.GUI.models.FXDialogs.DialogManager;
+import com.usrmngr.client.GUI.models.FXDialogs.ExceptionDialog;
 import javafx.application.Platform;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -10,8 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-import static com.usrmngr.client.Constants.APP_NAME;
-import static com.usrmngr.client.Constants.PROPERTIES_FILE_NAME;
+import static com.usrmngr.client.GUI.Constants.APP_NAME;
+import static com.usrmngr.client.GUI.Constants.PROPERTIES_FILE_NAME;
 
 public class DataManager {
 

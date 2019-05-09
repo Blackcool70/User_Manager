@@ -1,73 +1,18 @@
 package com.usrmngr.client;
 
-import com.usrmngr.client.models.FXDialogs.ExceptionDialog;
-import com.usrmngr.client.util.DataManager;
+import com.usrmngr.client.CLI.CLIUserManagerMain;
+import com.usrmngr.client.GUI.FXUserManagerMain;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-
-import static com.usrmngr.client.Constants.APP_NAME;
-
-public class Main extends Application {
-    private static Stage primaryStage;
+public class Main {
 
     public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage window) {
-        primaryStage = window;
-        loadProperties();
-        loadMainView();
-    }
-
-    private void loadProperties() {
-        if(DataManager.getProperties().isEmpty()){
-            loadConfigView();
+        if (args.length == 1 && "-cli".equalsIgnoreCase(args[0])) {
+            System.out.print("NO gui Got here");
+            new CLIUserManagerMain().runApp();
+        } else {
+            System.out.print("gui Got here");
+            Application.launch(FXUserManagerMain.class);
         }
-    }
-
-    private void loadConfigView() {
-        String configViewFXML = "/fxml/ConfigWindow/ConfigMainView.fxml";
-        loadAsChildWindow(configViewFXML, "Configurations");
-    }
-
-    private void loadMainView() {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainView.fxml"));
-            primaryStage.setTitle(APP_NAME);
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-            primaryStage.show();
-        } catch (IOException e) {
-            new ExceptionDialog("Problem loading program.", e).showAndWait();
-            e.printStackTrace();
-            Platform.exit();
-        }
-    }
-
-    public static void loadAsChildWindow(String fxmlPath, String title) {
-        try {
-            Stage configWindow = new Stage();
-            // prevents the parent window from being modified before configs are closed.
-            configWindow.initModality(Modality.WINDOW_MODAL);
-            configWindow.initOwner(primaryStage);
-            configWindow.setTitle(title);
-            configWindow.setScene( new Scene(FXMLLoader.load(Main.class.getResource(fxmlPath))));
-            configWindow.showAndWait();
-        } catch (IOException e) {
-            new ExceptionDialog("Problem loading Configurations window.", e).showAndWait();
-            e.printStackTrace();
-            Platform.exit();
-        }
-
     }
 }

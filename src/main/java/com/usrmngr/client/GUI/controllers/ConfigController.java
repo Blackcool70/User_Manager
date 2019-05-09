@@ -1,9 +1,8 @@
-package com.usrmngr.client.controllers;
+package com.usrmngr.client.GUI.controllers;
 
-import com.usrmngr.client.models.FXDialogs.DialogManager;
-import com.usrmngr.client.models.FXDialogs.ExceptionDialog;
-import com.usrmngr.client.models.FXNodeContainer;
-import com.usrmngr.client.util.DataManager;
+import com.usrmngr.client.GUI.models.FXDialogs.DialogManager;
+import com.usrmngr.client.GUI.models.FXNodeContainer;
+import com.usrmngr.client.GUI.util.DataManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,14 +17,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-
-import static com.usrmngr.client.Constants.APP_NAME;
-import static com.usrmngr.client.Constants.PROPERTIES_FILE_NAME;
 
 public class ConfigController implements Initializable {
     @FXML

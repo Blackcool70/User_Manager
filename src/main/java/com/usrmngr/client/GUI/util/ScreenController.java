@@ -1,4 +1,4 @@
-package com.usrmngr.client.util;
+package com.usrmngr.client.GUI.util;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;

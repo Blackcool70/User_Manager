@@ -1,6 +1,6 @@
-package com.usrmngr.client.models;
+package com.usrmngr.client.GUI.models;
 
-import com.usrmngr.client.util.DataManager;
+import com.usrmngr.client.GUI.util.DataManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
