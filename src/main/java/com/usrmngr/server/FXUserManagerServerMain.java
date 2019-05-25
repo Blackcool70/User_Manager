@@ -5,9 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.apache.logging.log4j.Level;
-
-import java.util.Date;
 
 public class FXUserManagerServerMain extends Application {
 
@@ -21,6 +18,6 @@ public class FXUserManagerServerMain extends Application {
         window.setScene(scene);
         window.show();
         window.setTitle("User Manager Server");
-        Main.LOGGER.log(Level.INFO, "GUI application started");
+
     }
 }

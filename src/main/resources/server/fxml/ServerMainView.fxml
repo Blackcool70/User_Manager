@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<BorderPane fx:id="ServerMainWindow" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.server.UI.controllers.ServerMainController">
+<BorderPane fx:id="ServerMainWindow" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.server.UI.controllers.MainController">
    <center>
       <GridPane hgap="10.0" maxHeight="500.0" maxWidth="500.0" minWidth="500.0" vgap="10.0">
          <columnConstraints>
