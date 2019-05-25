@@ -1,4 +1,4 @@
-package com.usrmngr.server.UI.controllers;
+package com.usrmngr.server.ui.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

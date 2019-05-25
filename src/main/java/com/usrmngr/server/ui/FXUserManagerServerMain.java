@@ -1,4 +1,4 @@
-package com.usrmngr.server;
+package com.usrmngr.server.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

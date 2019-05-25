@@ -1,6 +1,7 @@
 package com.usrmngr.server;
 
-import com.usrmngr.server.CLI.CLIUserManagerServerMain;
+import com.usrmngr.server.cli.CLIUserManagerServerMain;
+import com.usrmngr.server.ui.FXUserManagerServerMain;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

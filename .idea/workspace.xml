@@ -2,12 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ca30dac-8b3b-48d6-aa0e-b9b669c201cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/UI/controllers/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/UserManagerServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/Alert/AlertMaker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/CLI/CLIUserManagerServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/CLI/CLIUserManagerServerMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/FXUserManagerServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/FXUserManagerServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/CLI/CLIUserManagerServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/cli/CLIUserManagerServerMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/FXUserManagerServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/FXUserManagerServerMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/UI/controllers/ServerMainController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/UI/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/controllers/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/server/fxml/ServerMainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/server/fxml/ServerMainView.fxml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -36,11 +39,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+            <state relative-caret-position="300">
+              <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -49,42 +52,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/CLI/CLIUserManagerServerMain.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/controllers/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-              <folding>
-                <element signature="e#97#98#0" expanded="true" />
-                <element signature="e#134#135#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/11.0.1/74aca78315d801b768247cd3dec088a99bbc577/javafx-graphics-11.0.1-sources.jar!/javafx/application/Application.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="266" column="23" selection-start-line="266" selection-start-column="23" selection-end-line="266" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/server/fxml/ServerMainView.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/UI/controllers/MainController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-152">
-              <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+            <state relative-caret-position="348">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1379#1380#0" expanded="true" />
@@ -95,10 +66,45 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/FXUserManagerServerMain.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/UserManagerServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="3" column="36" lean-forward="true" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/Alert/AlertMaker.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1291">
+              <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/settings.gradle">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/FXUserManagerServerMain.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="200">
-              <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#668#669#0" expanded="true" />
@@ -120,8 +126,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="22" column="84" selection-start-line="22" selection-start-column="84" selection-end-line="22" selection-end-column="84" />
+            <state relative-caret-position="450">
+              <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
             </state>
           </provider>
         </entry>
@@ -140,6 +146,9 @@
     <findStrings>
       <find>unable</find>
     </findStrings>
+    <dirStrings>
+      <dir>C:\Users\jecsa\IdeaProjects\user_manager\src\main\java\com\usrmngr\server\core\model</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -177,14 +186,26 @@
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/LogAppenderImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/LogAppender.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/TextAreaLogAppender.java" />
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/TextAreaAppender.java" />
         <option value="$PROJECT_DIR$/src/main/resources/log4j2.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/Server.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/UI/controllers/ServerMainController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/UI/controllers/MainController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/CLI/CLIUserManagerServerMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/UI/controllers/MainController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/UserManagerServer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/controllers/MainController.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/Alert/AlertMaker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/Preferences.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/CONSTANTS.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Preferences.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/DataManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/PrefrencesHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/PreferencesHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Constants.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/ConfigHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Configuration.java" />
       </list>
     </option>
   </component>
@@ -267,7 +288,7 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="usrmngr" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="CLI" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
@@ -278,7 +299,8 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="usrmngr" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="UI" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
@@ -289,8 +311,42 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="usrmngr" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="UI" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="user_manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="usrmngr" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="user_manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="usrmngr" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
+              <item name="user_manager" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="usrmngr" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="Alert" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="user_manager" type="b2602c69:ProjectViewProjectNode" />
@@ -329,7 +385,8 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/fxml/server" />
+    <property name="extract.method.default.visibility" value="private" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Global Libraries" />
@@ -356,6 +413,8 @@
       <recent name="com.usrmngr.server" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jecsa\IdeaProjects\user_manager\src\main\java\com\usrmngr\server\core\model" />
+      <recent name="C:\Users\jecsa\IdeaProjects\user_manager\src\main\java\com\usrmngr\server\core" />
       <recent name="C:\Users\jecsa\IdeaProjects\user_manager\src\main\resources\fxml\server" />
     </key>
   </component>
@@ -371,14 +430,27 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ServerMain">
+  <component name="RunManager" selected="Application.Configuration">
+    <configuration name="Configuration" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.usrmngr.server.core.model.Configuration" />
+      <module name="user_manager.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.usrmngr.server.core.model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FXUserManagerServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.usrmngr.server.FXUserManagerServerMain" />
+      <option name="MAIN_CLASS_NAME" value="com.usrmngr.server.ui.FXUserManagerServerMain" />
       <module name="user_manager.main" />
       <option name="VM_PARAMETERS" value="--module-path &quot;C:\Program Files (x86)\Java\javafx-sdk-11.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.usrmngr.server.*" />
+          <option name="PATTERN" value="com.usrmngr.server.ui.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -391,7 +463,7 @@
       <module name="user_manager.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.usrmngr.server.*" />
+          <option name="PATTERN" value="com.usrmngr.server.ui.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -422,9 +494,11 @@
       <item itemvalue="Application.FXUserManagerServerMain" />
       <item itemvalue="Application.ServerMain" />
       <item itemvalue="Gradle.user_manager [dependencies]" />
+      <item itemvalue="Application.Configuration" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Configuration" />
         <item itemvalue="Application.ServerMain" />
         <item itemvalue="Gradle.user_manager [dependencies]" />
         <item itemvalue="Application.FXUserManagerServerMain" />
@@ -445,7 +519,7 @@
       <workItem from="1557374021975" duration="1639000" />
       <workItem from="1558803413851" duration="145000" />
       <workItem from="1558805600616" duration="8234000" />
-      <workItem from="1558814532630" duration="8566000" />
+      <workItem from="1558814532630" duration="12659000" />
     </task>
     <task id="LOCAL-00001" summary="re-add project to win-pc ... caused problems but its working.">
       <created>1556775087769</created>
@@ -517,11 +591,18 @@
       <option name="project" value="LOCAL" />
       <updated>1558817004225</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="added server interface and wired buttons for logging.">
+      <created>1558824046825</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1558824046826</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38606000" />
+    <option name="totallyTimeSpent" value="42699000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -534,7 +615,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26350605" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -545,7 +625,7 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32917964" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32917964" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -556,7 +636,7 @@
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32917964" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.32917964" />
+      <window_info anchor="bottom" id="Messages" order="13" visible="true" weight="0.32917964" />
       <window_info anchor="bottom" id="Problems" order="14" weight="0.32917964" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -618,7 +698,8 @@
     <MESSAGE value="minor refraction" />
     <MESSAGE value="reorganized files structure to work for server client model.&#10;Create server app template and client template." />
     <MESSAGE value="Added logging to server application" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added logging to server application" />
+    <MESSAGE value="added server interface and wired buttons for logging." />
+    <option name="LAST_COMMIT_MESSAGE" value="added server interface and wired buttons for logging." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -635,7 +716,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/samples/MOCK_DATA.json" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/client/util/DataManager.java" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
@@ -748,9 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/11.0.1/74aca78315d801b768247cd3dec088a99bbc577/javafx-graphics-11.0.1-sources.jar!/javafx/application/Application.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -784,13 +861,6 @@
       <provider editor-type-id="text-editor" />
       <provider selected="true" editor-type-id="LogFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="22" column="84" selection-start-line="22" selection-start-column="84" selection-end-line="22" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/TextAreaAppender.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
@@ -800,13 +870,6 @@
             <element signature="e#539#540#0" expanded="true" />
             <element signature="e#591#592#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -820,19 +883,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/FXUserManagerServerMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="13" lean-forward="true" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#668#669#0" expanded="true" />
-            <element signature="e#696#697#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/CLI/CLIUserManagerServerMain.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/cli/CLIUserManagerServerMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
@@ -843,10 +894,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/UI/controllers/MainController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-152">
-          <caret line="30" column="30" lean-forward="true" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+        <state relative-caret-position="550">
+          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/FXUserManagerServerMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#668#669#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/controllers/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1379#1380#0" expanded="true" />
@@ -855,13 +935,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/Main.java">
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
-          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/util/Alert/AlertMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1291">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Preferences.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/UserManagerServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="609">
+          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#708#709#0" expanded="true" />
+            <element signature="e#1514#1515#0" expanded="true" />
+            <element signature="e#1594#1595#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="3" column="36" lean-forward="true" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
         </state>
       </provider>
     </entry>

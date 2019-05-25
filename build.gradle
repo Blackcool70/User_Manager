@@ -21,6 +21,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.json/json
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.2'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
 }
 sourceSets {
     test {
