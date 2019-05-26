@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ca30dac-8b3b-48d6-aa0e-b9b669c201cd" name="Default Changelist" comment="Started server core functions and added new alerts.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Preferences.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Server.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/core/model/UserManagerServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/controllers/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/controllers/MainController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -39,7 +33,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/controllers/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
+            <state relative-caret-position="1023">
               <caret line="62" selection-start-line="62" selection-end-line="62" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -532,7 +526,7 @@
       <workItem from="1558805600616" duration="8234000" />
       <workItem from="1558814532630" duration="13016000" />
       <workItem from="1558828523836" duration="937000" />
-      <workItem from="1558851671862" duration="9223000" />
+      <workItem from="1558851671862" duration="9519000" />
     </task>
     <task id="LOCAL-00001" summary="re-add project to win-pc ... caused problems but its working.">
       <created>1556775087769</created>
@@ -625,11 +619,39 @@
       <option name="project" value="LOCAL" />
       <updated>1558851747198</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="updated constants">
+      <created>1558888237077</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1558888237077</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Created preferences Started server core functions and added new alerts.&#10; class to load and create them as needed.">
+      <created>1558888328558</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1558888328558</updated>
+    </task>
+    <task id="LOCAL-00016" summary="added log4j2 config file to git.. / updated it.">
+      <created>1558888355021</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1558888355021</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Created server app that will handle all requests.&#10;Server can now be started and stopped.">
+      <created>1558888437032</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1558888437032</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53216000" />
+    <option name="totallyTimeSpent" value="53512000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -642,9 +664,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19900772" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19900772" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -653,7 +674,7 @@
       <window_info id="Image Layers" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32917964" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32917964" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997923" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -729,7 +750,11 @@
     <MESSAGE value="added server interface and wired buttons for logging." />
     <MESSAGE value="Started server core functions and added new alerts." />
     <MESSAGE value="added log4j2 config" />
-    <option name="LAST_COMMIT_MESSAGE" value="added log4j2 config" />
+    <MESSAGE value="updated constants" />
+    <MESSAGE value="Created preferences Started server core functions and added new alerts.&#10; class to load and create them as needed." />
+    <MESSAGE value="added log4j2 config file to git.. / updated it." />
+    <MESSAGE value="Created server app that will handle all requests.&#10;Server can now be started and stopped." />
+    <option name="LAST_COMMIT_MESSAGE" value="Created server app that will handle all requests.&#10;Server can now be started and stopped." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -981,7 +1006,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/usrmngr/server/ui/controllers/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
+        <state relative-caret-position="1023">
           <caret line="62" selection-start-line="62" selection-end-line="62" />
           <folding>
             <element signature="imports" expanded="true" />
