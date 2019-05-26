@@ -7,6 +7,14 @@ package com.usrmngr.server.core.model;
 import com.usrmngr.server.Main;
 import org.apache.logging.log4j.Level;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Date;
+import java.util.logging.Logger;
+
 // Server class
 public class Server implements Runnable {
     private Preferences preferences;
@@ -17,21 +25,124 @@ public class Server implements Runnable {
         assert preferences != null;
         this.preferences = preferences;
     }
-    public  void stop() {
+
+    public void stop() {
         run = false;
     }
+
     @Override
     public void run() {
-        Main.LOGGER.log(Level.INFO,"Server thread started");
+        Main.LOGGER.log(Level.INFO, "Server thread started");
         int i = 0;
-        while(run){
+        while (run) {
+            // server is listening on port 5056
+            ServerSocket ss = null;
             try {
-                Thread.sleep(100);
-                System.out.println(i++);
-            } catch (InterruptedException e) {
+                ss = new ServerSocket(Integer.parseInt(Constants.DEFAULT_LISTEN_PORT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // running infinite loop for getting
+            // client request
+            Socket s = null;
+            Logger.getLogger(Preferences.class.getName()).info("Server listening on port ".concat(Constants.DEFAULT_LISTEN_PORT));
+            try {
+                // socket object to receive incoming client requests
+                s = ss.accept();
+                System.out.println("A new client is connected : " + s);
+
+                // obtaining input and out streams
+                DataInputStream dis = new DataInputStream(s.getInputStream());
+                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
+                System.out.println("Assigning new thread for this client");
+
+                // create a new thread object
+                Thread t = new ClientHandler(s, dis, dos);
+
+                // Invoking the start() method
+                t.start();
+
+            } catch (Exception e) {
+                try {
+                    s.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 e.printStackTrace();
             }
         }
-        Main.LOGGER.log(Level.INFO,"Server thread ended");
+        Main.LOGGER.log(Level.INFO, "Server thread ended");
+    }
+
+    // ClientHandler class
+    class ClientHandler extends Thread {
+        final DataInputStream dis;
+        final DataOutputStream dos;
+        final Socket s;
+
+
+        // Constructor
+        public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos) {
+            this.s = s;
+            this.dis = dis;
+            this.dos = dos;
+        }
+
+        @Override
+        public void run() {
+            String received;
+            String toreturn;
+            while (true) {
+                try {
+
+                    // Ask user what he wants
+                    dos.writeUTF("What do you want?[Date | Time]..\n" +
+                            "Type Exit to terminate connection.");
+
+                    // receive the answer from client
+                    received = dis.readUTF();
+
+                    if (received.equals("Exit")) {
+                        System.out.println("Client " + this.s + " sends exit...");
+                        System.out.println("Closing this connection.");
+                        this.s.close();
+                        System.out.println("Connection closed");
+                        break;
+                    }
+
+                    // creating Date object
+                    Date date = new Date();
+
+                    // write on output stream based on the
+                    // answer from the client
+                    switch (received) {
+
+                        case "Date":
+                            System.out.println("Date sent");
+                            break;
+
+                        case "Time":
+                            System.out.println("Time sent");
+                            break;
+
+                        default:
+                            System.out.println("Invalid input");
+                            break;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try {
+                // closing resources
+                this.dis.close();
+                this.dos.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

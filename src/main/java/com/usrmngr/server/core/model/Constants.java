@@ -5,7 +5,7 @@ import java.io.File;
 public final class Constants {
     public static final String APP_NAME = "UserManager";
     public static final String DEFAULT_SERVER_NAME = "localhost";
-    public static final String    DEFAULT_LISTEN_PORT = "7777";
+    public static final String    DEFAULT_LISTEN_PORT = "4521";
     public static final String   DEFAULT_SESSION_TIMEOUT = "60";
     public static final String DEFAULT_CONFIG_FILE_NAME = "configs.txt";
     public static final String DEFAULT_APP_CONFIG_PATH = System.getProperty("user.home") +
