@@ -2,12 +2,10 @@ package com.usrmngr.server.util.Alert;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -19,7 +17,7 @@ public class AlertMaker {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
-        styleAlert(alert);
+//        styleAlert(alert);
         alert.showAndWait();
     }
 
@@ -28,19 +26,19 @@ public class AlertMaker {
         alert.setTitle("Error");
         alert.setHeaderText(title);
         alert.setContentText(content);
-        styleAlert(alert);
+//        styleAlert(alert);
         alert.showAndWait();
     }
 
     public static void showErrorMessage(Exception ex) {
         Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error occured");
-        alert.setHeaderText("Error Occured");
+        alert.setTitle("Error occurred");
+        alert.setHeaderText("Error Occurred");
         alert.setContentText(ex.getLocalizedMessage());
 
         addExceptionToAlert(ex, alert);
 
-        styleAlert(alert);
+        //styleAlert(alert);
         alert.showAndWait();
     }
 
@@ -79,10 +77,10 @@ public class AlertMaker {
         alert.getDialogPane().setExpandableContent(expContent);
     }
 
-    private static void styleAlert(Alert alert) {
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(AlertMaker.class.getResource("/resources/dark-theme.css").toExternalForm());
-        dialogPane.getStyleClass().add("custom-alert");
-    }
+//    private static void styleAlert(Alert alert) {
+//        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+//        DialogPane dialogPane = alert.getDialogPane();
+//        dialogPane.getStylesheets().add(AlertMaker.class.getResource("/resources/dark-theme.css").toExternalForm());
+//        dialogPane.getStyleClass().add("custom-alert");
+//    }
 }
