@@ -1,7 +1,6 @@
 package com.usrmngr.server.core.model;
-
 import com.usrmngr.Main;
-import com.usrmngr.server.util.Alert.AlertMaker;
+import com.usrmngr.util.Alert.AlertMaker;
 import javafx.application.Platform;
 import org.apache.logging.log4j.Level;
 

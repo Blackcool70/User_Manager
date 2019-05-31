@@ -1,6 +1,5 @@
 package com.usrmngr.server.ui.controllers;
 
-import com.usrmngr.server.core.model.Preferences;
 import com.usrmngr.server.core.model.Server;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,13 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import org.apache.logging.log4j.Level;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.usrmngr.Main.LOGGER;
-import static com.usrmngr.server.core.model.Constants.DEFAULT_FULL_CONFIG_FILE_PATH;
 
 public class ServerMainViewController implements Initializable {
 
@@ -33,10 +29,9 @@ public class ServerMainViewController implements Initializable {
     @FXML
     private  TextArea logArea;
     private Server server;
-    private  Preferences preferences;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        preferences = Preferences.getPreferences(DEFAULT_FULL_CONFIG_FILE_PATH);
+        server = new Server();
         startServer.setOnMouseClicked(
                 event -> startServerButtonClicked()
         );
@@ -45,18 +40,21 @@ public class ServerMainViewController implements Initializable {
         );
     }
     private void startServerButtonClicked(){
-        LOGGER.log(Level.INFO,"Server Manually started");
-        setServerStatusMessage("Running");
-        server = new Server(Preferences.getPreferences(DEFAULT_FULL_CONFIG_FILE_PATH));
-        new Thread(server).start();
-
+        if(!server.isRunning()){
+            setStatusMessage("Starting...");
+            Thread serverThread = new Thread(server);
+            serverThread.setName("Server");
+            serverThread.start();
+            setStatusMessage("Running");
+        }
     }
     private void stopServerButtonClicked() {
-        LOGGER.log(Level.INFO,"Server Manually stopped");
-        setServerStatusMessage("Stopped");
-        server.stop();
+        setStatusMessage("Stopping...");
+        if(server != null && server.isRunning())
+            server.stop();
+        setStatusMessage("Stopped");
     }
-    private void setServerStatusMessage(String message){
+    private void setStatusMessage(String message){
         this.statusLabel.setText(message);
     }
 }

@@ -1,4 +1,4 @@
-package com.usrmngr.server.util.Alert;
+package com.usrmngr.util.Alert;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;

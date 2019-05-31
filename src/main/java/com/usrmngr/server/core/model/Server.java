@@ -4,7 +4,6 @@ package com.usrmngr.server.core.model;
 // It contains two classes : Server and ClientHandler
 // Save file as Server.java
 
-import com.usrmngr.Main;
 import org.apache.logging.log4j.Level;
 
 import java.io.DataInputStream;
@@ -12,136 +11,126 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
-import java.util.logging.Logger;
+import java.net.SocketException;
+
+import static com.usrmngr.Main.LOGGER;
+import static com.usrmngr.server.core.model.Constants.DEFAULT_LISTEN_PORT;
 
 // Server class
-public class Server implements Runnable {
-    private Preferences preferences;
+public class Server implements  Runnable{ //is this the best way to create the thread?
     private boolean run;
+    private boolean stopRequestReceived;
+    private ServerSocket serverSocket;
 
-    public Server(Preferences preferences) {
-        run = true;
-        assert preferences != null;
-        this.preferences = preferences;
+    public Server() {
+        run = false;
     }
-
+    // Interrupts thread to stop server using the run flag
     public void stop() {
         run = false;
+        stopRequestReceived = true;
+        if (serverSocket != null) {
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                LOGGER.log(Level.ERROR, "Error attempting to close server socket.");
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void run() {
-        Main.LOGGER.log(Level.INFO, "Server thread started");
+        LOGGER.log(Level.INFO, "Server has started.");
+        run = true;
+        // running infinite loop for getting client requests
+        try {
+            serverSocket = new ServerSocket(Integer.parseInt(DEFAULT_LISTEN_PORT));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         while (run) {
-            // server is listening on port 5056
-            ServerSocket ss = null;
-            try {
-                ss = new ServerSocket(Integer.parseInt(Constants.DEFAULT_LISTEN_PORT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // running infinite loop for getting
-            // client request
-            Socket s = null;
-            Logger.getLogger(Preferences.class.getName()).info("Server listening on port ".concat(Constants.DEFAULT_LISTEN_PORT));
+            // server is listening on default port
+            Socket clientSocket = null;
+            LOGGER.log(Level.INFO, "Server started listening on port {}.", DEFAULT_LISTEN_PORT);
             try {
                 // socket object to receive incoming client requests
-                s = ss.accept();
-                System.out.println("A new client is connected : " + s);
-
+                clientSocket = serverSocket.accept();
+                LOGGER.log(Level.INFO, "Client Connected {}", clientSocket.toString());
                 // obtaining input and out streams
-                DataInputStream dis = new DataInputStream(s.getInputStream());
-                DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-                System.out.println("Assigning new thread for this client");
+                DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
+                DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
+                LOGGER.log(Level.INFO, "Thread started for client {}.", clientSocket.toString());
 
                 // create a new thread object
-                Thread t = new ClientHandler(s, dis, dos);
-
+                Thread t = new ClientHandler(clientSocket, dis, dos);
+                t.setName("ClientHandler: ".concat(clientSocket.toString()));
                 // Invoking the start() method
                 t.start();
-
-            } catch (Exception e) {
-                try {
-                    s.close();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                e.printStackTrace();
+            }catch (SocketException e){
+                if(stopRequestReceived)
+                    break;
+                LOGGER.log(Level.INFO,"Error communicating with client, retrying...");
+            }catch (Exception e){
+                LOGGER.log(Level.FATAL, "Fatal Error communicating with client.");
+                LOGGER.log(Level.TRACE, e.getStackTrace());
+                break;
             }
         }
-        Main.LOGGER.log(Level.INFO, "Server thread ended");
+        LOGGER.log(Level.INFO, "Server has stopped.");
     }
 
-    // ClientHandler class
-    class ClientHandler extends Thread {
-        final DataInputStream dis;
-        final DataOutputStream dos;
-        final Socket s;
+    public boolean isRunning() {
+        return run;
+    }
+}
+
+// ClientHandler class
+class ClientHandler extends Thread {
+    final DataInputStream dis;
+    final DataOutputStream dos;
+    final Socket s;
 
 
-        // Constructor
-        public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos) {
-            this.s = s;
-            this.dis = dis;
-            this.dos = dos;
-        }
+    // Constructor
+    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos) {
+        this.s = s;
+        this.dis = dis;
+        this.dos = dos;
+    }
 
-        @Override
-        public void run() {
-            String received;
-            String toreturn;
-            while (true) {
-                try {
-
-                    // Ask user what he wants
-                    dos.writeUTF("What do you want?[Date | Time]..\n" +
-                            "Type Exit to terminate connection.");
-
-                    // receive the answer from client
-                    received = dis.readUTF();
-
-                    if (received.equals("Exit")) {
-                        System.out.println("Client " + this.s + " sends exit...");
-                        System.out.println("Closing this connection.");
-                        this.s.close();
-                        System.out.println("Connection closed");
-                        break;
-                    }
-
-                    // creating Date object
-                    Date date = new Date();
-
-                    // write on output stream based on the
-                    // answer from the client
-                    switch (received) {
-
-                        case "Date":
-                            System.out.println("Date sent");
-                            break;
-
-                        case "Time":
-                            System.out.println("Time sent");
-                            break;
-
-                        default:
-                            System.out.println("Invalid input");
-                            break;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
+    @Override
+    public void run() {
+        String received;
+        while (true) {
             try {
-                // closing resources
-                this.dis.close();
-                this.dos.close();
+                LOGGER.log(Level.INFO, "Communication with client started.");
+
+                // Ask user what he wants
+                dos.writeUTF("Hello, ready to serve.\n");
+
+                // receive the answer from client
+                received = dis.readUTF();
+
+                if (received.equals("Exit")) {
+                    this.s.close();
+                    break;
+                }
 
             } catch (IOException e) {
+                LOGGER.log(Level.ERROR, "Error encountered when talking to client {}.", s.toString());
                 e.printStackTrace();
             }
+            LOGGER.log(Level.INFO, "Communication with client stopped.");
+        }
+
+        try {
+            // closing resources
+            this.dis.close();
+            this.dos.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
