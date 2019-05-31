@@ -37,4 +37,4 @@ sourceSets {
     }
    
 }
-mainClassName = "com.usrmngr.server.ServerMain"
+mainClassName = "com.usrmngr.Main"

@@ -1,7 +1,7 @@
-package com.usrmngr.server;
+package com.usrmngr;
 
-import com.usrmngr.server.cli.CLIUserManagerServerMain;
-import com.usrmngr.server.ui.FXUserManagerServerMain;
+import com.usrmngr.client.ClientMain;
+import com.usrmngr.server.ServerMain;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +14,7 @@ import static javafx.application.Application.launch;
 
 public class Main {
     public static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
+
     // https://logging.apache.org/log4j/2.x/manual/configuration.html
     public static void main(String[] args) {
         //configure global app  logging
@@ -24,10 +25,13 @@ public class Main {
                 LOGGER.log(Level.INFO, "Application stopped on {}.", dateFormat.format(new Date()))));
 
         //runs a gui or cli version depending on inputs
-        if (args.length == 1 && "-cli".equalsIgnoreCase(args[0])) {
-            new CLIUserManagerServerMain().runApp();
+        if (args.length >= 1 && "-start".equalsIgnoreCase(args[0])) {
+            if ("server".equalsIgnoreCase(args[1]))
+                launch(ServerMain.class);
+            else
+                launch(ClientMain.class);
         } else {
-            launch(FXUserManagerServerMain.class);
+            launch(ClientMain.class);
         }
     }
 }

@@ -4,7 +4,7 @@ package com.usrmngr.server.core.model;
 // It contains two classes : Server and ClientHandler
 // Save file as Server.java
 
-import com.usrmngr.server.Main;
+import com.usrmngr.Main;
 import org.apache.logging.log4j.Level;
 
 import java.io.DataInputStream;
@@ -33,7 +33,6 @@ public class Server implements Runnable {
     @Override
     public void run() {
         Main.LOGGER.log(Level.INFO, "Server thread started");
-        int i = 0;
         while (run) {
             // server is listening on port 5056
             ServerSocket ss = null;

@@ -13,10 +13,10 @@ import org.apache.logging.log4j.Level;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.usrmngr.server.Main.LOGGER;
+import static com.usrmngr.Main.LOGGER;
 import static com.usrmngr.server.core.model.Constants.DEFAULT_FULL_CONFIG_FILE_PATH;
 
-public class MainController implements Initializable {
+public class ServerMainViewController implements Initializable {
 
     @FXML
     private BorderPane ServerMainWindow;
