@@ -27,10 +27,12 @@ public class ServerMainViewController implements Initializable {
     private Button stopServer;
 
     @FXML
-    private  TextArea logArea;
+    private TextArea logArea;
     private Server server;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        stopServer.setDisable(true);
         server = new Server();
         startServer.setOnMouseClicked(
                 event -> startServerButtonClicked()
@@ -39,22 +41,27 @@ public class ServerMainViewController implements Initializable {
                 event -> stopServerButtonClicked()
         );
     }
-    private void startServerButtonClicked(){
-        if(!server.isRunning()){
-            setStatusMessage("Starting...");
-            Thread serverThread = new Thread(server);
-            serverThread.setName("Server");
-            serverThread.start();
-            setStatusMessage("Running");
-        }
+
+    private void startServerButtonClicked() {
+        startServer.setDisable(true);
+        stopServer.setDisable(false);
+        setStatusMessage("Starting...");
+        Thread serverThread = new Thread(server);
+        serverThread.setName("Server");
+        serverThread.start();
+        setStatusMessage("Running");
     }
+
     private void stopServerButtonClicked() {
+        startServer.setDisable(false);
+        stopServer.setDisable(true);
+        if (server == null || !server.isRunning()) return;
         setStatusMessage("Stopping...");
-        if(server != null && server.isRunning())
-            server.stop();
+        server.stop();
         setStatusMessage("Stopped");
     }
-    private void setStatusMessage(String message){
+
+    private void setStatusMessage(String message) {
         this.statusLabel.setText(message);
     }
 }
