@@ -1,10 +1,10 @@
 package com.usrmngr.server.ui.controllers;
 
 import com.usrmngr.server.core.model.Server;
+import com.usrmngr.util.Alert.AlertMaker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
@@ -21,48 +21,95 @@ public class ServerMainViewController implements Initializable {
     private Text statusLabel;
 
     @FXML
-    private Button startServer;
-
-    @FXML
-    private Button stopServer;
-
+    private Button startServer, stopServer, clearLogs;
     @FXML
     private TextArea logArea;
+
+
+    @FXML
+    private MenuBar menuBar;
+    @FXML
+    private Menu editMenu, helpMenu;
+    @FXML
+    private MenuItem editConfigs, about;
+
+
     private Server server;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initServer();
+        initGUI();
+
+
+    }
+
+    private void initGUI() {
         stopServer.setDisable(true);
-        server = new Server();
+        this.server = new Server();
         startServer.setOnMouseClicked(
-                event -> startServerButtonClicked()
+                e -> startServerButtonClicked()
         );
         stopServer.setOnMouseClicked(
-                event -> stopServerButtonClicked()
+                e -> stopServerButtonClicked()
         );
+        clearLogs.setOnMouseClicked(
+                e -> clearLogs()
+        );
+        about.setOnAction(
+                e -> showAboutWindow()
+        );
+        editConfigs.setOnAction(
+                e -> openConfigWindow()
+        );
+    }
+
+    private void clearLogs() {
+        logArea.clear();
+    }
+
+    private void openConfigWindow() {
+        System.out.println("Opening config window.");
+    }
+
+    private void showAboutWindow() {
+        System.out.println("Opening about Window.");
+    }
+
+    private void initServer() {
+        server = new Server();
+
     }
 
     private void startServerButtonClicked() {
         startServer.setDisable(true);
         stopServer.setDisable(false);
         setStatusMessage("Starting...");
-        Thread serverThread = new Thread(server);
-        serverThread.setName("Server");
-        serverThread.start();
+        this.startup();
         setStatusMessage("Running");
     }
 
     private void stopServerButtonClicked() {
         startServer.setDisable(false);
         stopServer.setDisable(true);
-        if (server == null || !server.isRunning()) return;
         setStatusMessage("Stopping...");
-        server.stop();
+        this.shutdown();
         setStatusMessage("Stopped");
     }
 
     private void setStatusMessage(String message) {
         this.statusLabel.setText(message);
+    }
+
+    public void startup() {
+        Thread serverThread = new Thread(server);
+        serverThread.setName("Server");
+        serverThread.start();
+    }
+
+    public void shutdown() {
+        if (server == null || !server.isRunning()) return;
+        server.stop();
     }
 }
 
