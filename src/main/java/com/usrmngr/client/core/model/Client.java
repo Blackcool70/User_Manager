@@ -38,7 +38,7 @@ public class Client {
 
     }
 
-    public  synchronized  void sendMessage(String message) {
+    public synchronized void sendMessage(String message) {
         if (!isConnected()) return;
         try {
             dos.writeUTF(message);
@@ -58,23 +58,23 @@ public class Client {
         return msg;
     }
 
-    public void connect() throws IOException {
+    public void connect(){
         try {
             commSocket = new Socket(InetAddress.getByName(serverAddress), serverPort);
             dis = new DataInputStream(commSocket.getInputStream());
             dos = new DataOutputStream(commSocket.getOutputStream());
-        }catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
     }
 
     private void disconnect() {
-        if (isConnected()) {
-            try {
-                dis.close();
-                dos.close();
-                commSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if (!isConnected()) return;
+        try {
+            dis.close();
+            dos.close();
+            commSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
