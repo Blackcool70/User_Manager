@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Level;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,39 +18,39 @@ import static com.usrmngr.Main.LOGGER;
 import static com.usrmngr.server.core.model.Constants.DEFAULT_LISTEN_PORT;
 
 // Server class
-public class Server implements  Runnable{ //is this the best way to create the thread?
-    private boolean run;
+public class Server implements Runnable { //is this the best way to create the thread?
+    private boolean running;
     private boolean stopRequestReceived;
     private ServerSocket serverSocket;
 
     public Server() {
-        run = false;
+        running = false;
     }
-    // Interrupts thread to stop server using the run flag
+
+    // Interrupts thread to stop server using the running flag
     public void stop() {
-        run = false;
+        running = false;
         stopRequestReceived = true;
-        if (serverSocket != null) {
-            try {
-                serverSocket.close();
-            } catch (IOException e) {
-                LOGGER.log(Level.ERROR, "Error attempting to close server socket.");
-                e.printStackTrace();
-            }
+        if (serverSocket == null) return;
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            LOGGER.log(Level.ERROR, "Error attempting to close server socket.");
+            e.printStackTrace();
         }
     }
 
     @Override
     public void run() {
         LOGGER.log(Level.INFO, "Server has started.");
-        run = true;
+        running = true;
         // running infinite loop for getting client requests
         try {
             serverSocket = new ServerSocket(Integer.parseInt(DEFAULT_LISTEN_PORT));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        while (run) {
+        while (running) {
             // server is listening on default port
             Socket clientSocket = null;
             LOGGER.log(Level.INFO, "Server started listening on port {}.", DEFAULT_LISTEN_PORT);
@@ -67,11 +68,13 @@ public class Server implements  Runnable{ //is this the best way to create the t
                 t.setName("ClientHandler: ".concat(clientSocket.toString()));
                 // Invoking the start() method
                 t.start();
-            }catch (SocketException e){
-                if(stopRequestReceived)
+            } catch (SocketException e) {
+                if (stopRequestReceived) {
+                    stopRequestReceived = false;
                     break;
-                LOGGER.log(Level.INFO,"Error communicating with client, retrying...");
-            }catch (Exception e){
+                }
+                LOGGER.log(Level.INFO, "Error communicating with client, retrying...");
+            } catch (Exception e) {
                 LOGGER.log(Level.FATAL, "Fatal Error communicating with client.");
                 LOGGER.log(Level.TRACE, e.getStackTrace());
                 break;
@@ -81,7 +84,7 @@ public class Server implements  Runnable{ //is this the best way to create the t
     }
 
     public boolean isRunning() {
-        return run;
+        return running;
     }
 }
 
@@ -93,8 +96,8 @@ class ClientHandler extends Thread {
 
 
     // Constructor
-    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos) {
-        this.s = s;
+    public ClientHandler(Socket clientSocket, DataInputStream dis, DataOutputStream dos) {
+        this.s = clientSocket;
         this.dis = dis;
         this.dos = dos;
     }
@@ -112,14 +115,15 @@ class ClientHandler extends Thread {
                 // receive the answer from client
                 received = dis.readUTF();
 
-                if (received.equals("Exit")) {
-                    this.s.close();
-                    break;
-                }
+                dos.writeUTF(("How can I help you " + received));
 
+            } catch (EOFException | SocketException e) {
+                LOGGER.log(Level.INFO, "Client disconnected: {}", e.getMessage());
+                break;
             } catch (IOException e) {
                 LOGGER.log(Level.ERROR, "Error encountered when talking to client {}.", s.toString());
                 e.printStackTrace();
+                break;
             }
             LOGGER.log(Level.INFO, "Communication with client stopped.");
         }
@@ -132,5 +136,13 @@ class ClientHandler extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        Server server = new Server();
+        Thread thread = new Thread(server);
+        thread.setName("Server");
+        thread.start();
+
     }
 }
