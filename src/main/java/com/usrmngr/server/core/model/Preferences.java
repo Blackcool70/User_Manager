@@ -1,6 +1,9 @@
 package com.usrmngr.server.core.model;
+import com.usrmngr.Main;
 import com.usrmngr.util.Alert.AlertMaker;
 import javafx.application.Platform;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
 
 
 import java.io.File;
@@ -14,7 +17,7 @@ import static com.usrmngr.server.core.model.Constants.*;
 
 public class Preferences {
     private Properties properties;
-
+    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(Main.class.getName());
     public Preferences() {
         properties = new Properties();
     }
@@ -33,10 +36,10 @@ public class Preferences {
             preferences = new Preferences();
             preferences.properties.load(new FileInputStream(new File(path)));
         } catch (IOException e) {
-            Main.LOGGER.log(Level.ERROR, "Config file is missing. Creating new one with default config");
+            LOGGER.log(Level.ERROR, "Config file is missing. Creating new one with default config");
             initConfig();
         }
-        Main.LOGGER.log(Level.INFO, "Config file is loaded.");
+        LOGGER.log(Level.INFO, "Config file is loaded.");
         return preferences;
     }
 
@@ -50,7 +53,7 @@ public class Preferences {
             Logger.getLogger(Preferences.class.getName()).info("Config file saved: ".concat(path.concat(fileName)));
         } catch (IOException e) {
             AlertMaker.showErrorMessage(e, "Configurations", "Unable to save configurations");
-            Main.LOGGER.log(Level.FATAL, "Failed to write config file.");
+            LOGGER.log(Level.FATAL, "Failed to write config file.");
             Platform.exit();
         }
     }
