@@ -89,7 +89,7 @@ public class ServerMainViewController implements Initializable {
 
     private void showAboutWindow() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("server/fxml/About.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/server/fxml/About.fxml"));
             Scene aboutScene = new Scene(root);
             Stage configWindow = new Stage();
             // prevents the parent window from being modified before configs are closed.
