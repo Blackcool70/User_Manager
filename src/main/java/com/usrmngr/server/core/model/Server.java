@@ -53,22 +53,22 @@ public class Server implements Runnable { //is this the best way to create the t
         } catch (IOException e) {
             e.printStackTrace();
         }
+        LOGGER.log(Level.INFO, "Server started listening on port {}.", DEFAULT_LISTEN_PORT);
         while (running) {
             // server is listening on default port
             Socket clientSocket = null;
-            LOGGER.log(Level.INFO, "Server started listening on port {}.", DEFAULT_LISTEN_PORT);
             try {
                 // socket object to receive incoming client requests
                 clientSocket = serverSocket.accept();
-                LOGGER.log(Level.INFO, "Client Connected {}", clientSocket.toString());
+                LOGGER.log(Level.INFO, "Client Connected {}", clientSocket.getLocalPort());
                 // obtaining input and out streams
                 DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
                 DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
-                LOGGER.log(Level.INFO, "Thread started for client {}.", clientSocket.toString());
+                LOGGER.log(Level.INFO, "Thread started for client {}.", clientSocket.getLocalPort());
 
                 // create a new thread object
                 Thread t = new ClientHandler(clientSocket, dis, dos);
-                t.setName("ClientHandler: ".concat(clientSocket.toString()));
+                t.setName("ClientHandler:".concat(String.valueOf(clientSocket.getLocalPort())));
                 // Invoking the start() method
                 t.start();
             } catch (SocketException e) {
@@ -108,9 +108,9 @@ class ClientHandler extends Thread {
     @Override
     public void run() {
         String received;
+        LOGGER.log(Level.INFO, "Communication with client started.");
         while (true) {
             try {
-                LOGGER.log(Level.INFO, "Communication with client started.");
 
                 // Ask user what he wants
                 dos.writeUTF("Hello, ready to serve.\n");
@@ -124,12 +124,12 @@ class ClientHandler extends Thread {
                 LOGGER.log(Level.INFO, "Client disconnected: {}", e.getMessage());
                 break;
             } catch (IOException e) {
-                LOGGER.log(Level.ERROR, "Error encountered when talking to client {}.", s.toString());
+                LOGGER.log(Level.ERROR, "Error encountered when talking to client {}.", s.getLocalPort());
                 e.printStackTrace();
                 break;
             }
-            LOGGER.log(Level.INFO, "Communication with client stopped.");
         }
+        LOGGER.log(Level.INFO, "Communication with client stopped.");
 
         try {
             // closing resources

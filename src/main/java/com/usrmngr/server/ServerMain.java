@@ -31,7 +31,6 @@ public class ServerMain extends Application {
         window.show();
 
     }
-
     private void initLogging() {
         //configure global app  logging
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
