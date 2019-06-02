@@ -26,10 +26,15 @@ public class Main {
 
         //runs a gui or cli version depending on inputs
         if (args.length >= 1 && "-start".equalsIgnoreCase(args[0])) {
-            if ("server".equalsIgnoreCase(args[1]))
-                launch(ServerMain.class);
-            else
-                launch(ClientMain.class);
+            switch (args[1].toLowerCase()){
+                case "server":
+                    launch(ServerMain.class);
+                    break;
+                case "client":
+                    launch(ClientMain.class);
+                default:
+                    System.out.println("Invalid Switch");
+            }
         } else {
             launch(ClientMain.class);
         }

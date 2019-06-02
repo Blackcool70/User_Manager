@@ -1,6 +1,5 @@
 package com.usrmngr.server;
 
-import com.usrmngr.server.core.model.Server;
 import com.usrmngr.server.ui.controllers.ServerMainViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +19,6 @@ public class ServerMain extends Application {
         window.setScene(scene);
         window.setTitle("Server Manager Client");
         ServerMainViewController controller = loader.getController();
-
         window.setOnCloseRequest(e -> controller.shutdown());
         window.show();
 
