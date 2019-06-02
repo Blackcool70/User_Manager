@@ -4,7 +4,10 @@ package com.usrmngr.server.core.model;
 // It contains two classes : Server and ClientHandler
 // Save file as Server.java
 
+import com.usrmngr.Main;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -14,7 +17,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
-import static com.usrmngr.Main.LOGGER;
 import static com.usrmngr.server.core.model.Constants.DEFAULT_LISTEN_PORT;
 
 // Server class
@@ -22,6 +24,7 @@ public class Server implements Runnable { //is this the best way to create the t
     private boolean running;
     private boolean stopRequestReceived;
     private ServerSocket serverSocket;
+    private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
     public Server() {
         running = false;
@@ -93,7 +96,7 @@ class ClientHandler extends Thread {
     final DataInputStream dis;
     final DataOutputStream dos;
     final Socket s;
-
+    public static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
     // Constructor
     public ClientHandler(Socket clientSocket, DataInputStream dis, DataOutputStream dos) {

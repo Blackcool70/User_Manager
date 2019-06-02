@@ -1,6 +1,8 @@
 package com.usrmngr.server.ui.controllers;
 
+import com.usrmngr.Main;
 import com.usrmngr.server.core.model.Server;
+import com.usrmngr.server.core.model.TextAreaAppender;
 import com.usrmngr.util.Alert.AlertMaker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,15 +15,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
-
-import static com.sun.javafx.scene.control.skin.Utils.getResource;
-
-
 public class ServerMainViewController implements Initializable {
 
     @FXML
@@ -43,20 +46,22 @@ public class ServerMainViewController implements Initializable {
     @FXML
     private MenuItem editConfigs, about;
 
-
     private Server server;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initServer();
         initGUI();
-
+        initLogging();
 
     }
 
+    private void initLogging() {
+        TextAreaAppender.setTextArea(logArea);
+    }
+
+
     private void initGUI() {
         stopServer.setDisable(true);
-        this.server = new Server();
         startServer.setOnMouseClicked(
                 e -> startServerButtonClicked()
         );
@@ -84,7 +89,7 @@ public class ServerMainViewController implements Initializable {
 
     private void showAboutWindow() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/server/fxml/About.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("server/fxml/About.fxml"));
             Scene aboutScene = new Scene(root);
             Stage configWindow = new Stage();
             // prevents the parent window from being modified before configs are closed.
@@ -96,8 +101,8 @@ public class ServerMainViewController implements Initializable {
             configWindow.setWidth(305);
             configWindow.setResizable(false);
             configWindow.showAndWait();
-        } catch (IOException e) {
-            AlertMaker.showErrorMessage(e, "Unable to load", "Failed to load about.");
+        } catch (Exception e) {
+            AlertMaker.showErrorMessage(e, "Unable to load About", "Failed to load about.");
         }
 
 
@@ -105,7 +110,6 @@ public class ServerMainViewController implements Initializable {
 
     private void initServer() {
         server = new Server();
-
     }
 
     private void startServerButtonClicked() {
