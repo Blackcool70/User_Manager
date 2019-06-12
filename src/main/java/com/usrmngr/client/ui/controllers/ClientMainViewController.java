@@ -228,5 +228,4 @@ public class ClientMainViewController implements Initializable {
         // Main.loadAsChildWindow(configViewFXML, "Configurations");
     }
 
-
 }
