@@ -25,6 +25,7 @@ public class AboutController implements Initializable {
     private String getAboutText() {
         return
                 "User Manager Server v.0.0.1\n" +
+                        "Base16 Inc.\n" +
                         "Copyright (c) 2019 Jecsan Blanco\n";
     }
 }

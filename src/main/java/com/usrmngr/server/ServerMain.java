@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class ServerMain extends Application {
+    private static final String APP_NAME = "USER MANGER SERVER";
     public static void main(String[] args) {
         launch(args);
     }
@@ -17,7 +18,7 @@ public class ServerMain extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         window.setScene(scene);
-        window.setTitle("User Manager Server");
+        window.setTitle(APP_NAME);
         ServerMainViewController controller = loader.getController();
         window.setOnCloseRequest(e -> controller.shutdown());
         window.show();
