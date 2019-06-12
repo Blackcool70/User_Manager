@@ -1,7 +1,5 @@
 package com.usrmngr.server.ui.controllers;
 
-import com.usrmngr.Main;
-import com.usrmngr.server.core.model.Server;
 import com.usrmngr.server.core.model.TextAreaAppender;
 import com.usrmngr.util.Alert.AlertMaker;
 import javafx.fxml.FXML;
@@ -15,15 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ResourceBundle;
 public class ServerMainViewController implements Initializable {
 
@@ -46,7 +36,6 @@ public class ServerMainViewController implements Initializable {
     @FXML
     private MenuItem editConfigs, about;
 
-    private Server server;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initServer();
@@ -109,7 +98,6 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void initServer() {
-        server = new Server();
     }
 
     private void startServerButtonClicked() {
@@ -133,14 +121,9 @@ public class ServerMainViewController implements Initializable {
     }
 
     public void startup() {
-        Thread serverThread = new Thread(server);
-        serverThread.setName("Server");
-        serverThread.start();
     }
 
     public void shutdown() {
-        if (server == null || !server.isRunning()) return;
-        server.stop();
     }
 }
 
