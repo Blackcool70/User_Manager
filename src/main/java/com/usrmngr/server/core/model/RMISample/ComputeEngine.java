@@ -1,8 +1,6 @@
-package com.usrmngr.server.core.model.RMI;
+package com.usrmngr.server.core.model.RMISample;
 
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;

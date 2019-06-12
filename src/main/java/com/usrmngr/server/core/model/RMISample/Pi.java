@@ -1,4 +1,5 @@
-package com.usrmngr.server.core.model.RMI;
+package com.usrmngr.server.core.model.RMISample;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 

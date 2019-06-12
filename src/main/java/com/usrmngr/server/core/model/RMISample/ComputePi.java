@@ -1,8 +1,8 @@
-package com.usrmngr.server.core.model.RMI;
+package com.usrmngr.server.core.model.RMISample;
 
+import java.math.BigDecimal;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.math.BigDecimal;
 
 public class ComputePi {
     public static void main(String args[]) {
