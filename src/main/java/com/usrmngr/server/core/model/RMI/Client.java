@@ -1,6 +1,4 @@
 package com.usrmngr.server.core.model.RMI;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -11,10 +9,11 @@ public class Client {
             System.setSecurityManager(new SecurityManager());
         }
         try {
-            String name = "Request";
+            StringBuilder stringBuilder = new StringBuilder("I am god!;");
+            String name = Server.DEFAULT_SERVER_REG_NAME;
             Registry registry = LocateRegistry.getRegistry();
             HandleRequest comp = (HandleRequest) registry.lookup(name);
-            Request request = new Request();
+            Request request = new Request(RTYPE.CREATE,stringBuilder);
             Request reply = comp.handle(request);
             System.out.println(reply);
         } catch (Exception e) {

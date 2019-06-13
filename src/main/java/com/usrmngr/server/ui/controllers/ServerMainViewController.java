@@ -1,5 +1,6 @@
 package com.usrmngr.server.ui.controllers;
 
+import com.usrmngr.server.core.model.RMI.Server;
 import com.usrmngr.server.core.model.TextAreaAppender;
 import com.usrmngr.util.Alert.AlertMaker;
 import javafx.fxml.FXML;
@@ -36,6 +37,7 @@ public class ServerMainViewController implements Initializable {
     @FXML
     private MenuItem editConfigs, about;
 
+    private Server server;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initServer();
@@ -98,21 +100,20 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void initServer() {
+        this.server = new Server();
     }
 
     private void startServerButtonClicked() {
+        this.startup();
         startServer.setDisable(true);
         stopServer.setDisable(false);
-        setStatusMessage("Starting...");
-        this.startup();
-        setStatusMessage("Running");
     }
 
     private void stopServerButtonClicked() {
-        startServer.setDisable(false);
-        stopServer.setDisable(true);
         setStatusMessage("Stopping...");
         this.shutdown();
+        startServer.setDisable(false);
+        stopServer.setDisable(true);
         setStatusMessage("Stopped");
     }
 
@@ -121,9 +122,16 @@ public class ServerMainViewController implements Initializable {
     }
 
     public void startup() {
+        setStatusMessage("Starting...");
+        server.startUp();
+        if(server.isRunning())
+            setStatusMessage("Running");
+        else
+            setStatusMessage("Failed");
     }
 
     public void shutdown() {
+        server.shutDown();
     }
 }
 
