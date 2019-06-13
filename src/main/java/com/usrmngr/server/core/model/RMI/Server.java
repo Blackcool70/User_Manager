@@ -1,17 +1,14 @@
 package com.usrmngr.server.core.model.RMI;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class Server implements HandleRequest {
-    public static final int DEFAULT_LISTEN_PORT = 8085; // 0 random
-    public static final int DEFAULT_REGISTRY_PORT = 1099;
+    public static final String DEFAULT_SERVER_NAME = "USRMGR_SERV";
+    private static final int DEFAULT_LISTEN_PORT = 8085; // 0 random
+    private static final int DEFAULT_REGISTRY_PORT = 1099;
     public static  String DEFAULT_SERVER_POLICY_PATH = "C:\\Users\\jecsa\\IdeaProjects\\user_manager\\src\\main\\resources\\server\\server.policy";
     private HandleRequest stub;
     private Registry  registry;
@@ -38,14 +35,13 @@ public class Server implements HandleRequest {
         stub = (HandleRequest) UnicastRemoteObject.exportObject(this, port);
     }
 
-    private void start(){
+    private void startUp(){
         System.out.println("Server started");
         try {
             registry.rebind("Request", stub);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
     }
     private void setRegistry(int port) throws RemoteException {
         registry = LocateRegistry.createRegistry(port);
@@ -58,6 +54,7 @@ public class Server implements HandleRequest {
             setSecurityManager();
             setRegistry(DEFAULT_REGISTRY_PORT);
             setStub(DEFAULT_LISTEN_PORT);
+            startUp();
         } catch (RemoteException e) {
             //failure
             e.printStackTrace();
@@ -67,27 +64,19 @@ public class Server implements HandleRequest {
         }
 
     }
-    private static  String getResourceAbsulatePath(String name){
-        URL res = Server.class.getClassLoader().getResource(name);
-        File file = null;
-        try {
-            file = Paths.get(res.toURI()).toFile();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return  file.getAbsolutePath();
-    }
+
 
     @Override
     public Request handle(Request request) throws RemoteException {
-        request.setName("Test");
-        System.out.println("Handled request!");
+        System.out.println("Got Request:");
+        System.out.println(request);
+        request.setResult(RRESULT.SUCESS);
         return request;
     }
 
     public static void main(String[] args) {
         Server server = new Server();
-        server.start();
+        server.startUp();
     }
 
 }
