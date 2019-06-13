@@ -1,9 +1,4 @@
 package com.usrmngr.server.core.model.RMI;
-import com.google.gson.Gson;
-import org.json.JSONObject;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
