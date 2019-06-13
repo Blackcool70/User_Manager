@@ -1,6 +1,6 @@
 package com.usrmngr.server.ui.controllers;
 
-import com.usrmngr.server.core.model.RMI.Server;
+import com.usrmngr.server.core.model.RMI.*;
 import com.usrmngr.server.core.model.TextAreaAppender;
 import com.usrmngr.util.Alert.AlertMaker;
 import javafx.fxml.FXML;
@@ -14,8 +14,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+
 public class ServerMainViewController implements Initializable {
 
     @FXML
@@ -38,6 +40,7 @@ public class ServerMainViewController implements Initializable {
     private MenuItem editConfigs, about;
 
     private Server server;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initServer();
@@ -104,17 +107,13 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void startServerButtonClicked() {
+        setStatusMessage("Starting...");
         this.startup();
-        startServer.setDisable(true);
-        stopServer.setDisable(false);
     }
 
     private void stopServerButtonClicked() {
         setStatusMessage("Stopping...");
         this.shutdown();
-        startServer.setDisable(false);
-        stopServer.setDisable(true);
-        setStatusMessage("Stopped");
     }
 
     private void setStatusMessage(String message) {
@@ -122,16 +121,26 @@ public class ServerMainViewController implements Initializable {
     }
 
     public void startup() {
-        setStatusMessage("Starting...");
         server.startUp();
-        if(server.isRunning())
+        if (server.isRunning()) {
             setStatusMessage("Running");
-        else
+            startServer.setDisable(true);
+            stopServer.setDisable(false);
+        } else {
             setStatusMessage("Failed");
+        }
+
     }
 
     public void shutdown() {
         server.shutDown();
+        if (server.isRunning()) {
+            setStatusMessage("Failed.");
+        } else {
+            setStatusMessage("Stopping...");
+            startServer.setDisable(false);
+            stopServer.setDisable(true);
+        }
     }
 }
 
