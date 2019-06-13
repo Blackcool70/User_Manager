@@ -15,7 +15,7 @@ public class Client {
         }
         try {
             StringBuilder stringBuilder = new StringBuilder("I am god!;");
-            String name = "Request";
+            String name = Server.DEFAULT_SERVER_REG_NAME;
             Registry registry = LocateRegistry.getRegistry();
             HandleRequest comp = (HandleRequest) registry.lookup(name);
             Request request = new Request(RTYPE.CREATE,stringBuilder);
