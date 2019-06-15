@@ -55,7 +55,7 @@
         <menus>
           <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem fx:id="editConfigs" mnemonicParsing="false" text="Edit Configurations" />
+              <MenuItem fx:id="editProperties" mnemonicParsing="false" text="Edit Configurations" />
             </items>
           </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
