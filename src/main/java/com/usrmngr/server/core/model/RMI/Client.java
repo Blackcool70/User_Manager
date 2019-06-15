@@ -9,7 +9,7 @@ public class Client {
             System.setSecurityManager(new SecurityManager());
         }
         try {
-            StringBuilder stringBuilder = new StringBuilder("I am god!;");
+            StringBuilder stringBuilder = new StringBuilder("Hello world!;");
             String name = Server.DEFAULT_SERVER_REG_NAME;
             Registry registry = LocateRegistry.getRegistry();
             HandleRequest comp = (HandleRequest) registry.lookup(name);
