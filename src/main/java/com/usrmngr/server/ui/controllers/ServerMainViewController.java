@@ -9,8 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.net.URL;
 import java.util.Properties;
@@ -19,7 +17,7 @@ import java.util.ResourceBundle;
 public class ServerMainViewController implements Initializable {
 
     @FXML
-    private BorderPane ServerMainWindow;
+    private BorderPane parentNode;
 
     @FXML
     private Text statusLabel;
@@ -42,13 +40,18 @@ public class ServerMainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initProperties();
         initServer();
         initGUI();
         initLogging();
     }
-    private  Properties getProperties(){
-        return  this.properties;
+
+    private void initProperties() {
+        if(!PropertiesViewController.hasValidProperties()){
+            openPropertiesWindow();
+        }
     }
+
 
     private void initLogging() {
         TextAreaAppender.setTextArea(logArea);
@@ -86,9 +89,11 @@ public class ServerMainViewController implements Initializable {
         String windowName = "Properties";
         String fxmPath = "/server/fxml/PropertiesView.fxml";
         try {
-            WindowHelper.showChildWindow(Stage.getWindows().filtered(Window::isShowing).get(0),windowName,fxmPath);
+            WindowHelper.showChildWindow(null,windowName,fxmPath);
         } catch (Exception e) {
+            e.printStackTrace();
             AlertMaker.showErrorMessage(e, windowName, "Failed to load ".concat(windowName));
+
         }
     }
 
@@ -96,7 +101,7 @@ public class ServerMainViewController implements Initializable {
         String windowName = "About";
         String fxmPath = "/server/fxml/AboutView.fxml";
         try {
-            WindowHelper.showChildWindow(Stage.getWindows().filtered(Window::isShowing).get(0),windowName,fxmPath);
+            WindowHelper.showChildWindow(parentNode.getScene().getWindow(),windowName,fxmPath);
         } catch (Exception e) {
             AlertMaker.showErrorMessage(e, windowName, "Failed to load ".concat(windowName));
         }

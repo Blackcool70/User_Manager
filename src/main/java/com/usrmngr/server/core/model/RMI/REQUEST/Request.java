@@ -1,35 +1,28 @@
-package com.usrmngr.server.core.model.RMI;
+package com.usrmngr.server.core.model.RMI.REQUEST;
 
 import com.google.gson.Gson;
+
 import java.io.Serializable;
 import java.util.UUID;
-enum RRESULT {
-    EMPTY,
-    SUCESS,
-    ERROR,
-    WARNING,
-    FATAL
-}
 
-enum RTYPE {
-    CREATE,
-    UPDATE,
-    DELETE
-}
+
+/**
+ * A request is a instruction to the SEr
+ */
 public class Request<T> implements Serializable {
-    private final RTYPE TYPE;
     private final UUID ID;
     private final String DATA;
 
-    private RRESULT result;
+    private RESULT result;
     private String msg;
+    private final TYPE REQUEST_TYPE;
 
-    Request(RTYPE type, T data ) {
+    public Request(T data, TYPE type) {
         this.ID = UUID.randomUUID();
-        this.TYPE = type;
+        this.REQUEST_TYPE = type;
         this.DATA = (new Gson()).toJson(data,data.getClass());
-        this.result = RRESULT.EMPTY;
-        this.msg = "None";
+        this.result = RESULT.EMPTY;
+        this.msg = "";
     }
 
     private String getMsg(){
@@ -39,15 +32,15 @@ public class Request<T> implements Serializable {
         return this.DATA;
     }
 
-    private RTYPE getType() {
-        return this.TYPE;
+    private com.usrmngr.server.core.model.RMI.REQUEST.TYPE getType() {
+        return  this.REQUEST_TYPE;
     }
 
-    public void setResult(RRESULT result) {
+    public void setResult(RESULT result) {
         this.result = result;
     }
 
-    public RRESULT getResult() {
+    public RESULT getResult() {
         return this.result;
     }
 
@@ -69,7 +62,7 @@ public class Request<T> implements Serializable {
         StringBuilder stringBuilder =  new StringBuilder();
         stringBuilder.append("I am groot");
 
-        Request request = new Request(RTYPE.CREATE,stringBuilder);
+        Request request = new Request(stringBuilder,TYPE.CREATE);
         Gson gson = new Gson();
         StringBuilder sb2 = gson.fromJson(request.getData(),StringBuilder.class);
         System.out.println(sb2.toString());

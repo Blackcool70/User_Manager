@@ -1,5 +1,8 @@
 package com.usrmngr.server.core.model.RMI;
 
+import com.usrmngr.server.core.model.RMI.REQUEST.HandleRequest;
+import com.usrmngr.server.core.model.RMI.REQUEST.RESULT;
+import com.usrmngr.server.core.model.RMI.REQUEST.Request;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -107,7 +110,7 @@ public class Server implements HandleRequest {
     public Request handle(Request request) throws RemoteException {
         logger.log(Level.INFO,"Server handling request:\n".concat(request.toString()));
         // place holders
-        request.setResult(RRESULT.SUCESS);
+        request.setResult(RESULT.SUCCESS);
         return request;
     }
 
