@@ -1,7 +1,7 @@
 package com.usrmngr.server.ui.controllers;
 
 import com.usrmngr.server.core.model.RMI.*;
-import com.usrmngr.server.core.model.TextAreaAppender;
+import com.usrmngr.server.core.model.Logging.TextAreaAppender;
 import com.usrmngr.util.Alert.AlertMaker;
 import com.usrmngr.util.WindowHelper;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -110,7 +111,11 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void initServer() {
-        this.server = new Server();
+        try {
+            this.server = new Server();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     private void startServerButtonClicked() {
@@ -128,26 +133,10 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void startup() {
-        server.startUp();
-        if (server.isRunning()) {
-            setStatusMessage("Running");
-            startServer.setDisable(true);
-            stopServer.setDisable(false);
-        } else {
-            setStatusMessage("Failed");
-        }
 
     }
 
     public void shutdown() {
-        server.shutDown();
-        if (server.isRunning()) {
-            setStatusMessage("Failed.");
-        } else {
-            setStatusMessage("Stopping...");
-            startServer.setDisable(false);
-            stopServer.setDisable(true);
-        }
     }
 }
 

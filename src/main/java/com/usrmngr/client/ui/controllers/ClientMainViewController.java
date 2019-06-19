@@ -4,7 +4,6 @@ import com.usrmngr.client.core.model.ADConnector;
 import com.usrmngr.client.core.model.FXDialogs.DialogManager;
 import com.usrmngr.client.core.model.FXNodeContainer;
 import com.usrmngr.client.core.model.User;
-import com.usrmngr.util.DataManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -89,7 +88,8 @@ public class ClientMainViewController implements Initializable {
     }
 
     private Properties getProgramProperties() {
-        return DataManager.getProperties();
+        // place holder
+        return  new Properties();
     }
 
     private void loadDefaultView() {
