@@ -4,7 +4,6 @@ import com.usrmngr.server.core.model.RMI.REQUEST.HandleRequest;
 import com.usrmngr.server.core.model.RMI.REQUEST.Request;
 import com.usrmngr.server.core.model.RMI.REQUEST.TYPE;
 
-import java.net.URI;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
