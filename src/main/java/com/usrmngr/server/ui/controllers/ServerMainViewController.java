@@ -1,6 +1,6 @@
 package com.usrmngr.server.ui.controllers;
 
-import com.usrmngr.server.core.model.RMI.*;
+import com.usrmngr.server.core.model.QuickServer.UMServer.UMServer;
 import com.usrmngr.server.core.model.Logging.TextAreaAppender;
 import com.usrmngr.util.Alert.AlertMaker;
 import com.usrmngr.util.WindowHelper;
@@ -9,10 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import org.quickserver.net.AppException;
 
 import java.net.URL;
-import java.rmi.RemoteException;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class ServerMainViewController implements Initializable {
@@ -36,9 +35,8 @@ public class ServerMainViewController implements Initializable {
     @FXML
     private MenuItem editProperties, about;
 
-    private Server server;
-    private Properties properties;
-
+    UMServer umServer;
+    private  boolean serverRunning;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initProperties();
@@ -79,9 +77,6 @@ public class ServerMainViewController implements Initializable {
         );
     }
 
-    public void setProperties(Properties properties){
-       this.properties = properties;
-    }
     private void clearLogs() {
         logArea.clear();
     }
@@ -111,32 +106,54 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void initServer() {
-        try {
-            this.server = new Server();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        serverRunning = false;
+        this.umServer = new UMServer();
+        umServer.setPort(8081);
+        umServer.setName("User Manager Server v 1");
     }
 
     private void startServerButtonClicked() {
         setStatusMessage("Starting...");
-        this.startup();
+        try {
+            umServer.startServer();
+            serverRunning = true;
+            startup();
+
+        } catch (AppException e) {
+            e.printStackTrace();
+            setStatusMessage("Failed to start ... ");
+        }
     }
 
     private void stopServerButtonClicked() {
         setStatusMessage("Stopping...");
-        this.shutdown();
+        try {
+            umServer.stopServer();
+            serverRunning = false;
+            shutdown();
+        } catch (AppException e) {
+            e.printStackTrace();
+            setStatusMessage("Failed to stop Server...");
+        }
+    }
+    public void startup(){
+        setStatusMessage("Started.");
+        startServer.setDisable(true);
+        stopServer.setDisable(false);
+    }
+    public void shutdown(){
+        if(serverRunning){
+            stopServerButtonClicked();
+        }
+        setStatusMessage("Stopped.");
+        stopServer.setDisable(true);
+        startServer.setDisable(false);
+
     }
 
     private void setStatusMessage(String message) {
         this.statusLabel.setText(message);
     }
 
-    private void startup() {
-
-    }
-
-    public void shutdown() {
-    }
 }
 
