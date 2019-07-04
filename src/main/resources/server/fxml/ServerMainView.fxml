@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="ServerMainWindow" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.server.ui.controllers.ServerMainViewController">
+<BorderPane fx:id="parentNode" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.usrmngr.server.ui.controllers.ServerMainViewController">
    <center>
       <GridPane hgap="10.0" maxHeight="500.0" maxWidth="500.0" minWidth="500.0" vgap="10.0">
          <columnConstraints>
@@ -55,7 +55,7 @@
         <menus>
           <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem fx:id="editConfigs" mnemonicParsing="false" text="Edit Configurations" />
+              <MenuItem fx:id="editProperties" mnemonicParsing="false" text="Edit Configurations" />
             </items>
           </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">

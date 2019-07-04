@@ -9,7 +9,7 @@ import javafx.scene.layout.Priority;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import static com.usrmngr.server.core.model.Constants.APP_NAME;
+import static com.usrmngr.server.ServerMain.APP_NAME;
 
 // thanks to https://code.makery.ch/blog/javafx-dialogs-official/
 public class ExceptionDialog extends Alert {

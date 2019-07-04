@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
-import static com.usrmngr.server.core.model.Constants.APP_NAME;
+import static com.usrmngr.server.ServerMain.APP_NAME;
 
 public class CredentialsDialog extends Dialog {
     private ButtonType loginButtonType;

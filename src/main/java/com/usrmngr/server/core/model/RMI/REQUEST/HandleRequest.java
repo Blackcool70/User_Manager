@@ -1,4 +1,6 @@
-package com.usrmngr.server.core.model.RMI;
+package com.usrmngr.server.core.model.RMI.REQUEST;
+
+import com.usrmngr.server.core.model.RMI.REQUEST.Request;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

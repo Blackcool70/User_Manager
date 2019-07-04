@@ -1,25 +1,24 @@
 package com.usrmngr.server.ui.controllers;
 
-import com.usrmngr.server.core.model.RMI.Server;
-import com.usrmngr.server.core.model.TextAreaAppender;
+import com.usrmngr.server.core.model.RMI.*;
+import com.usrmngr.server.core.model.Logging.TextAreaAppender;
 import com.usrmngr.util.Alert.AlertMaker;
+import com.usrmngr.util.WindowHelper;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+
 import java.net.URL;
+import java.rmi.RemoteException;
+import java.util.Properties;
 import java.util.ResourceBundle;
+
 public class ServerMainViewController implements Initializable {
 
     @FXML
-    private BorderPane ServerMainWindow;
+    private BorderPane parentNode;
 
     @FXML
     private Text statusLabel;
@@ -35,16 +34,25 @@ public class ServerMainViewController implements Initializable {
     @FXML
     private Menu editMenu, helpMenu;
     @FXML
-    private MenuItem editConfigs, about;
+    private MenuItem editProperties, about;
 
     private Server server;
+    private Properties properties;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initProperties();
         initServer();
         initGUI();
         initLogging();
-
     }
+
+    private void initProperties() {
+        if(!PropertiesViewController.hasValidProperties()){
+            openPropertiesWindow();
+        }
+    }
+
 
     private void initLogging() {
         TextAreaAppender.setTextArea(logArea);
@@ -52,6 +60,7 @@ public class ServerMainViewController implements Initializable {
 
 
     private void initGUI() {
+        setStatusMessage("Stopped.");
         stopServer.setDisable(true);
         startServer.setOnMouseClicked(
                 e -> startServerButtonClicked()
@@ -63,75 +72,71 @@ public class ServerMainViewController implements Initializable {
                 e -> clearLogs()
         );
         about.setOnAction(
-                e -> showAboutWindow()
+                e -> openAboutWindow()
         );
-        editConfigs.setOnAction(
-                e -> openConfigWindow()
+        editProperties.setOnAction(
+                e -> openPropertiesWindow()
         );
     }
 
+    public void setProperties(Properties properties){
+       this.properties = properties;
+    }
     private void clearLogs() {
         logArea.clear();
     }
 
-    private void openConfigWindow() {
-        System.out.println("Opening config window.");
+    private void openPropertiesWindow() {
+        String windowName = "Properties";
+        String fxmPath = "/server/fxml/PropertiesView.fxml";
+        try {
+            WindowHelper.showChildWindow(null,windowName,fxmPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+            AlertMaker.showErrorMessage(e, windowName, "Failed to load ".concat(windowName));
+
+        }
     }
 
-    private void showAboutWindow() {
+    private void openAboutWindow() {
+        String windowName = "About";
+        String fxmPath = "/server/fxml/AboutView.fxml";
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/server/fxml/About.fxml"));
-            Scene aboutScene = new Scene(root);
-            Stage configWindow = new Stage();
-            // prevents the parent window from being modified before configs are closed.
-            configWindow.initModality(Modality.WINDOW_MODAL);
-            configWindow.initOwner(Stage.getWindows().filtered(Window::isShowing).get(0));
-            configWindow.setTitle("About");
-            configWindow.setScene(aboutScene);
-            configWindow.setMaxHeight(426);
-            configWindow.setWidth(305);
-            configWindow.setResizable(false);
-            configWindow.showAndWait();
+            WindowHelper.showChildWindow(parentNode.getScene().getWindow(),windowName,fxmPath);
         } catch (Exception e) {
-            AlertMaker.showErrorMessage(e, "Unable to load About", "Failed to load about.");
+            AlertMaker.showErrorMessage(e, windowName, "Failed to load ".concat(windowName));
         }
 
 
     }
 
     private void initServer() {
-        this.server = new Server();
+        try {
+            this.server = new Server();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     private void startServerButtonClicked() {
+        setStatusMessage("Starting...");
         this.startup();
-        startServer.setDisable(true);
-        stopServer.setDisable(false);
     }
 
     private void stopServerButtonClicked() {
         setStatusMessage("Stopping...");
         this.shutdown();
-        startServer.setDisable(false);
-        stopServer.setDisable(true);
-        setStatusMessage("Stopped");
     }
 
     private void setStatusMessage(String message) {
         this.statusLabel.setText(message);
     }
 
-    public void startup() {
-        setStatusMessage("Starting...");
-        server.startUp();
-        if(server.isRunning())
-            setStatusMessage("Running");
-        else
-            setStatusMessage("Failed");
+    private void startup() {
+
     }
 
     public void shutdown() {
-        server.shutDown();
     }
 }
 

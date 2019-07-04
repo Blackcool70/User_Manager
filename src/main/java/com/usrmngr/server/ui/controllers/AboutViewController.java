@@ -7,7 +7,7 @@ import javafx.scene.control.TextArea;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AboutController implements Initializable {
+public class AboutViewController implements Initializable {
 
     public static void main(String[] args) {
 
