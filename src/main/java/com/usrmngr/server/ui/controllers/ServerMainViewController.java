@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import org.quickserver.net.AppException;
 
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class ServerMainViewController implements Initializable {
@@ -35,8 +36,10 @@ public class ServerMainViewController implements Initializable {
     @FXML
     private MenuItem editProperties, about;
 
-    UMServer umServer;
-    private  boolean serverRunning;
+    private UMServer umServer;
+    private Properties properties;
+    private boolean serverRunning;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initProperties();
@@ -46,8 +49,10 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void initProperties() {
-        if(!PropertiesViewController.hasValidProperties()){
+        properties = PropertiesViewController.loadProperties();
+        if (properties == null || properties.isEmpty()) {
             openPropertiesWindow();
+            properties = PropertiesViewController.loadProperties();
         }
     }
 
@@ -85,7 +90,7 @@ public class ServerMainViewController implements Initializable {
         String windowName = "Properties";
         String fxmPath = "/server/fxml/PropertiesView.fxml";
         try {
-            WindowHelper.showChildWindow(null,windowName,fxmPath);
+            WindowHelper.showChildWindow(null, windowName, fxmPath);
         } catch (Exception e) {
             e.printStackTrace();
             AlertMaker.showErrorMessage(e, windowName, "Failed to load ".concat(windowName));
@@ -97,7 +102,7 @@ public class ServerMainViewController implements Initializable {
         String windowName = "About";
         String fxmPath = "/server/fxml/AboutView.fxml";
         try {
-            WindowHelper.showChildWindow(parentNode.getScene().getWindow(),windowName,fxmPath);
+            WindowHelper.showChildWindow(parentNode.getScene().getWindow(), windowName, fxmPath);
         } catch (Exception e) {
             AlertMaker.showErrorMessage(e, windowName, "Failed to load ".concat(windowName));
         }
@@ -108,8 +113,8 @@ public class ServerMainViewController implements Initializable {
     private void initServer() {
         serverRunning = false;
         this.umServer = new UMServer();
-        umServer.setPort(8081);
-        umServer.setName("User Manager Server v 1");
+        umServer.setName(properties.getProperty("serverName"));
+        umServer.setPort(Integer.parseInt(properties.getProperty("port")));
     }
 
     private void startServerButtonClicked() {
@@ -136,13 +141,15 @@ public class ServerMainViewController implements Initializable {
             setStatusMessage("Failed to stop Server...");
         }
     }
-    public void startup(){
+
+    public void startup() {
         setStatusMessage("Started.");
         startServer.setDisable(true);
         stopServer.setDisable(false);
     }
-    public void shutdown(){
-        if(serverRunning){
+
+    public void shutdown() {
+        if (serverRunning) {
             stopServerButtonClicked();
         }
         setStatusMessage("Stopped.");

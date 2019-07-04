@@ -23,7 +23,7 @@ public class PropertiesViewController implements Initializable {
     @FXML
     private Button saveButton, cancelButton;
 
-    private static Properties properties;
+    private  Properties properties;
     private static final String PROPERTIES_FILE = "config.properties";
 
     @Override
@@ -45,7 +45,7 @@ public class PropertiesViewController implements Initializable {
     }
 
 
-    static boolean hasValidProperties() {
+    private boolean hasValidProperties() {
         return !(properties == null || properties.isEmpty());
 
     }
@@ -69,9 +69,8 @@ public class PropertiesViewController implements Initializable {
         properties = new Properties();
         properties.put("serverID", UUID.randomUUID().toString());
         properties.put("propertiesPath", getPropertiesPath());
-        properties.put("serverName", "localhost");
+        properties.put("serverName", "User Manager");
         properties.put("port", "50511");
-
 
         AlertMaker.showSimpleAlert("Properties", "Default Properties created:\n".concat(getPropertiesPath()));
     }
@@ -80,11 +79,11 @@ public class PropertiesViewController implements Initializable {
         saveProperties(properties);
     }
 
-    public static void saveProperties(Properties properties) {
+    private  void saveProperties(Properties properties) {
         saveProperties(properties, getPropertiesPath());
     }
 
-    public static void saveProperties(Properties properties, String path) {
+    private static void saveProperties(Properties properties, String path) {
         File propFile = new File(path);
         try {
             propFile.getParentFile().mkdir();
