@@ -24,6 +24,7 @@ public class DateServerClient {
 	public static void main(String args[]) {
 		Logger logger = Logger.getLogger("");
 		logger.setLevel(Level.FINEST);
+		logger.addHandler(new ConsoleHandler() );
 		logger.getHandlers()[0].setLevel(Level.FINEST);
 		logger.getHandlers()[0].setFormatter(new org.quickserver.util.logging.SimpleTextFormatter());
 
