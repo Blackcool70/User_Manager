@@ -16,6 +16,8 @@ package com.usrmngr.server.core.model.QuickServer.UMServer;
 
 import org.quickserver.net.server.ClientCommandHandler;
 import org.quickserver.net.server.ClientHandler;
+import org.quickserver.net.server.DataMode;
+import org.quickserver.net.server.DataType;
 
 import java.io.IOException;
 
@@ -24,6 +26,12 @@ public class RequestCommandHandler implements ClientCommandHandler {
     public void gotConnected(ClientHandler handler) {
         handler.sendSystemMsg("Connection opened : " +
                 handler.getSocket().getInetAddress());
+        try {
+            handler.setDataMode(DataMode.OBJECT, DataType.IN);
+            handler.setDataMode(DataMode.OBJECT, DataType.OUT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -39,7 +47,6 @@ public class RequestCommandHandler implements ClientCommandHandler {
 
     public void handleCommand(ClientHandler handler, String command)
             throws IOException {
-        System.out.println("Msg:" + command);
-        handler.sendClientMsg("OK");
+
     }
 }

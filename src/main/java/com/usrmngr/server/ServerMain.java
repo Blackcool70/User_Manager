@@ -8,8 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 /**
- * Handles the startup of the server's GUI through the JAVAFX framework.
+ * Server GUI
  */
 public class ServerMain extends Application {
     public static final String APP_NAME = "USER MANAGER SERVER";

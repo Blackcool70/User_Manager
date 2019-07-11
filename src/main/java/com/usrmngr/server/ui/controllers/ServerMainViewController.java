@@ -1,7 +1,7 @@
 package com.usrmngr.server.ui.controllers;
 
-import com.usrmngr.server.core.model.QuickServer.UMServer.UMServer;
 import com.usrmngr.server.core.model.Logging.TextAreaAppender;
+import com.usrmngr.server.core.model.QuickServer.UMServer.UMServer;
 import com.usrmngr.util.Alert.AlertMaker;
 import com.usrmngr.util.WindowHelper;
 import javafx.fxml.FXML;
@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import org.quickserver.net.AppException;
 
 import java.net.URL;
 import java.util.Properties;
@@ -38,7 +37,6 @@ public class ServerMainViewController implements Initializable {
 
     private UMServer umServer;
     private Properties properties;
-    private boolean serverRunning;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -111,35 +109,19 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void initServer() {
-        serverRunning = false;
         this.umServer = new UMServer();
-        umServer.setName(properties.getProperty("serverName"));
-        umServer.setPort(Integer.parseInt(properties.getProperty("port")));
     }
 
     private void startServerButtonClicked() {
         setStatusMessage("Starting...");
-        try {
-            umServer.startServer();
-            serverRunning = true;
-            startup();
-
-        } catch (AppException e) {
-            e.printStackTrace();
-            setStatusMessage("Failed to start ... ");
-        }
+        umServer.startServer();
+        startup();
     }
 
     private void stopServerButtonClicked() {
         setStatusMessage("Stopping...");
-        try {
-            umServer.stopServer();
-            serverRunning = false;
-            shutdown();
-        } catch (AppException e) {
-            e.printStackTrace();
-            setStatusMessage("Failed to stop Server...");
-        }
+        umServer.stopServer();
+        shutdown();
     }
 
     public void startup() {
@@ -149,7 +131,7 @@ public class ServerMainViewController implements Initializable {
     }
 
     public void shutdown() {
-        if (serverRunning) {
+        if (umServer.isRunning()) {
             stopServerButtonClicked();
         }
         setStatusMessage("Stopped.");
