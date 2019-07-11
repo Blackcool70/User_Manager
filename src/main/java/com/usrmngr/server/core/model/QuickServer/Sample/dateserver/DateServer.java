@@ -27,7 +27,7 @@ public class DateServer {
 	public static String VER = "1.0";
 
 	public static void main(String s[])	{
-		String cmdHandle = "com.usrmngr.server.core.model.QuickServer.Sample.dateserver.RequestCommandHandler";
+		String cmdHandle = "com.usrmngr.server.core.model.QuickServer.Sample.dateserver.CommandHandler";
 		String objHandle = "com.usrmngr.server.core.model.QuickServer.Sample.dateserver.ObjectHandler";
 
 		QuickServer myServer = new QuickServer(cmdHandle);

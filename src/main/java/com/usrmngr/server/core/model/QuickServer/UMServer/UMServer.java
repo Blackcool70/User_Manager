@@ -1,12 +1,9 @@
 package com.usrmngr.server.core.model.QuickServer.UMServer;
-import com.usrmngr.client.core.UMClient;
-import javafx.scene.Parent;
-import org.json.JSONObject;
 import org.quickserver.net.AppException;
 import org.quickserver.net.server.QuickServer;
 
 public class UMServer  {
-    private  String cmdHandle = "com.usrmngr.server.core.model.QuickServer.UMServer.RequestCommandHandler";
+    private  String cmdHandle = "com.usrmngr.server.core.model.QuickServer.UMServer.CommandHandler";
     private  QuickServer server;
 
     private  final static int PORT = 8011;
@@ -47,9 +44,6 @@ public class UMServer  {
     public static void main(String[] args) {
         UMServer umServer = new UMServer();
         umServer.startServer();
-        System.out.println(umServer.isRunning());
-        umServer.stopServer();
-        System.out.println(umServer.isRunning());
     }
 
     public boolean isRunning() {
