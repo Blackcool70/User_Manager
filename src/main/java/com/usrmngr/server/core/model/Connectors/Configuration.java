@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
-// Holds configurations needed for an ldap connection.
 class Configuration {
     private Properties values;
     private String savePath;

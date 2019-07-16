@@ -1,7 +1,7 @@
 package com.usrmngr.server.core.model.Connectors;
-
-public class LDAPConnectorConfig extends  Configuration{
-    public LDAPConnectorConfig(){
+ public class LDAPConnectorConfig extends  Configuration{
+    LDAPConnectorConfig(){
+        super();
         put("hostName","localhost");
         put("port","389");
         put("baseDN","");
