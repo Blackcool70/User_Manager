@@ -4,6 +4,7 @@ import org.quickserver.net.server.QuickServer;
 
 public class UMServer  {
     private  String cmdHandle = "com.usrmngr.server.core.model.QuickServer.UMServer.CommandHandler";
+    private  String objHandle = "com.usrmngr.server.core.model.QuickServer.ObjectHandler";
     private  QuickServer server;
 
     private  final static int PORT = 8011;
@@ -15,6 +16,7 @@ public class UMServer  {
      */
     public UMServer() {
         server = new QuickServer(cmdHandle);
+        server.setClientObjectHandler(objHandle);
         server.setPort(PORT);
         server.setName(SERVER_NAME);
         server.getBasicConfig().getServerMode().setBlocking(true);

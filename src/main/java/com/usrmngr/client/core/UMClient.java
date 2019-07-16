@@ -3,16 +3,15 @@ package com.usrmngr.client.core;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.UUID;
 
-class MyTestClientThread extends Thread {
-
+class UMClientThread extends Thread {
     private Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private static int counter = 0;
-    private int id = counter++;
+    private UUID id = UUID.randomUUID();
 
-    public MyTestClientThread(InetAddress addr, int port) {
+    public UMClientThread(InetAddress addr, int port) {
         try {
             socket = new Socket(addr, port);
         } catch (IOException e) {
@@ -39,10 +38,13 @@ class MyTestClientThread extends Thread {
     public void run() {
         System.out.println("Start Client " + id + " ");
         try {
-            String str = in.readLine();//1
-            System.out.println("got: " + str);
+            String msg;
+            while( (msg = in.readLine() )!= null){
+                System.out.println(msg);
+            }
+            System.out.println(msg);
             Thread.yield();
-        } catch (IOException e) {
+        } catch (IOException e){
             System.err.println("IO Exception [id#" + id + "]: " + e);
             System.err.println("Interrupted [id#" + id + "]: " + e);
         } catch (RuntimeException e) {
@@ -77,12 +79,11 @@ class MyTestClientThread extends Thread {
             int port = 8011;
             InetAddress addr = InetAddress.getLocalHost();
             System.out.println("=======================");
-            System.out.println("Server: " + addr);
-            System.out.println("Port: " + port);
+            System.out.println("Connecting to Server: " + addr);
+            System.out.println("On Port: " + port);
             System.out.println("=======================");
 
-            new MyTestClientThread(addr, port);
-            Thread.sleep(1000);
+            new UMClientThread(addr, port);
             Thread.yield();
         }
     }

@@ -16,16 +16,20 @@ package com.usrmngr.server.core.model.QuickServer.UMServer;
 
 import org.quickserver.net.server.ClientCommandHandler;
 import org.quickserver.net.server.ClientHandler;
+
 import java.io.IOException;
 
 public class CommandHandler implements ClientCommandHandler {
+    private final String SERVER_GREETINGS =
+                    "+++++++++++++++++++++++++++++++\n" +
+                    "|    Welcome to UM Server     |\n" +
+                    "+++++++++++++++++++++++++++++++\n";
 
     public void gotConnected(ClientHandler handler) {
         handler.sendSystemMsg("Connection opened : " +
                 handler.getSocket().getInetAddress());
         try {
-            System.out.println("Client connected");
-            handler.sendClientMsg("Hello!");
+            handler.sendClientMsg(SERVER_GREETINGS);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,12 +47,7 @@ public class CommandHandler implements ClientCommandHandler {
     }
 
     public void handleCommand(ClientHandler handler, String command) {
-        String msg = String.format("Got your %s request.", command);
-        try {
-            handler.sendClientMsg(msg);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
 }
