@@ -1,33 +1,34 @@
 package com.usrmngr.server.core.model.Connectors;
- public class LDAPConnectorConfig extends  Configuration{
+ public class LDAPConnectorConfig{
+     private Configuration config;
     LDAPConnectorConfig(){
-        super();
-        put("hostName","localhost");
-        put("port","389");
-        put("baseDN","");
+        config = new Configuration();
+        config.put("hostName","localhost");
+        config.put("port","389");
+        config.put("baseDN","");
     }
     public void setHostName(String hostName) {
-        put("hostName",hostName);
+        config.put("hostName",hostName);
     }
 
     public void setPort(int port) {
-        put("port",String.valueOf(port));
+        config.put("port",String.valueOf(port));
     }
 
     public int getPort() {
-        return Integer.parseInt(get("port"));
+        return Integer.parseInt(config.get("port"));
     }
 
     public String getHostName() {
-        return get("hostName");
+        return config.get("hostName");
     }
 
     public void setBaseDN(String dn) {
-        put("baseDN",dn);
+        config.put("baseDN",dn);
     }
 
     public String getBaseDN() {
-        return get("baesDN");
+        return config.get("baseDN");
     }
 
     public static void main(String[] args) {
