@@ -1,7 +1,6 @@
 package com.usrmngr.server.core.model.QuickServer.UMServer;
 import org.quickserver.net.AppException;
 import org.quickserver.net.server.QuickServer;
-
 public class UMServer  {
     private  String cmdHandle = "com.usrmngr.server.core.model.QuickServer.UMServer.CommandHandler";
     private  String objHandle = "com.usrmngr.server.core.model.QuickServer.ObjectHandler";
@@ -10,7 +9,6 @@ public class UMServer  {
     private  final static int PORT = 8011;
     private  final static String SERVER_NAME = "UM Server";
     private boolean running;
-
     /**
      * Core server that is manipulated by the GUI
      */
