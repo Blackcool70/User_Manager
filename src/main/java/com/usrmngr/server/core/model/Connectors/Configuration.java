@@ -7,11 +7,9 @@ import java.util.Properties;
 
 class Configuration {
     private Properties values;
-    private String savePath;
 
-    Configuration() {
+   Configuration() {
         values = new Properties();
-        savePath = "./";
     }
 
     void put(String key, String value) {
