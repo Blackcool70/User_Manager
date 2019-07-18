@@ -1,4 +1,5 @@
 package com.usrmngr.server.core.model.QuickServer.UMServer;
+import com.usrmngr.server.core.model.Connectors.LDAPConfig;
 import org.quickserver.net.AppException;
 import org.quickserver.net.server.QuickServer;
 public class UMServer  {

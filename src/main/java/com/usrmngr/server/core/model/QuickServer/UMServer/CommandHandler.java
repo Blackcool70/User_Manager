@@ -14,12 +14,15 @@
 
 package com.usrmngr.server.core.model.QuickServer.UMServer;
 
+import com.usrmngr.server.core.model.Connectors.ADConnector;
+import com.usrmngr.server.core.model.Connectors.Configuration;
 import org.quickserver.net.server.ClientCommandHandler;
 import org.quickserver.net.server.ClientHandler;
 
 import java.io.IOException;
 
 public class CommandHandler implements ClientCommandHandler {
+    ADConnector adConnector;
     private final String SERVER_GREETINGS =
                     "+++++++++++++++++++++++++++++++\n" +
                     "|    Welcome to UM Server     |\n" +
@@ -30,6 +33,7 @@ public class CommandHandler implements ClientCommandHandler {
                 handler.getSocket().getInetAddress());
         try {
             handler.sendClientMsg(SERVER_GREETINGS);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
