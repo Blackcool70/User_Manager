@@ -1,4 +1,4 @@
-package com.usrmngr.server.core.model.Connectors;
+package com.usrmngr.client.core.model.Connectors;
 
 import org.junit.Test;
 import org.junit.Assert;
@@ -7,13 +7,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class ConfigurationTest {
-
-    @Test
-    public void getUserDataDirectory() {
-        //windows
-        Assert.assertEquals(Configuration.getUserDataDirectory(),"C:\\Users\\jecsa\\.user_manager_server\\");
-    }
-
     @Test
     public void clone1() {
         Configuration conf = new Configuration();
@@ -39,7 +32,7 @@ public class ConfigurationTest {
         confa.put("will","pass");
 
         Configuration confb = new Configuration();
-        confb.load("C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\test\\com\\usrmngr\\server\\core\\model\\Connectors\\test.config");
+        confb.load(new File("C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\test\\com\\usrmngr\\server\\core\\model\\Connectors\\test.config"));
 
         Assert.assertEquals(confa.get("hello"),confb.get("hello"));
         Assert.assertEquals(confa.get("this"),confb.get("this"));
@@ -52,11 +45,11 @@ public class ConfigurationTest {
         confa.put("hi","how");
         confa.put("are","you");
         confa.put("this","day");
-        confa.save("test.save.config");
+        confa.save(new File("test.save.config"));
         File file =  new File("test.save.config");
         Assert.assertTrue(file.exists());
         Configuration confb = new Configuration();
-        confb.load("test.save.config");
+        confb.load(new File("test.save.config"));
         file.delete(); // not sure why this wont delete
 
     }

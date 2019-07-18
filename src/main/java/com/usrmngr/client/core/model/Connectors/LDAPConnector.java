@@ -1,4 +1,4 @@
-package com.usrmngr.server.core.model.Connectors;
+package com.usrmngr.client.core.model.Connectors;
 
 import com.unboundid.ldap.sdk.*;
 import org.json.JSONArray;

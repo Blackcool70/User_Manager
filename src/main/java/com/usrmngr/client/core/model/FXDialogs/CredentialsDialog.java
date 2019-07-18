@@ -7,9 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
-import static com.usrmngr.server.ServerMain.APP_NAME;
 
 public class CredentialsDialog extends Dialog {
+    private final String APP_NAME = "USER_MANAGER";
     private ButtonType loginButtonType;
     private TextField username;
     private PasswordField password;

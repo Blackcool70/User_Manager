@@ -1,4 +1,4 @@
-package com.usrmngr.server.core.model.Connectors;
+package com.usrmngr.client.core.model.Connectors;
 
 /**
  * Encapsulates  all the necessary  configuration to create an LDAP connection.

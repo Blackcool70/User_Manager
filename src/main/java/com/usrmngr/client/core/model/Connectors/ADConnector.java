@@ -1,4 +1,4 @@
-package com.usrmngr.server.core.model.Connectors;
+package com.usrmngr.client.core.model.Connectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,13 +10,17 @@ public class ADConnector extends LDAPConnector {
     public ADConnector() {
         super();
     }
+    public ADConnector(LDAPConfig config) {
+        super();
+        this.setConfig(config);
+    }
 
     JSONObject getADUser(String cn, String... attributes) {
         if (!isConnected()) return null; // or should I through exception?
         JSONArray results = search(String.format(ADLDAPFilters.USER_SEARCH_FILTER, cn), attributes);
         return results.getJSONObject(0);
     }
-    JSONArray getAllADUsers(){
+    public JSONArray getAllADUsers(){
         if (!isConnected()) return null; // or should I through exception?
         return search(ADLDAPFilters.ALL_USER_SEARCH_FILTER,"displayName");
     }

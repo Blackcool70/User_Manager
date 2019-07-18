@@ -1,4 +1,4 @@
-package com.usrmngr.server.core.model.Logging;
+package com.usrmngr.client.core.model.Logging;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import org.apache.logging.log4j.core.Filter;

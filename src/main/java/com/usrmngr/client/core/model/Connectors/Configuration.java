@@ -1,12 +1,10 @@
-package com.usrmngr.server.core.model.Connectors;
+package com.usrmngr.client.core.model.Connectors;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import static com.usrmngr.server.ServerMain.APP_NAME;
 
 /**
  * A generic configuration class that can hold different types of values.
@@ -44,26 +42,22 @@ public class Configuration {
 
     /**
      * Attempts to load the configuration file at the path specified.
-     * @param path - exact path of the configuration file.
      * @throws IOException
      */
-    public void load(String path) throws IOException {
-        File file = new File(path);
+    public void load(File file) throws IOException {
         values.load(new FileInputStream(file));
     }
 
     /**
      *  Attempts to save the configuration file at the path specified.
-     * @param path - exact path and of where to save the file.
      * @throws IOException
      */
-    public void save(String path) throws IOException {
-        File configFile = new File(path); // maybe  give an option to name the file and just save the file the path.
-        File parent = configFile.getParentFile();
+    public void save(File file) throws IOException {
+        File parent = file.getParentFile();
         if(parent != null) // create directory structure as needed
             parent.mkdir();
-        configFile.createNewFile();
-        values.store(new FileOutputStream(configFile), "config");
+        file.createNewFile();
+        values.store(new FileOutputStream(file), "config");
     }
 
 

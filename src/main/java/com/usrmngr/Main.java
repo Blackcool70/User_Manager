@@ -1,15 +1,6 @@
 package com.usrmngr;
 
 import com.usrmngr.client.ClientMain;
-import com.usrmngr.server.ServerMain;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import static javafx.application.Application.launch;
 
 public class Main {
@@ -28,7 +19,6 @@ public class Main {
         if (args.length >= 1 && "-start".equalsIgnoreCase(args[0])) {
             switch (args[1].toLowerCase()){
                 case "server":
-                    launch(ServerMain.class);
                     break;
                 case "client":
                     launch(ClientMain.class);

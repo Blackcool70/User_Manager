@@ -1,9 +1,13 @@
 package com.usrmngr.client.ui.controllers;
 
-import com.usrmngr.server.core.model.Connectors.LDAPConnector;
+import com.usrmngr.client.core.model.Connectors.ADConnector;
+import com.usrmngr.client.core.model.Connectors.LDAPConfig;
+import com.usrmngr.client.core.model.Connectors.LDAPConnector;
 import com.usrmngr.client.core.model.FXDialogs.DialogManager;
 import com.usrmngr.client.core.model.FXNodeContainer;
 import com.usrmngr.client.core.model.User;
+import com.usrmngr.util.Alert.AlertMaker;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +20,8 @@ import javafx.scene.layout.VBox;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -42,13 +48,11 @@ public class ClientMainViewController implements Initializable {
     MenuItem preferencesMenu, configurationsMenu;
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
     private ArrayList<TitledPane> panes;
-    private LDAPConnector LDAPConnector;
-    private Properties properties;
+    private ADConnector adConnector;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        properties = getProgramProperties();
-        connectToAD(properties); // will connect or quit
+        connectToAD(getProgramConfig()); // will connect or quit
         initController();
         loadUserList();
         loadDefaultView();
@@ -73,22 +77,46 @@ public class ClientMainViewController implements Initializable {
         });
     }
 
-    private void connectToAD(Properties properties) {
-//        this.LDAPConnector = new LDAPConnector(properties);
-//        this.LDAPConnector.connect();
-//        while (!LDAPConnector.isConnected()) {
-//            if (DialogManager.requestConfirmation("Unable to connect,Open configurations?", LDAPConnector.getResultCode())) {
+    private void connectToAD(LDAPConfig config) {
+        adConnector =  new ADConnector(config);
+        adConnector.connect();
+        while (!adConnector.isConnected() && !adConnector.isAuthenticated()) {
+            if (DialogManager.requestConfirmation("Unable to connect,Open configurations?","Error Occurred")) {
                 configMenuSelected();
-//            } else {
-//                Platform.exit();
-//                System.exit(0);
-//            }
+                adConnector.connect();
+                adConnector.authenticate("cn=Administrator,ou=Users,ou=Company,dc=lab,dc=net","J3cs4nb!");//will clean up
+            } else {
+                Platform.exit();
+                System.exit(0);
+            }
         }
-//    }
+    }
 
-    private Properties getProgramProperties() {
-        // place holder
-        return  new Properties();
+    private LDAPConfig getProgramConfig() {
+        File configFile = new File(System.getProperty("user.home")+File.separator+ ".USER_MANAGER_CLIENT");
+        LDAPConfig ldapConfig = new LDAPConfig();
+        if(configFile.exists()) {
+            try {
+                ldapConfig.load(configFile);
+            } catch (IOException e) {
+                AlertMaker.showSimpleAlert("Failure","Failed to load configurations. Aborting.");
+                Platform.exit();
+                System.exit(1);
+            }
+        }else {
+            ldapConfig.setPort(389);
+            ldapConfig.setHostName("192.168.1.2");
+            ldapConfig.setBaseDN("dc=lab,dc=net");
+            try {
+                ldapConfig.save(configFile);
+            } catch (IOException e) {
+                AlertMaker.showSimpleAlert("Failure","Failed to save configurations. Aborting.");
+                Platform.exit();
+                System.exit(1);
+            }
+        }
+        return  ldapConfig;
+
     }
 
     private void loadDefaultView() {
@@ -132,10 +160,7 @@ public class ClientMainViewController implements Initializable {
     }
 
     private JSONArray getDataFromSource() {
-        //return new JSONArray(DataManager.readFile((DATA_PATH)));
-        assert LDAPConnector != null;
-//        return LDAPConnector.isConnected() ? LDAPConnector.getAllADUsers("displayName", "cn") : new JSONArray();
-        return null;
+        return adConnector.getAllADUsers();
     }
 
     private void loadSampleData() {

@@ -9,10 +9,10 @@ import javafx.scene.layout.Priority;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import static com.usrmngr.server.ServerMain.APP_NAME;
 
 // thanks to https://code.makery.ch/blog/javafx-dialogs-official/
 public class ExceptionDialog extends Alert {
+    private final  String APP_NAME  = "USER_MANAGER";
     public ExceptionDialog(String contextText, Exception e) {
         super(AlertType.ERROR);
         this.setTitle(APP_NAME);
