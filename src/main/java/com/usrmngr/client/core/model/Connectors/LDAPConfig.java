@@ -1,27 +1,23 @@
 package com.usrmngr.client.core.model.Connectors;
 
 /**
- * Encapsulates  all the necessary  configuration to create an LDAP connection.
- */
+*Encapsulates  all the necessary  configuration to create an LDAP connection.
+*/
 public class LDAPConfig extends Configuration {
+    private final String  DEFAULT_PORT = "389";
     public LDAPConfig() {
-        put("hostName", "localhost");
-        put("port", "389");
-        put("baseDN", "");
+        super();
     }
 
-    /**
-     *  Copy constructor
-     * @param config
-     */
-    public LDAPConfig(LDAPConfig config){
-        super(config);
-    }
     public static void main(String[] args) {
     }
 
     public int getPort() {
-        return Integer.parseInt(get("port"));
+        try {
+            return Integer.parseInt(get("port"));
+        }catch (NumberFormatException e){
+            return Integer.parseInt(DEFAULT_PORT);
+        }
     }
 
     public void setPort(int port) {
@@ -29,7 +25,7 @@ public class LDAPConfig extends Configuration {
     }
 
     public String getHostName() {
-        return get("hostName");
+        return (String) getOrDefault("hostName","localhost");
     }
 
     public void setHostName(String hostName) {
@@ -44,8 +40,10 @@ public class LDAPConfig extends Configuration {
     public void setBaseDN(String dn) {
         put("baseDN", dn);
     }
+
     @Override
     public String toString() {
         return super.toString();
     }
+
 }
