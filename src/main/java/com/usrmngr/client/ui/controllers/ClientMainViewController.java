@@ -2,35 +2,39 @@ package com.usrmngr.client.ui.controllers;
 
 import com.usrmngr.client.core.model.Connectors.ADConnector;
 import com.usrmngr.client.core.model.Connectors.LDAPConfig;
-import com.usrmngr.client.core.model.Connectors.LDAPConnector;
 import com.usrmngr.client.core.model.FXDialogs.DialogManager;
 import com.usrmngr.client.core.model.FXNodeContainer;
 import com.usrmngr.client.core.model.User;
 import com.usrmngr.util.Alert.AlertMaker;
+import com.usrmngr.util.Dialog.DialogMaker;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Properties;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static com.usrmngr.Main.APP_CONFIG_PATH;
 
 public class ClientMainViewController implements Initializable {
 
-    // private final String DATA_PATH = "C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\main\\resources\\com\\usrmngr\\client\\samples\\MOCK_DATA.json";
-    private final String DATA_PATH = "src/main/resources/samples/MOCK_DATA.json";
     private JSONArray data;
     private User selectedUser;
     @FXML
@@ -49,13 +53,43 @@ public class ClientMainViewController implements Initializable {
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
     private ArrayList<TitledPane> panes;
     private ADConnector adConnector;
+    private LDAPConfig config;
+    private Pair<String, String> credentials;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        connectToAD(getProgramConfig()); // will connect or quit
+        initAdConnection();
         initController();
         loadUserList();
         loadDefaultView();
+    }
+
+    private void initAdConnection() {
+        loadConfigs();
+        connectToAD(); // will connect or quit
+        authenticateToAD();
+    }
+
+    private void authenticateToAD() {
+         credentials = new Pair<>("cn=Administrator,ou=users,ou=company,dc=lab,dc=net","J3cs4nb!");
+        //credentials = getCredentials();
+        adConnector.authenticate(credentials.getKey(), credentials.getValue());//will clean up
+    }
+
+    private void loadConfigs() {
+        this.config = new LDAPConfig();
+        try {
+            this.config.load(APP_CONFIG_PATH);
+        } catch (IOException e) {
+            configMenuSelected();
+            try {
+                this.config.load(APP_CONFIG_PATH);
+            } catch (IOException ex) {
+                AlertMaker.showSimpleAlert("Config", "Failed to load config. Aborting.");
+                Platform.exit();
+                System.exit(1);
+            }
+        }
     }
 
     private void initController() {
@@ -71,20 +105,19 @@ public class ClientMainViewController implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
-                //selectedUser = new User(LDAPConnector.getADUser(selectedUser.getAttribute("CN")));
+                selectedUser = new User(adConnector.getADUser(selectedUser.getAttribute("cn")));
                 loadUser(selectedUser);
             }
         });
     }
 
-    private void connectToAD(LDAPConfig config) {
-        adConnector =  new ADConnector(config);
+    private void connectToAD() {
+        adConnector = new ADConnector(this.config);
         adConnector.connect();
-        while (!adConnector.isConnected() && !adConnector.isAuthenticated()) {
-            if (DialogManager.requestConfirmation("Unable to connect,Open configurations?","Error Occurred")) {
+        while (!adConnector.isConnected()) {
+            if (DialogManager.requestConfirmation("Unable to connect to server. Check Configurations.", config.getHostName() + ":" + config.getPort() + "\n" + adConnector.getLastFailureMsg())) {
                 configMenuSelected();
                 adConnector.connect();
-                adConnector.authenticate("cn=Administrator,ou=Users,ou=Company,dc=lab,dc=net","J3cs4nb!");//will clean up
             } else {
                 Platform.exit();
                 System.exit(0);
@@ -92,31 +125,29 @@ public class ClientMainViewController implements Initializable {
         }
     }
 
-    private LDAPConfig getProgramConfig() {
-        File configFile = new File(System.getProperty("user.home")+File.separator+ ".USER_MANAGER_CLIENT");
-        LDAPConfig ldapConfig = new LDAPConfig();
-        if(configFile.exists()) {
-            try {
-                ldapConfig.load(configFile);
-            } catch (IOException e) {
-                AlertMaker.showSimpleAlert("Failure","Failed to load configurations. Aborting.");
-                Platform.exit();
-                System.exit(1);
-            }
-        }else {
-            ldapConfig.setPort(389);
-            ldapConfig.setHostName("192.168.1.2");
-            ldapConfig.setBaseDN("dc=lab,dc=net");
-            try {
-                ldapConfig.save(configFile);
-            } catch (IOException e) {
-                AlertMaker.showSimpleAlert("Failure","Failed to save configurations. Aborting.");
-                Platform.exit();
-                System.exit(1);
+    private Pair<String, String> getCredentials() {
+        boolean quit;
+        Optional<Pair<String, String>> input;
+        while (true) {
+            input = DialogMaker.showLoginDialog();
+            if (input.isEmpty()) {
+                quit = DialogMaker.showConfirmatoinDialog("Not providing credentials will terminate the application.");
+                if (quit) {
+                    Platform.exit();
+                    System.exit(0);
+                }
+            } else {
+                Pair<String, String> candaceCred = input.get();
+                adConnector.connect();
+                adConnector.authenticate(candaceCred.getKey(), candaceCred.getValue());
+                if (adConnector.isAuthenticated()) {
+                    break;
+                } else {
+                    AlertMaker.showSimpleAlert("Alert", "Invalid Credentials, try again.");
+                }
             }
         }
-        return  ldapConfig;
-
+        return input.get();
     }
 
     private void loadDefaultView() {
@@ -160,12 +191,10 @@ public class ClientMainViewController implements Initializable {
     }
 
     private JSONArray getDataFromSource() {
-        return adConnector.getAllADUsers();
+        adConnector.authenticate(credentials.getKey(), credentials.getValue());
+        return adConnector.getAllADUsers("displayName","cn");
     }
 
-    private void loadSampleData() {
-        loadUserList();
-    }
 
     @FXML
     public void editButtonClicked() {
@@ -184,6 +213,7 @@ public class ClientMainViewController implements Initializable {
         disableEdit(false);
         setAllDropdownExpanded(true);
         clearAllTextFields();
+        DN.setText("");
         selectedUser = null;
     }
 
@@ -249,8 +279,28 @@ public class ClientMainViewController implements Initializable {
     }
 
     public void configMenuSelected() {
-        String configViewFXML = "/fxml/ConfigWindow/ConfigMainView.fxml";
-        // Main.loadAsChildWindow(configViewFXML, "Configurations");
+        String configViewFXML = "/client/fxml/ConfigView.fxml";
+        String windowTitle = "Configurations";
+        try {
+            openChildWindow(windowTitle, configViewFXML);
+        } catch (IOException e) {
+            AlertMaker.showSimpleAlert(windowTitle, "Unable to open " + windowTitle + " window.");
+            e.printStackTrace();
+        }
     }
+
+    public void openChildWindow(String title, String fxml) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(fxml));
+        Scene config = new Scene(root);
+        Stage configWindow = new Stage();
+        // prevents the parent window from being modified before configs are closed.
+        configWindow.initModality(Modality.WINDOW_MODAL);
+        configWindow.initOwner(root.getScene().getWindow());
+        configWindow.setTitle(title);
+        configWindow.setScene(config);
+        configWindow.setResizable(false);
+        configWindow.showAndWait();
+    }
+
 
 }
