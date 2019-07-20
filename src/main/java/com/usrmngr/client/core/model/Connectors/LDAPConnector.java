@@ -14,13 +14,11 @@ public class LDAPConnector {
     private LDAPConnection connection;
     private BindResult bindResult;
     private LDAPConfig config;
+    private String failureMsg;
 
     LDAPConnector() {
+        failureMsg = "";
         connection = new LDAPConnection();
-    }
-
-    public LDAPConnector(LDAPConfig config) {
-        this.config = new LDAPConfig(config);
     }
 
     public static void main(String[] args) {
@@ -29,6 +27,7 @@ public class LDAPConnector {
 
     /**
      * Returns the current config.
+     *
      * @return the current config.
      */
     public LDAPConfig getConfig() {
@@ -37,6 +36,7 @@ public class LDAPConnector {
 
     /**
      * Sets the config file to be used by the connector.
+     *
      * @param config
      */
     public void setConfig(LDAPConfig config) {
@@ -68,15 +68,19 @@ public class LDAPConnector {
         try {
             bindResult = connection.bind(userName, password);
         } catch (LDAPException e) {
-            e.printStackTrace();
+            failureMsg = e.getResultString();
+            System.err.println(e.getExceptionMessage());
         }
     }
 
     public void connect() {
+        if(isConnected()) disconnect();
         try {
             connection = new LDAPConnection(getHost(), getPort());
         } catch (LDAPException e) {
-            e.printStackTrace();
+            //log alter
+            failureMsg = e.getResultString();
+            System.err.println(e.getExceptionMessage());
         }
     }
 
@@ -93,7 +97,7 @@ public class LDAPConnector {
                 object.put(a.getName(), a.getValue());
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return object;
     }
@@ -106,6 +110,12 @@ public class LDAPConnector {
         return jsonArray;
     }
 
+    public String getLastFailureMsg() {
+        String msg = failureMsg;
+        failureMsg = "Ok";
+        return  msg;
+    }
+
     protected JSONArray search(String query, String... attributes) {
         SearchResult result = null;
         try {
@@ -113,9 +123,9 @@ public class LDAPConnector {
             SearchRequest searchRequest =
                     new SearchRequest(getBaseDN(), SearchScope.SUB, filter,
                             attributes);
-            System.out.println("Test");
             result = connection.search(searchRequest);
-        } catch (LDAPException ignored) {
+        } catch (LDAPException e) {
+            e.printStackTrace();
         }
         return resultsToJSONArray(result);
     }
