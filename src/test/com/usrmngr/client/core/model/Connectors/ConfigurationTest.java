@@ -8,23 +8,6 @@ import java.io.IOException;
 
 public class ConfigurationTest {
     @Test
-    public void clone1() {
-        Configuration conf = new Configuration();
-        conf.put("hello","word");
-        conf.put("key","value");
-
-        Configuration conf1 =  conf.clone(conf);
-        // not the same address
-        Assert.assertNotEquals(conf1,conf);
-        // has same values
-        Assert.assertEquals(conf1.get("hello"),conf.get("hello"));
-        Assert.assertEquals(conf1.get("key"),conf.get("key"));
-        // one does not change the other
-        conf.clear();
-        Assert.assertNotEquals(conf,conf1);
-    }
-
-    @Test
     public void load() throws IOException {
         Configuration confa = new Configuration();
         confa.put("hello","world");
@@ -32,7 +15,7 @@ public class ConfigurationTest {
         confa.put("will","pass");
 
         Configuration confb = new Configuration();
-        confb.load(new File("C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\test\\com\\usrmngr\\server\\core\\model\\Connectors\\test.config"));
+        confb.load("C:\\Users\\jecsa\\IdeaProjects\\User_Manager\\src\\test\\com\\usrmngr\\server\\core\\model\\Connectors\\test.config");
 
         Assert.assertEquals(confa.get("hello"),confb.get("hello"));
         Assert.assertEquals(confa.get("this"),confb.get("this"));
@@ -45,11 +28,11 @@ public class ConfigurationTest {
         confa.put("hi","how");
         confa.put("are","you");
         confa.put("this","day");
-        confa.save(new File("test.save.config"));
+        confa.save("test.save.config");
         File file =  new File("test.save.config");
         Assert.assertTrue(file.exists());
         Configuration confb = new Configuration();
-        confb.load(new File("test.save.config"));
+        confb.load("test.save.config");
         file.delete(); // not sure why this wont delete
 
     }

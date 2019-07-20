@@ -2,7 +2,6 @@ package com.usrmngr.client.ui.controllers;
 
 import com.usrmngr.client.core.model.Connectors.ADConnector;
 import com.usrmngr.client.core.model.Connectors.LDAPConfig;
-import com.usrmngr.client.core.model.FXDialogs.DialogManager;
 import com.usrmngr.client.core.model.FXNodeContainer;
 import com.usrmngr.client.core.model.User;
 import com.usrmngr.util.Alert.AlertMaker;
@@ -115,7 +114,7 @@ public class ClientMainViewController implements Initializable {
         adConnector = new ADConnector(this.config);
         adConnector.connect();
         while (!adConnector.isConnected()) {
-            if (DialogManager.requestConfirmation("Unable to connect to server. Check Configurations.", config.getHostName() + ":" + config.getPort() + "\n" + adConnector.getLastFailureMsg())) {
+            if (DialogMaker.showConfirmatoinDialog("Unable to connect, check configuration.")) {
                 configMenuSelected();
                 adConnector.connect();
             } else {
@@ -183,7 +182,9 @@ public class ClientMainViewController implements Initializable {
                 displayableUsers.add(new User(data.getJSONObject(i)));
             }
         } catch (JSONException e) {
-            DialogManager.showError("Unable to load user list.", e.getMessage(), true);
+            AlertMaker.showErrorMessage("Fatal Error",e.getMessage());
+            Platform.exit();
+            System.exit(1);
         }
         userCount.setText(String.format("Users: %d", data.length()));
         userList.setItems(displayableUsers);
@@ -227,7 +228,7 @@ public class ClientMainViewController implements Initializable {
 
     @FXML
     public void cancelButtonClicked() {
-        if (!DialogManager.requestConfirmation("All changes will be lost.", "Are you sure?")) return;
+        if (DialogMaker.showConfirmatoinDialog("Changes will be lost.")) return;
         clearAllTextFields();
         loadDefaultView();
     }
@@ -236,7 +237,7 @@ public class ClientMainViewController implements Initializable {
     public void saveButtonClicked() {
         setMenuDisabled(false);
         //do the save
-        DialogManager.showInfo("Saved!");
+        AlertMaker.showSimpleAlert("Save","Save successful.");
         loadDefaultView();
         loadUser(selectedUser);
     }
