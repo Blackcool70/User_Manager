@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static com.usrmngr.Main.APP_NAME;
 public class ClientMain extends Application {
 
     public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class ClientMain extends Application {
         Scene scene = new Scene(root);
         window.setScene(scene);
         window.show();
-        window.setTitle("User Manager Client");
+        window.setTitle(APP_NAME);
 
     }
 }

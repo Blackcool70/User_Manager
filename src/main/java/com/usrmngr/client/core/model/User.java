@@ -1,6 +1,5 @@
 package com.usrmngr.client.core.model;
 
-import com.usrmngr.util.DataManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,7 +68,7 @@ public class User {
         String DATA_PATH = "src/main/resources/samples/MOCK_DATA.json";
         JSONArray data = null;
         try {
-            data = new JSONArray(DataManager.readFile(DATA_PATH));
+            data = new JSONArray();
         } catch (JSONException e) {
             e.printStackTrace();
         }
