@@ -4,9 +4,19 @@ package com.usrmngr.client.core.model.Connectors;
 *Encapsulates  all the necessary  configuration to create an LDAP connection.
 */
 public class LDAPConfig extends Configuration {
-    public LDAPConfig(String server,int port){
+    public LDAPConfig(String server,int port) {
+        this.put("server", server);
+        this.put("port", String.valueOf(port));
+    }
+    public LDAPConfig(String server,int port,String baseDN){
         this.put("server",server);
         this.put("port",String.valueOf(port));
+        this.put("baseDN",baseDN);
+    }
+    public LDAPConfig(){
+        this.put("server","");
+        this.put(("port"),"");
+        this.put(("baseDN"),"");
     }
 
     public int getPort() {
