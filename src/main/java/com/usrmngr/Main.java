@@ -16,13 +16,6 @@ public class Main {
     public static final String APP_CONFIG_PATH =  PROGRAM_DATA_DIRECTORY + File.separator + "CLIENT.CONFIG";
 
     public static void main(String[] args) {
-//        LOGGER.log(Level.INFO, "Application started on {}", dateFormat.format(new Date()));
-//
-//        Thread thread = new Thread(() ->
-//                LOGGER.log(Level.INFO, "Application stopped on {}.", dateFormat.format(new Date())));
-//        thread.setName("main");
-//        Runtime.getRuntime().addShutdownHook(thread);
-
         //runs a gui or cli version depending on inputs
         if (args.length >= 1 && "-start".equalsIgnoreCase(args[0])) {
             switch (args[1].toLowerCase()){
