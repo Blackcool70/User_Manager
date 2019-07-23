@@ -1,7 +1,7 @@
 package com.usrmngr.server.ui.controllers;
 
-import com.usrmngr.server.core.model.RMI.*;
 import com.usrmngr.server.core.model.Logging.TextAreaAppender;
+import com.usrmngr.server.core.model.QuickServer.UMServer.UMServer;
 import com.usrmngr.util.Alert.AlertMaker;
 import com.usrmngr.util.WindowHelper;
 import javafx.fxml.FXML;
@@ -11,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -36,7 +35,7 @@ public class ServerMainViewController implements Initializable {
     @FXML
     private MenuItem editProperties, about;
 
-    private Server server;
+    private UMServer umServer;
     private Properties properties;
 
     @Override
@@ -48,8 +47,10 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void initProperties() {
-        if(!PropertiesViewController.hasValidProperties()){
+        properties = PropertiesViewController.loadProperties();
+        if (properties == null || properties.isEmpty()) {
             openPropertiesWindow();
+            properties = PropertiesViewController.loadProperties();
         }
     }
 
@@ -79,9 +80,6 @@ public class ServerMainViewController implements Initializable {
         );
     }
 
-    public void setProperties(Properties properties){
-       this.properties = properties;
-    }
     private void clearLogs() {
         logArea.clear();
     }
@@ -90,7 +88,7 @@ public class ServerMainViewController implements Initializable {
         String windowName = "Properties";
         String fxmPath = "/server/fxml/PropertiesView.fxml";
         try {
-            WindowHelper.showChildWindow(null,windowName,fxmPath);
+            WindowHelper.showChildWindow(null, windowName, fxmPath);
         } catch (Exception e) {
             e.printStackTrace();
             AlertMaker.showErrorMessage(e, windowName, "Failed to load ".concat(windowName));
@@ -102,7 +100,7 @@ public class ServerMainViewController implements Initializable {
         String windowName = "About";
         String fxmPath = "/server/fxml/AboutView.fxml";
         try {
-            WindowHelper.showChildWindow(parentNode.getScene().getWindow(),windowName,fxmPath);
+            WindowHelper.showChildWindow(parentNode.getScene().getWindow(), windowName, fxmPath);
         } catch (Exception e) {
             AlertMaker.showErrorMessage(e, windowName, "Failed to load ".concat(windowName));
         }
@@ -111,32 +109,40 @@ public class ServerMainViewController implements Initializable {
     }
 
     private void initServer() {
-        try {
-            this.server = new Server();
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        this.umServer = new UMServer();
     }
 
     private void startServerButtonClicked() {
         setStatusMessage("Starting...");
-        this.startup();
+        umServer.startServer();
+        startup();
     }
 
     private void stopServerButtonClicked() {
         setStatusMessage("Stopping...");
-        this.shutdown();
+        umServer.stopServer();
+        shutdown();
+    }
+
+    public void startup() {
+        setStatusMessage("Started.");
+        startServer.setDisable(true);
+        stopServer.setDisable(false);
+    }
+
+    public void shutdown() {
+        if (umServer.isRunning()) {
+            stopServerButtonClicked();
+        }
+        setStatusMessage("Stopped.");
+        stopServer.setDisable(true);
+        startServer.setDisable(false);
+
     }
 
     private void setStatusMessage(String message) {
         this.statusLabel.setText(message);
     }
 
-    private void startup() {
-
-    }
-
-    public void shutdown() {
-    }
 }
 

@@ -1,10 +1,9 @@
 package com.usrmngr.client.ui.controllers;
 
-import com.usrmngr.client.core.model.ADConnector;
+import com.usrmngr.server.core.model.Connectors.LDAPConnector;
 import com.usrmngr.client.core.model.FXDialogs.DialogManager;
 import com.usrmngr.client.core.model.FXNodeContainer;
 import com.usrmngr.client.core.model.User;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,7 +42,7 @@ public class ClientMainViewController implements Initializable {
     MenuItem preferencesMenu, configurationsMenu;
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
     private ArrayList<TitledPane> panes;
-    private ADConnector adConnector;
+    private LDAPConnector LDAPConnector;
     private Properties properties;
 
     @Override
@@ -68,24 +67,24 @@ public class ClientMainViewController implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
-                selectedUser = new User(adConnector.getADUser(selectedUser.getAttribute("CN")));
+                //selectedUser = new User(LDAPConnector.getADUser(selectedUser.getAttribute("CN")));
                 loadUser(selectedUser);
             }
         });
     }
 
     private void connectToAD(Properties properties) {
-        this.adConnector = new ADConnector(properties);
-        this.adConnector.connect();
-        while (!adConnector.isConnected()) {
-            if (DialogManager.requestConfirmation("Unable to connect,Open configurations?", adConnector.getResultCode())) {
+//        this.LDAPConnector = new LDAPConnector(properties);
+//        this.LDAPConnector.connect();
+//        while (!LDAPConnector.isConnected()) {
+//            if (DialogManager.requestConfirmation("Unable to connect,Open configurations?", LDAPConnector.getResultCode())) {
                 configMenuSelected();
-            } else {
-                Platform.exit();
-                System.exit(0);
-            }
+//            } else {
+//                Platform.exit();
+//                System.exit(0);
+//            }
         }
-    }
+//    }
 
     private Properties getProgramProperties() {
         // place holder
@@ -134,8 +133,9 @@ public class ClientMainViewController implements Initializable {
 
     private JSONArray getDataFromSource() {
         //return new JSONArray(DataManager.readFile((DATA_PATH)));
-        assert adConnector != null;
-        return adConnector.isConnected() ? adConnector.getAllADUsers("displayName", "cn") : new JSONArray();
+        assert LDAPConnector != null;
+//        return LDAPConnector.isConnected() ? LDAPConnector.getAllADUsers("displayName", "cn") : new JSONArray();
+        return null;
     }
 
     private void loadSampleData() {

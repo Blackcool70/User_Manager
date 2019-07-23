@@ -121,6 +121,13 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.quickserver/quickserver -->
+        <dependency>
+            <groupId>org.quickserver</groupId>
+            <artifactId>quickserver</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

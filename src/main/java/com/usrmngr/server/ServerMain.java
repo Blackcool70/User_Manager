@@ -8,15 +8,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+/**
+ * Server GUI
+ */
 public class ServerMain extends Application {
     public static final String APP_NAME = "USER MANAGER SERVER";
 
     public static void main(String[] args) {
         launch(args);
     }
-
-
-
 
 
     @Override
@@ -28,6 +29,7 @@ public class ServerMain extends Application {
             window.setScene(scene);
             window.setTitle(APP_NAME);
             ServerMainViewController controller = loader.getController();
+            // try to shutdown the core server if the window is closed
             window.setOnCloseRequest(e -> controller.shutdown());
             window.show();
         } catch (Exception e) {

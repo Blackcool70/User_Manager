@@ -13,7 +13,9 @@ import java.util.Date;
 import static javafx.application.Application.launch;
 
 public class Main {
-
+    /**
+     * Handles the startup of the server's  or client GUI through the JAVAFX framework.
+     */
     public static void main(String[] args) {
 //        LOGGER.log(Level.INFO, "Application started on {}", dateFormat.format(new Date()));
 //
