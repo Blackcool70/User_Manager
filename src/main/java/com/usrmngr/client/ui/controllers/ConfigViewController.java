@@ -40,7 +40,7 @@ public class ConfigViewController implements Initializable {
     }
 
     private void loadDefault() {
-        config.setHostName("localhost");
+        config.setServer("localhost");
         config.setPort(389);
         config.setBaseDN("dc=company,dc=com");
     }

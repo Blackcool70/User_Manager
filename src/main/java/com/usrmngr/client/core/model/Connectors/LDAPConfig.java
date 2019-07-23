@@ -4,18 +4,16 @@ package com.usrmngr.client.core.model.Connectors;
 *Encapsulates  all the necessary  configuration to create an LDAP connection.
 */
 public class LDAPConfig extends Configuration {
-    private final String  DEFAULT_PORT = "389";
-    public LDAPConfig() {
-        super();
-    }
-
-    public static void main(String[] args) {
+    public LDAPConfig(String server,int port){
+        this.put("server",server);
+        this.put("port",String.valueOf(port));
     }
 
     public int getPort() {
         try {
             return Integer.parseInt(get("port"));
         }catch (NumberFormatException e){
+            String DEFAULT_PORT = "389";
             return Integer.parseInt(DEFAULT_PORT);
         }
     }
@@ -24,12 +22,12 @@ public class LDAPConfig extends Configuration {
         put("port", String.valueOf(port));
     }
 
-    public String getHostName() {
-        return (String) getOrDefault("hostName","localhost");
+    public String getServer() {
+        return  get("server");
     }
 
-    public void setHostName(String hostName) {
-        put("hostName", hostName);
+    public void setServer(String server) {
+        put("server", server);
     }
 
     public String getBaseDN() {

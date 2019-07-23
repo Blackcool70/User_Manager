@@ -34,10 +34,8 @@ public class ADConnector extends LDAPConnector {
 
     public static void main(String[] args) {
         ADConnector adConnector = new ADConnector();
-        LDAPConfig config = new LDAPConfig();
-        config.setHostName("192.168.1.2");
+        LDAPConfig config = new LDAPConfig("192.168.1.2",389);
         config.setBaseDN("dc=lab,dc=net");
-        config.setPort(389);
         adConnector.setConfig(config);
         adConnector.connect();
         System.out.println(adConnector.isConnected());

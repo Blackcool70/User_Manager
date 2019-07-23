@@ -13,6 +13,7 @@ import java.util.Collection;
 public class LDAPConnector {
     private LDAPConnection connection;
     private BindResult bindResult;
+
     private LDAPConfig config;
     private String failureMsg;
 
@@ -61,7 +62,7 @@ public class LDAPConnector {
     }
 
     public String getHost() {
-        return this.config.getHostName();
+        return this.config.getServer();
     }
 
     public void authenticate(String userName, String password) {
