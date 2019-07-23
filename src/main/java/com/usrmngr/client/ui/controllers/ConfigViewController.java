@@ -52,15 +52,19 @@ public class ConfigViewController implements Initializable {
     }
 
 
+    /**
+     * For each entry int he config file create a label and a text box with the value.
+     * @param config
+     */
     private void displayConfig(LDAPConfig config) {
         if (config == null) config = new LDAPConfig();
         int i = 0;
         propGrid.addRow(i);
         propGrid.addColumn(i);
-        Set<String> keys = config.stringPropertyNames();
+        Set<String> keys =  config.getKeys();
         textFields = new TextField[keys.size()];
         for (String key : keys) {
-            textFields[i] = new TextField(config.getProperty(key));
+            textFields[i] = new TextField(config.getValue(key));
             textFields[i].setId(key);
             propGrid.add(new Label(key), 0, i);
             propGrid.add(textFields[i],1,i);

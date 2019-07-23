@@ -1,28 +1,37 @@
 package com.usrmngr.client.core.model.Connectors;
 
 /**
-*Encapsulates  all the necessary  configuration to create an LDAP connection.
-*/
+ * Encapsulates  all the necessary  configuration to create an LDAP connector.
+ */
 public class LDAPConfig extends Configuration {
-    public LDAPConfig(String server,int port) {
+    public LDAPConfig(LDAPConfig config) {
+
+    }
+
+    public LDAPConfig(String server, int port) {
         this.put("server", server);
         this.put("port", String.valueOf(port));
     }
-    public LDAPConfig(String server,int port,String baseDN){
-        this.put("server",server);
-        this.put("port",String.valueOf(port));
-        this.put("baseDN",baseDN);
+
+    public LDAPConfig(String server, int port, String baseDN) {
+        this.put("server", server);
+        this.put("port", String.valueOf(port));
+        this.put("baseDN", baseDN);
     }
-    public LDAPConfig(){
-        this.put("server","");
-        this.put(("port"),"");
-        this.put(("baseDN"),"");
+
+    public LDAPConfig() {
+        this.put("server", "");
+        this.put(("port"), "");
+        this.put(("baseDN"), "");
+    }
+
+    public static void main(String[] args) {
     }
 
     public int getPort() {
         try {
             return Integer.parseInt(get("port"));
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             String DEFAULT_PORT = "389";
             return Integer.parseInt(DEFAULT_PORT);
         }
@@ -33,7 +42,7 @@ public class LDAPConfig extends Configuration {
     }
 
     public String getServer() {
-        return  get("server");
+        return get("server");
     }
 
     public void setServer(String server) {
@@ -53,5 +62,4 @@ public class LDAPConfig extends Configuration {
     public String toString() {
         return super.toString();
     }
-
 }

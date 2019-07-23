@@ -8,9 +8,9 @@ import org.json.JSONObject;
 import java.util.Collection;
 
 /**
- * Encapsulates  an ldap connection
+ * Encapsulates  an ldap connector
  */
-public class LDAPConnector {
+public class LDAPConnector implements Connector {
     private LDAPConnection connection;
     private BindResult bindResult;
 
@@ -33,6 +33,11 @@ public class LDAPConnector {
      */
     public LDAPConfig getConfig() {
         return this.config;
+    }
+
+    @Override
+    public void setConfig(Configuration config) {
+        this.config = (LDAPConfig) config;
     }
 
     /**
@@ -61,6 +66,16 @@ public class LDAPConnector {
         this.config.setPort(port);
     }
 
+    @Override
+    public void setServer(String server) {
+
+    }
+
+    @Override
+    public String getServer() {
+        return null;
+    }
+
     public String getHost() {
         return this.config.getServer();
     }
@@ -75,7 +90,7 @@ public class LDAPConnector {
     }
 
     public void connect() {
-        if(isConnected()) disconnect();
+        if (isConnected()) disconnect();
         try {
             connection = new LDAPConnection(getHost(), getPort());
         } catch (LDAPException e) {
@@ -114,7 +129,7 @@ public class LDAPConnector {
     public String getLastFailureMsg() {
         String msg = failureMsg;
         failureMsg = "Ok";
-        return  msg;
+        return msg;
     }
 
     protected JSONArray search(String query, String... attributes) {
@@ -135,7 +150,7 @@ public class LDAPConnector {
         return bindResult != null && bindResult.getResultCode() == ResultCode.SUCCESS;
     }
 
-    void disconnect() {
+    public void disconnect() {
         if (isConnected()) {
             connection.close();
         }
