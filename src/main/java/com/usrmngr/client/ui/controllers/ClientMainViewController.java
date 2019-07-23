@@ -57,9 +57,9 @@ public class ClientMainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initAdConnection();
+      //  initAdConnection();
         initController();
-        loadUserList();
+        //loadUserList();
         loadDefaultView();
     }
 
@@ -228,9 +228,11 @@ public class ClientMainViewController implements Initializable {
 
     @FXML
     public void cancelButtonClicked() {
-        if (DialogMaker.showConfirmatoinDialog("Changes will be lost.")) return;
-        clearAllTextFields();
-        loadDefaultView();
+        if (DialogMaker.showConfirmatoinDialog("Changes will be lost.")) {
+            clearAllTextFields();
+            loadDefaultView();
+        }
+
     }
 
     @FXML
