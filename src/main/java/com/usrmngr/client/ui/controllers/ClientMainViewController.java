@@ -57,9 +57,9 @@ public class ClientMainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initAdConnection();
+      //  initAdConnection();
         initController();
-        loadUserList();
+        //loadUserList();
         loadDefaultView();
     }
 
@@ -114,7 +114,7 @@ public class ClientMainViewController implements Initializable {
         adConnector = new ADConnector(this.config);
         adConnector.connect();
         while (!adConnector.isConnected()) {
-            if (DialogMaker.showConfirmatoinDialog("Unable to connect, check configuration.")) {
+            if (DialogMaker.showConfirmationDialog("Unable to connect, check configuration.")) {
                 configMenuSelected();
                 adConnector.connect();
             } else {
@@ -130,7 +130,7 @@ public class ClientMainViewController implements Initializable {
         while (true) {
             input = DialogMaker.showLoginDialog();
             if (input.isEmpty()) {
-                quit = DialogMaker.showConfirmatoinDialog("Not providing credentials will terminate the application.");
+                quit = DialogMaker.showConfirmationDialog("Not providing credentials will terminate the application.");
                 if (quit) {
                     Platform.exit();
                     System.exit(0);
@@ -228,9 +228,11 @@ public class ClientMainViewController implements Initializable {
 
     @FXML
     public void cancelButtonClicked() {
-        if (DialogMaker.showConfirmatoinDialog("Changes will be lost.")) return;
-        clearAllTextFields();
-        loadDefaultView();
+        if (DialogMaker.showConfirmationDialog("Changes will be lost.")) {
+            clearAllTextFields();
+            loadDefaultView();
+        }
+
     }
 
     @FXML

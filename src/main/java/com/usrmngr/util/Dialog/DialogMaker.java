@@ -11,7 +11,7 @@ import javafx.util.Pair;
 import java.util.Optional;
 
 public class DialogMaker {
-    public static boolean showConfirmatoinDialog(String bodyText) {
+    public static boolean showConfirmationDialog(String bodyText) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Required");
         alert.setHeaderText(bodyText);
