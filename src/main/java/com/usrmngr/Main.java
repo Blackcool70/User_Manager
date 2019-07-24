@@ -14,6 +14,8 @@ public class Main {
     public static final  String PROGRAM_DATA_DIRECTORY = System.getProperty("user.home") + File.separator
             + "." + APP_NAME.replace(" ","_");
     public static final String APP_CONFIG_PATH =  PROGRAM_DATA_DIRECTORY + File.separator + "CLIENT.CONFIG";
+    public static final String APP_DEBUG_CONFIG_PATH = PROGRAM_DATA_DIRECTORY + File.separator +"CLIENT.DEBUG.CONFIG";
+
     public static void main(String[] args) {
         if (args.length >= 1 && "-start".equalsIgnoreCase(args[0])) {
             switch (args[1].toLowerCase()){

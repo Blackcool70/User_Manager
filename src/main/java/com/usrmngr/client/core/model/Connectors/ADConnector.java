@@ -9,12 +9,8 @@ import org.json.JSONObject;
  * Encapsulates actions that can be preformed in active directory services.
  */
 public class ADConnector extends LDAPConnector {
-    public ADConnector() {
-        super();
-    }
     public ADConnector(Configuration config){
-        super();
-        this.setConfig(config);
+        super(config);
     }
 
     public JSONObject getADUser(String cn, String... attributes) {

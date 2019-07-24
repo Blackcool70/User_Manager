@@ -16,8 +16,9 @@ public class LDAPConnector implements Connector {
 
     private Configuration config;
 
-    LDAPConnector() {
+    public LDAPConnector(Configuration config) {
         connection = new LDAPConnection();
+        this.setConfig(config);
     }
 
     public static void main(String[] args) {
@@ -61,12 +62,12 @@ public class LDAPConnector implements Connector {
 
     @Override
     public void setHost(String host) {
-        this.config.put("host", host);
+        this.config.put("hostName", host);
     }
 
     @Override
     public String getHost() {
-        return this.config.get("host");
+        return this.config.get("hostName");
     }
 
     public void authenticate(String userName, String password) {
@@ -136,6 +137,10 @@ public class LDAPConnector implements Connector {
         }
         bindResult = null;
 
+    }
+
+    public void authenticate() {
+        authenticate(config.get("authDN"),config.get("pw"));
     }
 }
 

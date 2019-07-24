@@ -53,13 +53,12 @@ public class ClientMainViewController implements Initializable {
     private ArrayList<TitledPane> panes;
     private ADConnector adConnector;
     private Configuration config;
-    private Pair<String, String> credentials;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      //  initAdConnection();
+        initAdConnection();
         initController();
-        //loadUserList();
+        loadUserList();
         loadDefaultView();
     }
 
@@ -70,9 +69,10 @@ public class ClientMainViewController implements Initializable {
     }
 
     private void authenticateToAD() {
-         credentials = new Pair<>("cn=Administrator,ou=users,ou=company,dc=lab,dc=net","J3cs4nb!");
+         String un = config.getValue("authDN");
+         String pw = config.getValue("pw");
         //credentials = getCredentials();
-        adConnector.authenticate(credentials.getKey(), credentials.getValue());//will clean up
+        adConnector.authenticate(un, pw);//will clean up
     }
 
     private void loadConfigs() {
@@ -192,7 +192,7 @@ public class ClientMainViewController implements Initializable {
     }
 
     private JSONArray getDataFromSource() {
-        adConnector.authenticate(credentials.getKey(), credentials.getValue());
+        adConnector.authenticate();
         return adConnector.getAllADUsers("displayName","cn");
     }
 
@@ -282,7 +282,7 @@ public class ClientMainViewController implements Initializable {
     }
 
     public void configMenuSelected() {
-        String configViewFXML = "/client/fxml/ConfigView.fxml";
+        String configViewFXML = "/client/fxml/ADConfigView.fxml";
         String windowTitle = "Configurations";
         try {
             openChildWindow(windowTitle, configViewFXML);
