@@ -1,7 +1,7 @@
 package com.usrmngr.client.ui.controllers;
 
 import com.usrmngr.client.core.model.Connectors.ADConnector;
-import com.usrmngr.client.core.model.Connectors.LDAPConfig;
+import com.usrmngr.client.core.model.Connectors.Configuration;
 import com.usrmngr.client.core.model.FXNodeContainer;
 import com.usrmngr.client.core.model.User;
 import com.usrmngr.util.Alert.AlertMaker;
@@ -52,7 +52,7 @@ public class ClientMainViewController implements Initializable {
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
     private ArrayList<TitledPane> panes;
     private ADConnector adConnector;
-    private LDAPConfig config;
+    private Configuration config;
     private Pair<String, String> credentials;
 
     @Override
@@ -76,7 +76,7 @@ public class ClientMainViewController implements Initializable {
     }
 
     private void loadConfigs() {
-        this.config = new LDAPConfig();
+        this.config = new Configuration();
         try {
             this.config.load(APP_CONFIG_PATH);
         } catch (IOException e) {

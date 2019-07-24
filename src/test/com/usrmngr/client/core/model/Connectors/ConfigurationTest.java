@@ -1,6 +1,5 @@
 package com.usrmngr.client.core.model.Connectors;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;

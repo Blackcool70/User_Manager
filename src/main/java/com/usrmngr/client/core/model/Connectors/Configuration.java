@@ -18,14 +18,10 @@ public class Configuration {
         values = new Properties();
         config.values.forEach(values::put);
     }
-
     public Configuration() {
         this.values = new Properties();
     }
 
-    public static void main(String[] args) throws IOException {
-        Configuration configuration = new Configuration();
-    }
 
     public void put(String key, String value) {
         values.put(key, value);

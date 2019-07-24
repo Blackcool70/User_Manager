@@ -12,7 +12,7 @@ public class ADConnector extends LDAPConnector {
     public ADConnector() {
         super();
     }
-    public ADConnector(LDAPConfig config){
+    public ADConnector(Configuration config){
         super();
         this.setConfig(config);
     }
@@ -25,7 +25,7 @@ public class ADConnector extends LDAPConnector {
         }
         return results.getJSONObject(0);
     }
-    public void setConfig(LDAPConfig config){
+    public void setConfig(Configuration config){
         super.setConfig(config);
     }
     public JSONArray getAllADUsers(String ... attributes){
@@ -33,15 +33,6 @@ public class ADConnector extends LDAPConnector {
     }
 
     public static void main(String[] args) {
-        ADConnector adConnector = new ADConnector();
-        LDAPConfig config = new LDAPConfig("192.168.1.2",389);
-        config.setBaseDN("dc=lab,dc=net");
-        adConnector.setConfig(config);
-        adConnector.connect();
-        System.out.println(adConnector.isConnected());
-        adConnector.authenticate("cn=Administrator,ou=Users,ou=Company,dc=lab,dc=net", "J3cs4nb!");
-        System.out.println(adConnector.isAuthenticated());
-        System.out.println(adConnector.getADUser("Administrator","cn","dn","displayName"));
 
     }
 

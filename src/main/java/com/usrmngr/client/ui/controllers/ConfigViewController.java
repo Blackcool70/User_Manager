@@ -1,6 +1,6 @@
 package com.usrmngr.client.ui.controllers;
 
-import com.usrmngr.client.core.model.Connectors.LDAPConfig;
+import com.usrmngr.client.core.model.Connectors.Configuration;
 import com.usrmngr.util.Alert.AlertMaker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,28 +22,21 @@ public class ConfigViewController implements Initializable {
     private GridPane propGrid;
     @FXML
     private Button saveButton, cancelButton;
-    private LDAPConfig config;
+    private Configuration config;
     private TextField[] textFields;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         saveButton.setOnMouseClicked(e -> onSaveClicked());
         cancelButton.setOnMouseClicked(e -> onCancelClicked());
-        config = new LDAPConfig();
+        config = new Configuration();
         try {
             config.load(APP_CONFIG_PATH);
         } catch (IOException ignored) {
         }
-        if(config.size() == 0)
-            loadDefault();
         displayConfig(config);
     }
 
-    private void loadDefault() {
-        config.setServer("localhost");
-        config.setPort(389);
-        config.setBaseDN("dc=company,dc=com");
-    }
 
     private void onCancelClicked() {
         // get a handle to the stage
@@ -56,8 +49,7 @@ public class ConfigViewController implements Initializable {
      * For each entry int he config file create a label and a text box with the value.
      * @param config
      */
-    private void displayConfig(LDAPConfig config) {
-        if (config == null) config = new LDAPConfig();
+    private void displayConfig(Configuration config) {
         int i = 0;
         propGrid.addRow(i);
         propGrid.addColumn(i);

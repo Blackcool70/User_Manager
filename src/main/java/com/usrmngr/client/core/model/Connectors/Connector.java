@@ -11,9 +11,9 @@ public interface Connector {
 
     void setPort(int port);
 
-    void setServer(String server);
+    void setHost(String server);
 
-    String getServer();
+    String getHost();
 
     Configuration getConfig();
 

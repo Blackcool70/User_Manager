@@ -14,11 +14,9 @@ public class LDAPConnector implements Connector {
     private LDAPConnection connection;
     private BindResult bindResult;
 
-    private LDAPConfig config;
-    private String failureMsg;
+    private Configuration config;
 
     LDAPConnector() {
-        failureMsg = "";
         connection = new LDAPConnection();
     }
 
@@ -31,13 +29,8 @@ public class LDAPConnector implements Connector {
      *
      * @return the current config.
      */
-    public LDAPConfig getConfig() {
+    public Configuration getConfig() {
         return this.config;
-    }
-
-    @Override
-    public void setConfig(Configuration config) {
-        this.config = (LDAPConfig) config;
     }
 
     /**
@@ -45,47 +38,42 @@ public class LDAPConnector implements Connector {
      *
      * @param config
      */
-    public void setConfig(LDAPConfig config) {
+    public void setConfig(Configuration config) {
         this.config = config;
     }
 
 
     public String getBaseDN() {
-        return this.config.getBaseDN();
+        return config.get("baseDN");
     }
 
     public void setBaseDN(String dn) {
-        this.config.setBaseDN(dn);
+        config.put("baseDN", dn);
     }
 
     public int getPort() {
-        return this.config.getPort();
+        return Integer.parseInt(config.get("port"));
     }
 
     public void setPort(int port) {
-        this.config.setPort(port);
+        this.config.put("port", String.valueOf(port));
     }
 
     @Override
-    public void setServer(String server) {
-
+    public void setHost(String host) {
+        this.config.put("host", host);
     }
 
     @Override
-    public String getServer() {
-        return null;
-    }
-
     public String getHost() {
-        return this.config.getServer();
+        return this.config.get("host");
     }
 
     public void authenticate(String userName, String password) {
         try {
             bindResult = connection.bind(userName, password);
         } catch (LDAPException e) {
-            failureMsg = e.getResultString();
-            System.err.println(e.getExceptionMessage());
+            e.printStackTrace();
         }
     }
 
@@ -94,9 +82,7 @@ public class LDAPConnector implements Connector {
         try {
             connection = new LDAPConnection(getHost(), getPort());
         } catch (LDAPException e) {
-            //log alter
-            failureMsg = e.getResultString();
-            System.err.println(e.getExceptionMessage());
+            e.printStackTrace();
         }
     }
 
@@ -124,12 +110,6 @@ public class LDAPConnector implements Connector {
         result.getSearchEntries().forEach(
                 searchResultEntry -> jsonArray.put(toJSON(searchResultEntry)));
         return jsonArray;
-    }
-
-    public String getLastFailureMsg() {
-        String msg = failureMsg;
-        failureMsg = "Ok";
-        return msg;
     }
 
     protected JSONArray search(String query, String... attributes) {
