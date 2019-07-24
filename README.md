@@ -1,4 +1,4 @@
-# User_Manager
+# User Manager
 Personal Project to build experience
 ## Purpose
 This is meant to be a tool that anyone can use to manange small active directory network 
