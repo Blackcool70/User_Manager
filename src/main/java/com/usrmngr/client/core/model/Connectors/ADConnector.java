@@ -1,6 +1,6 @@
 package com.usrmngr.client.core.model.Connectors;
 
-import com.usrmngr.util.Alert.AlertMaker;
+import com.usrmngr.client.core.model.ADUser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,13 +13,12 @@ public class ADConnector extends LDAPConnector {
         super(config);
     }
 
-    public JSONObject getADUser(String cn, String... attributes) {
+    public ADUser getADUser(String cn, String ... attributes){
+        return  new ADUser( getADUserASJson(cn,attributes));
+    }
+    public JSONObject getADUserASJson(String cn, String... attributes) {
         JSONArray results = search(String.format(ADLDAPFilters.USER_SEARCH_FILTER, cn), attributes);
-        if(results.isEmpty()) {
-            AlertMaker.showSimpleAlert("Alert", "Unable to get user. Try again.");
-            //may want to refresh user list when this fails
-        }
-        return results.getJSONObject(0);
+        return results == null ? new JSONObject() :results.getJSONObject(0);
     }
     public void setConfig(Configuration config){
         super.setConfig(config);
