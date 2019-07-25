@@ -9,12 +9,15 @@ import com.usrmngr.util.Dialog.DialogMaker;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -41,6 +44,7 @@ public class ClientMainViewController implements Initializable {
     public GridPane bottomPane;
     @FXML
     TitledPane basicInfoDropdown, contactInfoDropdown, passwordDropdown;
+    ContextMenu contextMenu = new ContextMenu();
     @FXML
     public Label userCount, DN;
     @FXML
@@ -60,10 +64,49 @@ public class ClientMainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      //  initAdConnection();
+       // initAdConnection();
         initController();
        // loadUserList();
         loadDefaultView();
+        contextMenu();
+    }
+    private void contextMenu(){
+        MenuItem item1 = new MenuItem("Delete User");
+        item1.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                deleteButtonClicked();
+            }
+        });
+        MenuItem item2 = new MenuItem("Edit User");
+        item2.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                editButtonClicked();
+            }
+        });
+        MenuItem item3 = new MenuItem("Password Reset");
+        item3.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                passwordResetButtonClicked();
+            }
+        });
+        // Add MenuItem to ContextMenu
+        contextMenu.getItems().addAll(item1, item2, item3);
+
+        // When user right-click on the left pane
+        userList.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+
+            @Override
+            public void handle(ContextMenuEvent event) {
+
+                contextMenu.show(userList, event.getScreenX(), event.getScreenY());
+            }
+        });
     }
 
     private void initAdConnection() {
