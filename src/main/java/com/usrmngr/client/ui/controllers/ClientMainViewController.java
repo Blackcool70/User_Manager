@@ -1,9 +1,9 @@
 package com.usrmngr.client.ui.controllers;
 
+import com.usrmngr.client.core.model.ADUser;
 import com.usrmngr.client.core.model.Connectors.ADConnector;
 import com.usrmngr.client.core.model.Connectors.Configuration;
 import com.usrmngr.client.core.model.FXNodeContainer;
-import com.usrmngr.client.core.model.User;
 import com.usrmngr.util.Alert.AlertMaker;
 import com.usrmngr.util.Dialog.DialogMaker;
 import javafx.application.Platform;
@@ -34,8 +34,8 @@ import static com.usrmngr.Main.APP_CONFIG_PATH;
 
 public class ClientMainViewController implements Initializable {
 
-    private JSONArray data;
-    private User selectedUser;
+
+    //GUI items
     @FXML
     public VBox leftPane, centerPane;
     public GridPane bottomPane;
@@ -44,15 +44,19 @@ public class ClientMainViewController implements Initializable {
     @FXML
     public Label userCount, DN;
     @FXML
-    public ListView<User> userList;
+    public ListView<ADUser> userList;
     @FXML
-    public PasswordField password_entry, password_confirm_entry;
+    public PasswordField passwordField, passwordConfirmationField;
     @FXML
     MenuItem preferencesMenu, configurationsMenu;
+
+    // other data structures
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
     private ArrayList<TitledPane> panes;
     private ADConnector adConnector;
     private Configuration config;
+
+    private ADUser selectedUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -69,8 +73,8 @@ public class ClientMainViewController implements Initializable {
     }
 
     private void authenticateToAD() {
-         String un = config.getValue("authDN");
-         String pw = config.getValue("pw");
+        String un = config.getValue("authDN");
+        String pw = config.getValue("pw");
         //credentials = getCredentials();
         adConnector.authenticate(un, pw);//will clean up
     }
@@ -104,7 +108,7 @@ public class ClientMainViewController implements Initializable {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
-                selectedUser = new User(adConnector.getADUser(selectedUser.getAttribute("cn")));
+                selectedUser = adConnector.getADUser(selectedUser.getCN());
                 loadUser(selectedUser);
             }
         });
@@ -166,34 +170,36 @@ public class ClientMainViewController implements Initializable {
 
 
     //gets full details for the selected user from datasource
-    private void loadUser(User selectedUser) {
-        if (selectedUser == null) return;
-        DN.setText(selectedUser.getAttribute("DN"));
-        allNodes.getTextFields().forEach(textField ->
-                textField.setText(selectedUser.getAttribute(textField.getId())));
+    private void loadUser(ADUser selectedADObject) {
+        if (selectedADObject != null) {
+            DN.setText(selectedADObject.getDN());
+            allNodes.getTextFields().forEach(textField ->
+                    textField.setText(selectedADObject.getAttribute(textField.getId())));
+        }
     }
 
     // loads a list of users fetched from source with enough information to be able to query for details on select.
     private void loadUserList() {
-        ObservableList<User> displayableUsers = FXCollections.observableArrayList();
-        data = getDataFromSource();
+        ObservableList<ADUser> displayableADObjects = FXCollections.observableArrayList();
+        // data
+        JSONArray adUserImportData = getDataFromSource();
         try {
-            for (int i = 0; i < data.length(); i++) {
-                displayableUsers.add(new User(data.getJSONObject(i)));
+            for (int i = 0; i < adUserImportData.length(); i++) {
+                displayableADObjects.add(new ADUser(adUserImportData.getJSONObject(i)));
             }
         } catch (JSONException e) {
-            AlertMaker.showErrorMessage("Fatal Error",e.getMessage());
+            AlertMaker.showErrorMessage("Fatal Error", e.getMessage());
             Platform.exit();
             System.exit(1);
         }
-        userCount.setText(String.format("Users: %d", data.length()));
-        userList.setItems(displayableUsers);
+        userCount.setText(String.format("Users: %d", adUserImportData.length()));
+        userList.setItems(displayableADObjects);
 
     }
 
     private JSONArray getDataFromSource() {
         adConnector.authenticate();
-        return adConnector.getAllADUsers("displayName","cn");
+        return adConnector.getAllADUsers("displayName", "cn");
     }
 
 
@@ -239,7 +245,7 @@ public class ClientMainViewController implements Initializable {
     public void saveButtonClicked() {
         setMenuDisabled(false);
         //do the save
-        AlertMaker.showSimpleAlert("Save","Save successful.");
+        AlertMaker.showSimpleAlert("Save", "Save successful.");
         loadDefaultView();
         loadUser(selectedUser);
     }

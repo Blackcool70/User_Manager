@@ -116,8 +116,8 @@
                           <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
                       </rowConstraints>
                       <CheckBox fx:id="usrRandPwCBox" focusTraversable="false" mnemonicParsing="false" selected="true" text="Randomize Password" />
-                      <PasswordField fx:id="password_entry" promptText="password" GridPane.rowIndex="1" />
-                      <PasswordField fx:id="password_confirm_entry" promptText="confirm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      <PasswordField fx:id="passwordField" promptText="password" GridPane.rowIndex="1" />
+                      <PasswordField fx:id="passwordConfirmationField" promptText="confirm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   </GridPane>
               </TitledPane>
          <BorderPane.margin>
