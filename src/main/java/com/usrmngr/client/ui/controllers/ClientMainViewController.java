@@ -9,15 +9,12 @@ import com.usrmngr.util.Dialog.DialogMaker;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -64,49 +61,27 @@ public class ClientMainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       // initAdConnection();
+        initAdConnection();
         initController();
-       // loadUserList();
+        loadUserList();
         loadDefaultView();
-        contextMenu();
+
     }
-    private void contextMenu(){
+
+    private void addContextMenu() {
         MenuItem deleteUser = new MenuItem("Delete User");
-        deleteUser.setOnAction(new EventHandler<ActionEvent>() {
+        deleteUser.setOnAction(e -> deleteButtonClicked());
 
-            @Override
-            public void handle(ActionEvent event) {
-                deleteButtonClicked();
-            }
-        });
         MenuItem editUser = new MenuItem("Edit User");
-        editUser.setOnAction(new EventHandler<ActionEvent>() {
+        editUser.setOnAction(e -> editButtonClicked());
 
-            @Override
-            public void handle(ActionEvent event) {
-                editButtonClicked();
-            }
-        });
         MenuItem passwordReset = new MenuItem("Password Reset");
-        passwordReset.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                passwordResetButtonClicked();
-            }
-        });
+        passwordReset.setOnAction(e -> passwordResetButtonClicked());
         // Add MenuItem to ContextMenu
         contextMenu.getItems().addAll(deleteUser, editUser, passwordReset);
-
         // When user right-click on the left pane
-        userList.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-
-            @Override
-            public void handle(ContextMenuEvent event) {
-
-                contextMenu.show(userList, event.getScreenX(), event.getScreenY());
-            }
-        });
+        userList.setOnContextMenuRequested(e ->
+                contextMenu.show(userList, e.getScreenX(), e.getScreenY()));
     }
 
     private void initAdConnection() {
@@ -155,6 +130,7 @@ public class ClientMainViewController implements Initializable {
                 loadUser(selectedUser);
             }
         });
+        addContextMenu();
     }
 
     private void connectToAD() {
@@ -296,8 +272,8 @@ public class ClientMainViewController implements Initializable {
 
     @FXML
     public void passwordResetButtonClicked() {
-       if (selectedUser == null) return;
-        setDropdownExpanded(contactInfoDropdown,false);
+        if (selectedUser == null) return;
+        setDropdownExpanded(contactInfoDropdown, false);
         setMenuDisabled(true);
         setUserSectionDisabled(false);
         setPasswordDisabled(false);
@@ -308,14 +284,14 @@ public class ClientMainViewController implements Initializable {
     public void deleteButtonClicked() {
         if (selectedUser == null) return;
 
-        if (DialogMaker.showConfirmationDialog("You are about to DELETE a user!")){
-                /* TODO: If the user wants to delete, I think it's better, or rather, makes sense to ask
-                *        if they are okay with deleting right there and then, if they click "OK", then begin the
-                *       deleting algorithm and treat it as a save button, then load the default view. Otherwise,
-                *       do nothing.
-                *  Additional note: If there is a way to pop up or something similar that a user was successfully
-                *                   deleted, that would be also a good thing.*/
-                loadDefaultView();
+        if (DialogMaker.showConfirmationDialog("You are about to DELETE a user!")) {
+            /* TODO: If the user wants to delete, I think it's better, or rather, makes sense to ask
+             *        if they are okay with deleting right there and then, if they click "OK", then begin the
+             *       deleting algorithm and treat it as a save button, then load the default view. Otherwise,
+             *       do nothing.
+             *  Additional note: If there is a way to pop up or something similar that a user was successfully
+             *                   deleted, that would be also a good thing.*/
+            loadDefaultView();
 
         }
 
@@ -335,7 +311,7 @@ public class ClientMainViewController implements Initializable {
     }
 
     /*This sets the expansion of a specific pane rather than all.*/
-    private void setDropdownExpanded(TitledPane pane, boolean expanded){
+    private void setDropdownExpanded(TitledPane pane, boolean expanded) {
         pane.setExpanded((expanded));
     }
 
