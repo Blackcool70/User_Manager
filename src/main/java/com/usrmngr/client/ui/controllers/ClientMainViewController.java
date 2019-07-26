@@ -7,6 +7,8 @@ import com.usrmngr.client.core.model.FXNodeContainer;
 import com.usrmngr.util.Alert.AlertMaker;
 import com.usrmngr.util.Dialog.DialogMaker;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -34,6 +36,7 @@ import static com.usrmngr.Main.APP_CONFIG_PATH;
 
 public class ClientMainViewController implements Initializable {
 
+   // ObservableList<ADUser> people = FXCollections.observableArrayList();
 
     //GUI items
     @FXML
@@ -61,11 +64,10 @@ public class ClientMainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //initAdConnection();
+        initAdConnection();
         initController();
-        //loadUserList();
+        loadUserList();
         loadDefaultView();
-
     }
 
     private void addContextMenu() {
@@ -138,7 +140,15 @@ public class ClientMainViewController implements Initializable {
             if (event.getButton() == MouseButton.SECONDARY && event.getClickCount() == 1
             ) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
+                selectedUser = adConnector.getADUser(selectedUser.getCN()); /* information like, job title doesn't
+                                                                                appear if this line is missing.*/
                 loadUser(selectedUser);
+            }
+        });
+        givenSearch.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1
+            ) {
+                searchField();
             }
         });
         addContextMenu();
@@ -259,8 +269,49 @@ public class ClientMainViewController implements Initializable {
     }
 
     @FXML
-    public void searchButtonClicked() {
-        //Nothing yet. Too advanced.
+    public void searchField() {
+        givenSearch.textProperty().addListener(
+                (ChangeListener) (observable, oldVal, newVal) -> handleSearchByKey((String) oldVal, (String) newVal));
+    }
+    public void handleSearchByKey(String oldVal, String newVal) {
+        // If the number of characters in the text box is less than last time
+        // it must be because the user pressed delete
+
+//        for(ADUser name: userList.getItems()){
+//            people.add(name);
+//        }
+
+        if ( oldVal != null && (newVal.length() < oldVal.length()) ) {
+            // Restore the lists original set of entries
+            // and start from the beginning
+
+            loadUserList(); // this is highly inefficient.
+
+           // userList.setItems(people);
+        }
+
+        // Break out all of the parts of the search text
+        // by splitting on white space
+        String[] parts = newVal.toUpperCase().split(" ");
+
+        // Filter out the entries that don't contain the entered text
+        ObservableList<ADUser> subEntries = FXCollections.observableArrayList();
+        for ( Object entry: userList.getItems() ) {
+            boolean match = true;
+            ADUser entryText = (ADUser) entry;
+            for ( String part: parts ) {
+                // The entry needs to contain all portions of the
+                // search string *but* in any order
+                if ( ! entryText.toString().toUpperCase().contains(part) ) {
+                    match = false;
+                    break;
+                }
+            }
+            if ( match ) {
+                subEntries.add(entryText);
+            }
+        }
+        userList.setItems(subEntries);
     }
 
     private void setSaveDisabled(boolean disabled) {
