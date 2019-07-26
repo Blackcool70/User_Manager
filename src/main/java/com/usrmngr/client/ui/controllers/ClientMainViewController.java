@@ -71,24 +71,24 @@ public class ClientMainViewController implements Initializable {
         contextMenu();
     }
     private void contextMenu(){
-        MenuItem item1 = new MenuItem("Delete User");
-        item1.setOnAction(new EventHandler<ActionEvent>() {
+        MenuItem deleteUser = new MenuItem("Delete User");
+        deleteUser.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 deleteButtonClicked();
             }
         });
-        MenuItem item2 = new MenuItem("Edit User");
-        item2.setOnAction(new EventHandler<ActionEvent>() {
+        MenuItem editUser = new MenuItem("Edit User");
+        editUser.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 editButtonClicked();
             }
         });
-        MenuItem item3 = new MenuItem("Password Reset");
-        item3.setOnAction(new EventHandler<ActionEvent>() {
+        MenuItem passwordReset = new MenuItem("Password Reset");
+        passwordReset.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -96,7 +96,7 @@ public class ClientMainViewController implements Initializable {
             }
         });
         // Add MenuItem to ContextMenu
-        contextMenu.getItems().addAll(item1, item2, item3);
+        contextMenu.getItems().addAll(deleteUser, editUser, passwordReset);
 
         // When user right-click on the left pane
         userList.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
