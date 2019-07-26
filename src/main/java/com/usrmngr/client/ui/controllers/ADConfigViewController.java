@@ -43,6 +43,7 @@ public class ADConfigViewController implements Initializable {
         FXNodeContainer allNodes = new FXNodeContainer();
         allNodes.addItem(connectionProperties);
         textFields = allNodes.getTextFields();
+        textFields.add(password);
 
         try {
             config.load(APP_CONFIG_PATH);
@@ -57,7 +58,8 @@ public class ADConfigViewController implements Initializable {
             config.load(Main.APP_DEBUG_CONFIG_PATH);
             loadConfig(config);
         } catch (IOException e) {
-            e.printStackTrace();
+            //log
+            System.err.println(e.getMessage());
         }
     }
 
@@ -81,14 +83,18 @@ public class ADConfigViewController implements Initializable {
     }
 
     private boolean hasValidConfigs(Configuration config) {
-        if(config == null) return  false;
-        LDAPConnector connector = new LDAPConnector(config);
-        try {
-            connector.connect();
-            connector.authenticate();
-        }catch (Exception ignored){
+        boolean isValid = (config != null);
+        if(isValid) {
+            LDAPConnector connector = new LDAPConnector(config);
+            try {
+                connector.connect();
+                connector.authenticate();
+                isValid =  connector.isConnected() && connector.isAuthenticated();
+            } catch (Exception ignored) {
+                //log
+            }
         }
-        return connector.isConnected() && connector.isAuthenticated();
+        return  isValid;
     }
 
 
@@ -101,27 +107,30 @@ public class ADConfigViewController implements Initializable {
         for (TextField textField : textFields) {
             textField.setText(config.getValue(textField.getId()));
         }
-        password.setText(config.getValue("pw"));
     }
 
-    private boolean allRequiredFieldsAreFilled(){
+    private boolean allRequiredFieldsAreFilled() {
+        boolean isValid = true;
         for (TextField textField : textFields) {
-            if(textField.getText().equals("")){
-                return false;
+            String input = textField.getText();
+            if (input == null || input.equals("")) {
+                isValid = false;
+                break;
             }
         }
-        return password.getText().equals("");
+        return isValid;
     }
-     private Configuration getTextFieldValues(){
+
+    private Configuration getTextFieldValues() {
         Configuration newConfig = new Configuration();
         for (TextField textField : textFields) {
             newConfig.put(textField.getId(), textField.getText());
         }
-        newConfig.put("pw",password.getText());
-        return  newConfig;
+        return newConfig;
     }
+
     private void onSaveClicked() {
-        if(allRequiredFieldsAreFilled()) {
+        if (allRequiredFieldsAreFilled()) {
             try {
                 config = getTextFieldValues();
                 if (hasValidConfigs(config)) {
@@ -134,7 +143,7 @@ public class ADConfigViewController implements Initializable {
             } catch (IOException e) {
                 AlertMaker.showSimpleAlert("Configuration", "Failed to save config, try again.");
             }
-        }else{
+        } else {
             AlertMaker.showSimpleAlert("Invalid Config", "All fields are required.");
         }
     }

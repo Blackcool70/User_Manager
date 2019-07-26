@@ -140,7 +140,7 @@ public class LDAPConnector implements Connector {
     }
 
     public void authenticate() {
-        authenticate(config.get("authDN"),config.get("pw"));
+        authenticate(config.get("authDN"),config.get("password"));
     }
 }
 

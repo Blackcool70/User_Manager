@@ -74,7 +74,7 @@ public class ClientMainViewController implements Initializable {
 
     private void authenticateToAD() {
         String un = config.getValue("authDN");
-        String pw = config.getValue("pw");
+        String pw = config.getValue("password");
         //credentials = getCredentials();
         adConnector.authenticate(un, pw);//will clean up
     }

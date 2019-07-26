@@ -15,7 +15,7 @@ public class DialogMaker {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Required");
         alert.setHeaderText(bodyText);
-        alert.setContentText("Are you ok with this?");
+        alert.setContentText("Are you sure?");
 
         Optional<ButtonType> result = alert.showAndWait();
         return result.get() == ButtonType.OK;
@@ -62,7 +62,7 @@ public class DialogMaker {
         dialog.getDialogPane().setContent(grid);
 
         // Request focus on the username field by default.
-        Platform.runLater(() -> username.requestFocus());
+        Platform.runLater(username::requestFocus);
 
         // Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter(dialogButton -> {
@@ -72,8 +72,7 @@ public class DialogMaker {
             return null;
         });
 
-        Optional<Pair<String, String>> result = dialog.showAndWait();
-        return  result;
+        return dialog.showAndWait();
     }
 }
 
