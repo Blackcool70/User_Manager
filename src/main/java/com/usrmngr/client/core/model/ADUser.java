@@ -19,23 +19,23 @@ public class ADUser extends ADObject {
         return getUserAttribute("cn");
     }
 
-    String getFirstName() {
+    public String getFirstName() {
         return getUserAttribute(("givenName"));
     }
 
-    String getLastName() {
+    public String getLastName() {
         return getUserAttribute("lastName");
     }
 
-    String getInitials() {
+    public String getInitials() {
         return getUserAttribute("initials");
     }
 
-    String getDisplayName() {
+    public String getDisplayName() {
         return getUserAttribute("displayName");
     }
 
-    String getDescription() {
+    public String getDescription() {
         return getUserAttribute("description");
     }
 

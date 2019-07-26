@@ -57,6 +57,7 @@ public class ClientMainViewController implements Initializable {
     private Configuration config;
 
     private ADUser selectedUser;
+    private ContextMenu contextMenu;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,7 +69,7 @@ public class ClientMainViewController implements Initializable {
     }
 
     private void addContextMenu() {
-        ContextMenu contextMenu = new ContextMenu();
+        contextMenu = new ContextMenu();
         MenuItem deleteUser = new MenuItem("Delete User");
         deleteUser.setOnAction(e -> deleteButtonClicked());
 
@@ -81,7 +82,8 @@ public class ClientMainViewController implements Initializable {
         contextMenu.getItems().addAll(deleteUser, editUser, passwordReset);
         // When user right-click on the left pane
         userList.setOnContextMenuRequested(e ->
-                contextMenu.show(userList, e.getScreenX(), e.getScreenY()));
+                contextMenu.show(userList, e.getScreenX(), e.getScreenY())
+        );
     }
 
     private void initAdConnection() {
@@ -121,12 +123,21 @@ public class ClientMainViewController implements Initializable {
         panes.add(basicInfoDropdown);
         panes.add(contactInfoDropdown);
         panes.add(passwordDropdown);
-        //action for when a user gets double clicked on the list
+        //action for when a user gets double clicked, single clicked, and right clicked. on the list
         userList.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2
             ) {
                 selectedUser = userList.getSelectionModel().getSelectedItem();
                 selectedUser = adConnector.getADUser(selectedUser.getCN());
+                loadUser(selectedUser);
+            }
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1
+            ) {
+                contextMenu.hide();
+            }
+            if (event.getButton() == MouseButton.SECONDARY && event.getClickCount() == 1
+            ) {
+                selectedUser = userList.getSelectionModel().getSelectedItem();
                 loadUser(selectedUser);
             }
         });
@@ -213,7 +224,10 @@ public class ClientMainViewController implements Initializable {
             System.exit(1);
         }
         userCount.setText(String.format("Users: %d", adUserImportData.length()));
+
+        displayableADObjects = displayableADObjects.sorted();
         userList.setItems(displayableADObjects);
+
 
     }
 
@@ -284,7 +298,7 @@ public class ClientMainViewController implements Initializable {
     public void deleteButtonClicked() {
         if (selectedUser == null) return;
 
-        if (DialogMaker.showConfirmationDialog("You are about to DELETE a user!")) {
+        if (DialogMaker.showConfirmationDialog("You are about to DELETE " + selectedUser.getDisplayName()+ "!")) {
             /* TODO: If the user wants to delete, I think it's better, or rather, makes sense to ask
              *        if they are okay with deleting right there and then, if they click "OK", then begin the
              *       deleting algorithm and treat it as a save button, then load the default view. Otherwise,
