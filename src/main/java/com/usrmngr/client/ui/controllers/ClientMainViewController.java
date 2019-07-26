@@ -61,9 +61,9 @@ public class ClientMainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initAdConnection();
+        //initAdConnection();
         initController();
-        loadUserList();
+        //loadUserList();
         loadDefaultView();
 
     }
