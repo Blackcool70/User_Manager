@@ -29,6 +29,8 @@
 <!--             -->
              <Label fx:id="userCount" text="Users:" />
              <ListView fx:id="userList" prefHeight="555.0" prefWidth="130.0" />
+         <TextField fx:id="givenSearch" promptText="First/Last name"/>
+         <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" onAction="#searchButtonClicked" text="SEARCH" />
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>

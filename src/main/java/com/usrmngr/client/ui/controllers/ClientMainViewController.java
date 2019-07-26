@@ -49,7 +49,7 @@ public class ClientMainViewController implements Initializable {
     public PasswordField passwordField, passwordConfirmationField;
     @FXML
     MenuItem preferencesMenu, configurationsMenu;
-
+    @FXML private TextField givenSearch;
     // other data structures
     private FXNodeContainer allNodes; //todo find better way to get a hold of all the textfields programmatically
     private ArrayList<TitledPane> panes;
@@ -256,6 +256,11 @@ public class ClientMainViewController implements Initializable {
         clearAllTextFields();
         DN.setText("");
         selectedUser = null;
+    }
+
+    @FXML
+    public void searchButtonClicked() {
+        //Nothing yet. Too advanced.
     }
 
     private void setSaveDisabled(boolean disabled) {
