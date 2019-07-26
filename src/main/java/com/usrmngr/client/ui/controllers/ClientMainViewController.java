@@ -41,7 +41,6 @@ public class ClientMainViewController implements Initializable {
     public GridPane bottomPane;
     @FXML
     TitledPane basicInfoDropdown, contactInfoDropdown, passwordDropdown;
-    ContextMenu contextMenu = new ContextMenu();
     @FXML
     public Label userCount, DN;
     @FXML
@@ -69,6 +68,7 @@ public class ClientMainViewController implements Initializable {
     }
 
     private void addContextMenu() {
+        ContextMenu contextMenu = new ContextMenu();
         MenuItem deleteUser = new MenuItem("Delete User");
         deleteUser.setOnAction(e -> deleteButtonClicked());
 
